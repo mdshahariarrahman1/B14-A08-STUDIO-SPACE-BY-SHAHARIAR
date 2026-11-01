@@ -46,6 +46,7 @@ const AddStudioForm = ({ owner }: { owner: StudioOwner }) => {
   const [hourlyRate, setHourlyRate] = useState("35");
   const [securityDeposit, setSecurityDeposit] = useState("100");
   const [maxCapacity, setMaxCapacity] = useState("8");
+  const [rating, setRating] = useState("0");
   const [location, setLocation] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [amenities, setAmenities] = useState<string[]>([]);
@@ -77,6 +78,7 @@ const AddStudioForm = ({ owner }: { owner: StudioOwner }) => {
           hourlyRate: Number(hourlyRate),
           securityDeposit: Number(securityDeposit),
           maxCapacity: Number(maxCapacity),
+          rating: Number(rating),
           location,
           imageUrl,
           amenities,
@@ -307,6 +309,45 @@ const AddStudioForm = ({ owner }: { owner: StudioOwner }) => {
                   );
                 })}
               </div>
+              <div className="mt-6">
+                <h3 className="font-serif text-2xl tracking-tight text-[#201a14]">
+                  Creator <span className="italic text-[#a06a3b]">rating</span>
+                </h3>
+                <div className="mt-4 flex min-h-22.5 flex-wrap items-center gap-5 rounded-2xl border border-[#dedbd5] bg-white px-5 py-4 shadow-sm">
+                  <label className="grid gap-1.5 text-xs font-medium text-[#2e281f]" htmlFor="creator-rating">
+                    Rating <span className="text-[10px] font-normal text-[#887e71]">out of 5</span>
+                    <Input
+                      id="creator-rating"
+                      name="rating"
+                      type="number"
+                      min="0"
+                      max="5"
+                      step="0.1"
+                      value={rating}
+                      onChange={(event) => setRating(event.target.value)}
+                      required
+                      className={`${inputClass} w-24 font-serif text-2xl font-semibold`}
+                    />
+                  </label>
+                  <div>
+                    <div aria-hidden className="flex items-center gap-1">
+                      {Array.from({ length: 5 }, (_, index) => (
+                        <Star
+                          key={index}
+                          className={`size-4 ${
+                            index < Math.round(Number(rating))
+                              ? "fill-[#f4a000] text-[#f4a000]"
+                              : "text-[#d8d1c7]"
+                          }`}
+                        />
+                      ))}
+                    </div>
+                    <p className="mt-1 text-xs text-[#62594e]">
+                      Set your creator rating
+                    </p>
+                  </div>
+                </div>
+              </div>
             </section>
 
             <section aria-labelledby="studio-overview" className={sectionClass}>
@@ -347,32 +388,6 @@ const AddStudioForm = ({ owner }: { owner: StudioOwner }) => {
                     <Input id="owner-email" type="email" value={owner.email} readOnly className={`${inputClass} bg-[#f7f3eb] pl-9`} />
                   </span>
                 </label>
-              </div>
-              <div className="mt-6">
-                <h3 className="font-serif text-2xl tracking-tight text-[#201a14]">
-                  Creator <span className="italic text-[#a06a3b]">rating</span>
-                </h3>
-                <div
-                  aria-label="Creator rating: 4.7 out of 5, based on 20 creator reviews"
-                  className="mt-4 flex min-h-[90px] items-center gap-6 rounded-2xl border border-[#dedbd5] bg-white px-6 py-4 shadow-sm"
-                >
-                  <span aria-hidden className="font-serif text-4xl font-semibold text-[#201a14]">
-                    4.7
-                  </span>
-                  <div>
-                    <div aria-hidden className="flex items-center gap-1">
-                      {Array.from({ length: 5 }, (_, index) => (
-                        <Star
-                          key={index}
-                          className="size-4 fill-[#f4a000] text-[#f4a000]"
-                        />
-                      ))}
-                    </div>
-                    <p className="mt-1 text-xs text-[#62594e]">
-                      Based on 20 creator reviews
-                    </p>
-                  </div>
-                </div>
               </div>
             </section>
           </div>

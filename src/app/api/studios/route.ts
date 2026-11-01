@@ -7,6 +7,7 @@ type NewStudioInput = {
   hourlyRate: number;
   securityDeposit: number;
   maxCapacity: number;
+  rating: number;
   location: string;
   imageUrl: string;
   amenities: string[];
@@ -42,6 +43,7 @@ function parseNewStudio(value: unknown): NewStudioInput | null {
     hourlyRate,
     securityDeposit,
     maxCapacity,
+    rating,
     location,
     imageUrl,
     amenities,
@@ -62,6 +64,10 @@ function parseNewStudio(value: unknown): NewStudioInput | null {
     typeof maxCapacity !== "number" ||
     !Number.isInteger(maxCapacity) ||
     maxCapacity < 1 ||
+    typeof rating !== "number" ||
+    !Number.isFinite(rating) ||
+    rating < 0 ||
+    rating > 5 ||
     typeof location !== "string" ||
     !location.trim() ||
     typeof imageUrl !== "string" ||
@@ -87,6 +93,7 @@ function parseNewStudio(value: unknown): NewStudioInput | null {
     hourlyRate,
     securityDeposit,
     maxCapacity,
+    rating,
     location: location.trim(),
     imageUrl,
     amenities: [...new Set(amenities)],
@@ -121,7 +128,6 @@ export async function POST(request: Request) {
         ...studio,
         ownerEmail: user.email,
         ownerName: user.name?.trim() || user.email,
-        rating: 0,
         reviewCount: 0,
         isAvailable: true,
       }),

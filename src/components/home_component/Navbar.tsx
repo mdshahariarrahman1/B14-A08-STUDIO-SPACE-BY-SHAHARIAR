@@ -4,12 +4,17 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { useSession } from "@/lib/auth-client";
 import NavLinks, { NAV_LINKS } from "./NavLinks";
+import UserMenu from "./UserMenu";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { data: session, isPending } = useSession();
   const pathname = usePathname();
   const active = pathname === "/studios" ? "Explore Studios" : "Home";
+  const sessionUser = session?.user;
+  const isAuthenticated = !isPending && Boolean(sessionUser);
 
   useEffect(() => {
     if (pathname !== "/" || window.location.hash !== "#how-it-works") {
@@ -84,21 +89,27 @@ const Navbar = () => {
         {/* Desktop navigation links */}
         <NavLinks active={active} onLinkClick={handleLinkClick} />
 
-        {/* Auth buttons (desktop) + hamburger (mobile) */}
+        {/* Auth state (desktop): profile pill or Login/Register */}
         <div className="flex shrink-0 items-center gap-3">
           <div className="hidden items-center gap-3 md:flex">
-            <Link
-              href="#"
-              className="rounded-xl border border-neutral-300 px-6 py-2.5 text-sm font-semibold text-neutral-800 transition-colors duration-200 hover:bg-neutral-50"
-            >
-              Login
-            </Link>
-            <Link
-              href="#"
-              className="rounded-xl bg-[#F0A63C] px-6 py-2.5 text-sm font-semibold text-[#141414] transition-colors duration-200 hover:bg-[#E2962B]"
-            >
-              Register
-            </Link>
+            {isAuthenticated && sessionUser ? (
+              <UserMenu user={sessionUser} />
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  className="rounded-xl border border-neutral-300 px-6 py-2.5 text-sm font-semibold text-neutral-800 transition-colors duration-200 hover:bg-neutral-50"
+                >
+                  Login
+                </Link>
+                <Link
+                  href="/register"
+                  className="rounded-xl bg-[#F0A63C] px-6 py-2.5 text-sm font-semibold text-[#141414] transition-colors duration-200 hover:bg-[#E2962B]"
+                >
+                  Register
+                </Link>
+              </>
+            )}
           </div>
 
           <button
@@ -158,20 +169,26 @@ const Navbar = () => {
               {link.label}
             </Link>
           ))}
-          <div className="mt-3 flex gap-3 border-t border-neutral-200 pt-3">
-            <Link
-              href="#"
-              className="flex-1 rounded-xl border border-neutral-300 px-4 py-2.5 text-center text-sm font-semibold text-neutral-800"
-            >
-              Login
-            </Link>
-            <Link
-              href="#"
-              className="flex-1 rounded-xl bg-[#F0A63C] px-4 py-2.5 text-center text-sm font-semibold text-[#141414]"
-            >
-              Register
-            </Link>
-          </div>
+          {isAuthenticated && sessionUser ? (
+            <div className="mt-3 flex justify-center border-t border-neutral-200 pt-3">
+              <UserMenu user={sessionUser} />
+            </div>
+          ) : (
+            <div className="mt-3 flex gap-3 border-t border-neutral-200 pt-3">
+              <Link
+                href="#"
+                className="flex-1 rounded-xl border border-neutral-300 px-4 py-2.5 text-center text-sm font-semibold text-neutral-800"
+              >
+                Login
+              </Link>
+              <Link
+                href="#"
+                className="flex-1 rounded-xl bg-[#F0A63C] px-4 py-2.5 text-center text-sm font-semibold text-[#141414]"
+              >
+                Register
+              </Link>
+            </div>
+          )}
         </nav>
       ) : null}
     </header>

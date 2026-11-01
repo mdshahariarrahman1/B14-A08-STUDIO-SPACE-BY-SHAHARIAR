@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import HomeContent from "@/components/home_component/HeroSection";
 import HowItWorks from "@/components/home_component/HowItWorks";
-import NavbarPage from "@/components/home_component/Navbar";
+
 import PremiumStudios from "@/components/home_component/PremiumStudios";
 import StudioCategories from "@/components/home_component/StudioCategories";
 import Testimonials from "@/components/home_component/Testimonials";
@@ -24,7 +24,7 @@ const FeaturedStudioData = async () => {
 const HomePage = () => {
   return (
     <>
-      <NavbarPage />
+      
       <main>
         <HomeContent />
         <MarqueePage />

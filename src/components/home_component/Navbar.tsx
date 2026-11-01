@@ -91,26 +91,34 @@ const Navbar = () => {
 
         {/* Auth state (desktop): profile pill or Login/Register */}
         <div className="flex shrink-0 items-center gap-3">
-          <div className="hidden items-center gap-3 md:flex">
-            {isAuthenticated && sessionUser ? (
-              <UserMenu user={sessionUser} />
-            ) : (
-              <>
-                <Link
-                  href="/login"
-                  className="rounded-xl border border-neutral-300 px-6 py-2.5 text-sm font-semibold text-neutral-800 transition-colors duration-200 hover:bg-neutral-50"
-                >
-                  Login
-                </Link>
-                <Link
-                  href="/register"
-                  className="rounded-xl bg-[#F0A63C] px-6 py-2.5 text-sm font-semibold text-[#141414] transition-colors duration-200 hover:bg-[#E2962B]"
-                >
-                  Register
-                </Link>
-              </>
-            )}
-          </div>
+          {isPending ? (
+            <div
+              role="status"
+              aria-label="Loading account"
+              className="hidden h-10 w-48 animate-pulse rounded-xl bg-neutral-100 md:block"
+            />
+          ) : (
+            <div className="hidden items-center gap-3 md:flex">
+              {isAuthenticated && sessionUser ? (
+                <UserMenu user={sessionUser} />
+              ) : (
+                <>
+                  <Link
+                    href="/login"
+                    className="rounded-xl border border-neutral-300 px-6 py-2.5 text-sm font-semibold text-neutral-800 transition-colors duration-200 hover:bg-neutral-50"
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    href="/register"
+                    className="rounded-xl bg-[#F0A63C] px-6 py-2.5 text-sm font-semibold text-[#141414] transition-colors duration-200 hover:bg-[#E2962B]"
+                  >
+                    Register
+                  </Link>
+                </>
+              )}
+            </div>
+          )}
 
           <button
             type="button"
@@ -169,20 +177,26 @@ const Navbar = () => {
               {link.label}
             </Link>
           ))}
-          {isAuthenticated && sessionUser ? (
+          {isPending ? (
+            <div
+              role="status"
+              aria-label="Loading account"
+              className="mt-3 h-10 animate-pulse rounded-xl bg-neutral-100"
+            />
+          ) : isAuthenticated && sessionUser ? (
             <div className="mt-3 flex justify-center border-t border-neutral-200 pt-3">
               <UserMenu user={sessionUser} />
             </div>
           ) : (
             <div className="mt-3 flex gap-3 border-t border-neutral-200 pt-3">
               <Link
-                href="#"
+                href="/login"
                 className="flex-1 rounded-xl border border-neutral-300 px-4 py-2.5 text-center text-sm font-semibold text-neutral-800"
               >
                 Login
               </Link>
               <Link
-                href="#"
+                href="/register"
                 className="flex-1 rounded-xl bg-[#F0A63C] px-4 py-2.5 text-center text-sm font-semibold text-[#141414]"
               >
                 Register

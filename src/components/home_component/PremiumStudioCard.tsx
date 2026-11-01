@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowRight, Clock3, Sparkles, UsersRound } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,16 +11,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import type { IStudio } from "@/type";
 
 const PremiumStudioCard = ({
@@ -96,81 +87,16 @@ const PremiumStudioCard = ({
       <p className="text-sm font-medium text-neutral-950">
         From ${studio.hourlyRate} / hr
       </p>
-      <Dialog>
-        <DialogTrigger
-          render={
-            <Button
-              variant="outline"
-              className="h-9 rounded-full border-neutral-200 px-4 text-xs font-medium"
-            />
-          }
-        >
-          View details <ArrowRight data-icon="inline-end" />
-        </DialogTrigger>
-        <DialogContent className="max-h-[85vh] overflow-y-auto sm:max-w-lg">
-          <DialogHeader>
-            <DialogTitle>{studio.title}</DialogTitle>
-            <DialogDescription>
-              Premium studio · {studio.location}
-            </DialogDescription>
-          </DialogHeader>
-          <div className="space-y-4 text-sm">
-            <p className="leading-6 text-muted-foreground">
-              {studio.overview}
-            </p>
-            <div className="grid grid-cols-2 gap-3 rounded-lg bg-muted/50 p-3">
-              <p>
-                <span className="block text-xs text-muted-foreground">
-                  Hourly rate
-                </span>
-                <span className="font-semibold">${studio.hourlyRate} / hr</span>
-              </p>
-              <p>
-                <span className="block text-xs text-muted-foreground">
-                  Capacity
-                </span>
-                <span className="font-semibold">
-                  {studio.maxCapacity} crew
-                </span>
-              </p>
-              <p>
-                <span className="block text-xs text-muted-foreground">
-                  Rating
-                </span>
-                <span className="font-semibold">
-                  {studio.rating.toFixed(1)} ({studio.reviewCount} reviews)
-                </span>
-              </p>
-              <p>
-                <span className="block text-xs text-muted-foreground">
-                  Security deposit
-                </span>
-                <span className="font-semibold">${studio.securityDeposit}</span>
-              </p>
-            </div>
-            {studio.amenities.length > 0 ? (
-              <div>
-                <h3 className="mb-2 font-semibold">Studio amenities</h3>
-                <ul className="flex flex-wrap gap-2">
-                  {studio.amenities.map((amenity) => (
-                    <li
-                      key={amenity}
-                      className="rounded-full border px-3 py-1 text-xs"
-                    >
-                      {amenity}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ) : null}
-          </div>
-          <DialogFooter>
-            <DialogClose render={<Button variant="outline" />}>
-              Close
-            </DialogClose>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      <Button
+        nativeButton={false}
+        render={
+          <Link href={`/studios/${encodeURIComponent(studio._id)}`} />
+        }
+        variant="outline"
+        className="h-9 rounded-full border-neutral-200 px-4 text-xs font-medium"
+      >
+        View details <ArrowRight data-icon="inline-end" />
+      </Button>
     </CardFooter>
   </Card>
 );

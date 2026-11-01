@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowUpRight, MapPin, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,16 +11,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import type { IStudio } from "@/type";
 
 const StudioCard = ({
@@ -100,21 +91,20 @@ const StudioCard = ({
             {studio.title}
           </CardTitle>
           {isFeatured ? (
-            <Dialog>
-              <DialogTrigger
-                render={
-                  <Button
-                    variant="default"
-                    size="icon"
-                    aria-label={`View details for ${studio.title}`}
-                    className="size-8 shrink-0 rounded-full bg-[#171717] text-white hover:bg-[#70543e]"
-                  />
-                }
-              >
-                <ArrowUpRight />
-              </DialogTrigger>
-              <StudioDetails studio={studio} />
-            </Dialog>
+            <Button
+              nativeButton={false}
+              render={
+                <Link
+                  href={`/studios/${encodeURIComponent(studio._id)}`}
+                  aria-label={`View details for ${studio.title}`}
+                />
+              }
+              variant="default"
+              size="icon"
+              className="size-8 shrink-0 rounded-full bg-[#171717] text-white hover:bg-[#70543e]"
+            >
+              <ArrowUpRight />
+            </Button>
           ) : null}
         </div>
         {isFeatured ? (
@@ -155,76 +145,19 @@ const StudioCard = ({
             Hourly · Daily · Project
           </span>
         ) : (
-          <Dialog>
-            <DialogTrigger
-              render={
-                <Button className="h-7 rounded-md bg-[#151619] px-3 text-[10px] text-white hover:bg-neutral-700" />
-              }
-            >
-              View Details
-            </DialogTrigger>
-            <StudioDetails studio={studio} />
-          </Dialog>
+          <Button
+            nativeButton={false}
+            render={
+              <Link href={`/studios/${encodeURIComponent(studio._id)}`} />
+            }
+            className="h-7 rounded-md bg-[#151619] px-3 text-[10px] text-white hover:bg-neutral-700"
+          >
+            View Details
+          </Button>
         )}
       </CardFooter>
     </Card>
   );
 };
-
-const StudioDetails = ({ studio }: { studio: IStudio }) => (
-  <DialogContent className="max-h-[85vh] overflow-y-auto sm:max-w-lg">
-    <DialogHeader>
-      <DialogTitle>{studio.title}</DialogTitle>
-      <DialogDescription>
-        {studio.category} · {studio.location}
-      </DialogDescription>
-    </DialogHeader>
-    <div className="space-y-4 text-sm">
-      <p className="leading-6 text-muted-foreground">{studio.overview}</p>
-      <div className="grid grid-cols-2 gap-3 rounded-lg bg-muted/50 p-3">
-        <p>
-          <span className="block text-xs text-muted-foreground">
-            Hourly rate
-          </span>
-          <span className="font-semibold">${studio.hourlyRate} / hr</span>
-        </p>
-        <p>
-          <span className="block text-xs text-muted-foreground">Capacity</span>
-          <span className="font-semibold">{studio.maxCapacity} people</span>
-        </p>
-        <p>
-          <span className="block text-xs text-muted-foreground">Rating</span>
-          <span className="font-semibold">
-            {studio.rating.toFixed(1)} ({studio.reviewCount} reviews)
-          </span>
-        </p>
-        <p>
-          <span className="block text-xs text-muted-foreground">
-            Security deposit
-          </span>
-          <span className="font-semibold">${studio.securityDeposit}</span>
-        </p>
-      </div>
-      {studio.amenities.length > 0 ? (
-        <div>
-          <h3 className="mb-2 font-semibold">Amenities</h3>
-          <ul className="flex flex-wrap gap-2">
-            {studio.amenities.map((amenity) => (
-              <li
-                key={amenity}
-                className="rounded-full border px-3 py-1 text-xs"
-              >
-                {amenity}
-              </li>
-            ))}
-          </ul>
-        </div>
-      ) : null}
-    </div>
-    <DialogFooter>
-      <DialogClose render={<Button variant="outline" />}>Close</DialogClose>
-    </DialogFooter>
-  </DialogContent>
-);
 
 export default StudioCard;

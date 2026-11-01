@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { connection } from "next/server";
 import HomeContent from "@/components/home_component/HeroSection";
 import HowItWorks from "@/components/home_component/HowItWorks";
 
@@ -12,6 +13,7 @@ import MarqueePage from "@/components/home_component/Marquee";
 import FeaturedStudios from "@/components/home_component/FeaturedStudios";
 
 const PremiumStudioData = async () => {
+  await connection();
   const studios = await getStudios();
   return <PremiumStudios studios={studios} />;
 };

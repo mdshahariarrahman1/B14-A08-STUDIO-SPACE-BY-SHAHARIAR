@@ -23,3 +23,8 @@ export async function getStudios(): Promise<IStudio[]> {
 
   return studios as IStudio[];
 }
+
+export async function getStudioById(id: string): Promise<IStudio | null> {
+  const studios = await getStudios();
+  return studios.find((studio) => studio._id === id) ?? null;
+}

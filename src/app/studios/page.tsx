@@ -1,5 +1,4 @@
 import { Suspense } from "react";
-import NavbarPage from "@/components/home_component/Navbar";
 import StudioExplorer from "@/components/studios/StudioExplorer";
 import { getStudios } from "@/lib/studios";
 
@@ -11,7 +10,6 @@ const StudioListing = async () => {
 const ExploreStudiosPage = () => {
   return (
     <>
-      <NavbarPage />
       <Suspense
         fallback={
           <div

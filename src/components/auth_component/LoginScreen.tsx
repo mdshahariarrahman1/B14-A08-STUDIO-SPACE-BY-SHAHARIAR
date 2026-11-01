@@ -51,7 +51,14 @@ const LoginScreen = () => {
         return;
       }
 
-      router.push("/");
+      const callbackURL = new URLSearchParams(window.location.search).get(
+        "callbackURL",
+      );
+      router.push(
+        callbackURL?.startsWith("/") && !callbackURL.startsWith("//")
+          ? callbackURL
+          : "/",
+      );
     } finally {
       setIsSubmitting(false);
     }

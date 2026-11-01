@@ -23,11 +23,11 @@ import { cn } from "@/lib/utils";
 const MENU_LINKS = [
   {
     label: "Add New Studio",
-    href: "#",
+    href: "/add-studio",
     icon: CirclePlus,
     accent: true,
   },
-  { label: "My Studio Listings", href: "#", icon: Building2, accent: false },
+  { label: "My Studio Listings", href: "/my-listings", icon: Building2, accent: false },
   { label: "My Bookings", href: "#", icon: CalendarDays, accent: false },
   { label: "Saved Wishlist", href: "#", icon: Heart, accent: false },
 ] as const;
@@ -123,7 +123,7 @@ const UserMenu = ({
           >
             <link.icon
               aria-hidden="true"
-              className={cn("size-[18px] shrink-0", link.accent && "text-[#F0A63C]")}
+              className={cn("size-4.5 shrink-0", link.accent && "text-[#F0A63C]")}
             />
             {link.label}
           </Link>
@@ -140,7 +140,7 @@ const UserMenu = ({
             "text-red-600 transition-colors hover:bg-red-50 hover:text-red-700",
           )}
         >
-          <LogOut aria-hidden="true" className="size-[18px] shrink-0" />
+          <LogOut aria-hidden="true" className="size-4.5 shrink-0" />
           {isLoggingOut ? "Signing out…" : "Sign Out"}
         </button>
       </PopoverContent>

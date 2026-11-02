@@ -203,9 +203,9 @@ const StudioExplorer = ({
         </div>
 
         {visibleStudios.length > 0 ? (
-          <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-3 grid grid-cols-1 items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {visibleStudios.map((studio) => (
-              <StudioCard key={studio._id} studio={studio} />
+              <StudioCard key={studio._id} studio={studio} variant="listing" />
             ))}
           </div>
         ) : (

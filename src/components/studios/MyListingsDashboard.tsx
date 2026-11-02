@@ -120,7 +120,7 @@ export default function MyListingsDashboard({
             {visibleStudios.map((studio) => (
               <Card
                 key={studio._id}
-                className="flex h-[400px] min-w-0 flex-col gap-0 rounded-2xl border-[#eee7dc] bg-white p-2 shadow-none ring-0"
+                className="flex h-100 min-w-0 flex-col gap-0 rounded-2xl border-[#eee7dc] bg-white p-2 shadow-none ring-0"
               >
                 <div className={`relative h-36 shrink-0 overflow-hidden rounded-xl sm:h-40 ${categoryBackgrounds[studio.category] ?? "bg-[#eadfce]"}`}>
                   {studio.imageUrl ? (
@@ -149,7 +149,7 @@ export default function MyListingsDashboard({
                   </span>
                 </div>
 
-                <CardHeader className="min-h-[116px] gap-1 px-2 pt-4 pb-0">
+                <CardHeader className="min-h-29 gap-1 px-2 pt-4 pb-0">
                   <p className="text-[9px] font-semibold uppercase tracking-[0.16em] text-[#bd5b0d]">
                     {studio.category}
                   </p>

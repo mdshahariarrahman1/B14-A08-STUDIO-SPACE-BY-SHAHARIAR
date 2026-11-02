@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import FeedbackToast from "@/components/ui/feedback-toast";
 import { Input } from "@/components/ui/input";
 import { authClient, signIn } from "@/lib/auth-client";
 import AuthBrandHeader from "./AuthBrandHeader";
@@ -22,6 +23,7 @@ const LoginScreen = () => {
   const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [toast, setToast] = useState<string | null>(null);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -65,12 +67,26 @@ const LoginScreen = () => {
   };
 
   const handleGoogleSignIn = async () => {
-    const resData =  await signIn.social({
-      provider: "google",
-    });
+    setIsSubmitting(true);
 
-    console.log("Google sign-in response:", resData);
-  }
+    try {
+      const { error } = await signIn.social({
+        provider: "google",
+      });
+
+      if (error) {
+        setToast(error.message ?? "Google sign-in failed. Please try again.");
+      }
+    } catch (error) {
+      setToast(
+        error instanceof Error
+          ? error.message
+          : "Google sign-in failed. Please try again.",
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#FAF8F3] lg:grid lg:grid-cols-2">
@@ -312,6 +328,13 @@ const LoginScreen = () => {
           </div>
         </div>
       </aside>
+      {toast ? (
+        <FeedbackToast
+          message={toast}
+          tone="error"
+          onDismiss={() => setToast(null)}
+        />
+      ) : null}
     </div>
   );
 };

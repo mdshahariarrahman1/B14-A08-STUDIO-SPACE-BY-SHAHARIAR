@@ -4,8 +4,9 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import FeedbackToast from "@/components/ui/feedback-toast";
 import { Input } from "@/components/ui/input";
-import { authClient } from "@/lib/auth-client";
+import { authClient, signIn } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import AuthBrandHeader from "./AuthBrandHeader";
 import PasswordChecklist, { buildPasswordChecks } from "./PasswordChecklist";
@@ -43,6 +44,7 @@ const RegisterScreen = () => {
   const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [toast, setToast] = useState<string | null>(null);
 
   const passwordChecks = buildPasswordChecks(password);
   const isPasswordValid = passwordChecks.every((check) => check.met);
@@ -87,6 +89,37 @@ const RegisterScreen = () => {
         callbackURL?.startsWith("/") && !callbackURL.startsWith("//")
           ? callbackURL
           : "/",
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleGoogleSignUp = async () => {
+    setIsSubmitting(true);
+
+    const callbackURL = new URLSearchParams(window.location.search).get(
+      "callbackURL",
+    );
+    const safeCallbackURL =
+      callbackURL?.startsWith("/") && !callbackURL.startsWith("//")
+        ? callbackURL
+        : "/";
+
+    try {
+      const { error } = await signIn.social({
+        provider: "google",
+        callbackURL: safeCallbackURL,
+      });
+
+      if (error) {
+        setToast(error.message ?? "Google sign-up failed. Please try again.");
+      }
+    } catch (error) {
+      setToast(
+        error instanceof Error
+          ? error.message
+          : "Google sign-up failed. Please try again.",
       );
     } finally {
       setIsSubmitting(false);
@@ -233,6 +266,47 @@ const RegisterScreen = () => {
             {isSubmitting ? "Creating account…" : "Register"}
           </Button>
 
+          <div
+            aria-hidden="true"
+            className="mt-7 flex items-center gap-4 sm:gap-5"
+          >
+            <span className="h-px flex-1 bg-[#E3DDD2]" />
+            <span className="text-sm text-[#6B6459]">or</span>
+            <span className="h-px flex-1 bg-[#E3DDD2]" />
+          </div>
+
+          <Button
+            type="button"
+            onClick={handleGoogleSignUp}
+            disabled={isSubmitting}
+            className="mt-7 h-12 w-full rounded-xl border-[#DDD5C7] bg-white text-base font-semibold text-[#141414] shadow-sm hover:bg-[#FAF8F3] sm:mt-6"
+          >
+            <svg
+              aria-hidden="true"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="#4285F4"
+                d="M21.6 12.2c0-.7-.1-1.4-.2-2.1H12v4h5.4a4.6 4.6 0 0 1-2 3v2.6h3.3c1.9-1.8 2.9-4.4 2.9-7.5Z"
+              />
+              <path
+                fill="#34A853"
+                d="M12 22c2.7 0 4.9-.9 6.6-2.4l-3.3-2.6c-.9.6-2 1-3.3 1-2.6 0-4.8-1.8-5.6-4.2H3v2.7A10 10 0 0 0 12 22Z"
+              />
+              <path
+                fill="#FBBC05"
+                d="M6.4 13.8a6 6 0 0 1 0-3.6V7.5H3a10 10 0 0 0 0 9l3.4-2.7Z"
+              />
+              <path
+                fill="#EA4335"
+                d="M12 6c1.5 0 2.8.5 3.8 1.5l2.9-2.9A9.7 9.7 0 0 0 12 2a10 10 0 0 0-9 5.5l3.4 2.7C7.2 7.8 9.4 6 12 6Z"
+              />
+            </svg>
+            {isSubmitting ? "Connecting to Google…" : "Sign up with Google"}
+          </Button>
+
           <p className="mt-6 text-center text-sm text-[#5B5347]">
             Already have an account?{" "}
             <Link
@@ -292,6 +366,13 @@ const RegisterScreen = () => {
           </p>
         </div>
       </aside>
+      {toast ? (
+        <FeedbackToast
+          message={toast}
+          tone="error"
+          onDismiss={() => setToast(null)}
+        />
+      ) : null}
     </div>
   );
 };

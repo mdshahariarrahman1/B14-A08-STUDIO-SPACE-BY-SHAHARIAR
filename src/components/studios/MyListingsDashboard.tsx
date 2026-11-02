@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import {
@@ -16,6 +15,7 @@ import {
   Users,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import StudioImage from "@/components/studios/StudioImage";
 import {
   Card,
   CardContent,
@@ -123,20 +123,12 @@ export default function MyListingsDashboard({
                 className="flex h-100 min-w-0 flex-col gap-0 rounded-2xl border-[#eee7dc] bg-white p-2 shadow-none ring-0"
               >
                 <div className={`relative h-36 shrink-0 overflow-hidden rounded-xl sm:h-40 ${categoryBackgrounds[studio.category] ?? "bg-[#eadfce]"}`}>
-                  {studio.imageUrl ? (
-                    <Image
-                      src={studio.imageUrl}
-                      alt={studio.title}
-                      fill
-                      unoptimized
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      className="object-cover"
-                    />
-                  ) : (
-                    <div className="grid h-full place-items-center text-[#755a42]">
-                      <Camera aria-hidden className="size-6 stroke-[1.4]" />
-                    </div>
-                  )}
+                  <StudioImage
+                    src={studio.imageUrl}
+                    alt={studio.title}
+                    category={studio.category}
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
                   <span
                     className={`absolute left-2 top-2 inline-flex items-center gap-1 rounded-full px-2 py-1 text-[9px] font-medium ${
                       studio.isAvailable

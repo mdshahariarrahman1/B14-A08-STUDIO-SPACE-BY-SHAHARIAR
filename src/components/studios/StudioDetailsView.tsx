@@ -1,7 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
 import {
-  Camera,
   CircleCheck,
   Clock,
   DoorOpen,
@@ -19,6 +17,7 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import StudioImage from "@/components/studios/StudioImage";
 import { normalizeStudioCategory } from "@/lib/studios";
 import type { IStudio } from "@/type";
 import BookingWidget from "./BookingWidget";
@@ -175,21 +174,12 @@ const StudioDetailsView = ({ studio }: { studio: IStudio }) => {
 
         {/* Hero image */}
         <div className="relative mt-6 h-72 overflow-hidden rounded-3xl bg-[#ded6c9] sm:h-96">
-          {studio.imageUrl ? (
-            <Image
-              src={studio.imageUrl}
-              alt={studio.title}
-              fill
-              unoptimized
-              sizes="(min-width: 1280px) 1152px, 100vw"
-              className="object-cover"
-            />
-          ) : (
-            <div className="flex h-full flex-col items-center justify-center gap-3 text-[#8b8175]">
-              <Camera aria-hidden className="size-12" strokeWidth={1.5} />
-              <p className="text-sm">Studio photo (imageUrl)</p>
-            </div>
-          )}
+          <StudioImage
+            src={studio.imageUrl}
+            alt={studio.title}
+            category={studio.category}
+            sizes="(min-width: 1280px) 1152px, 100vw"
+          />
         </div>
 
         {/* Body: content column + booking widget */}

@@ -1,10 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowUpRight,
-  Camera,
   Eye,
   MapPin,
   Star,
@@ -18,6 +16,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import StudioImage from "@/components/studios/StudioImage";
 import type { IStudio } from "@/type";
 
 const StudioCard = ({
@@ -56,20 +55,12 @@ const StudioCard = ({
             categoryBackgrounds[studio.category] ?? "bg-[#eadfce]"
           }`}
         >
-          {studio.imageUrl ? (
-            <Image
-              src={studio.imageUrl}
-              alt={studio.title}
-              fill
-              unoptimized
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-              className="object-cover"
-            />
-          ) : (
-            <div className="grid h-full place-items-center text-[#755a42]">
-              <Camera aria-hidden className="size-6 stroke-[1.4]" />
-            </div>
-          )}
+          <StudioImage
+            src={studio.imageUrl}
+            alt={studio.title}
+            category={studio.category}
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          />
           <span
             className={`absolute left-2 top-2 inline-flex items-center gap-1 rounded-full px-2 py-1 text-[9px] font-medium ${
               studio.isAvailable
@@ -82,7 +73,7 @@ const StudioCard = ({
           </span>
           <span className="absolute right-2 top-2 inline-flex items-center gap-1 rounded-full bg-white/90 px-2 py-1 text-[9px] font-semibold text-[#201a14]">
             <Star aria-hidden className="size-3 fill-[#c8831d] text-[#c8831d]" />
-            {studio.rating.toFixed(1)}
+            {studio.rating}
           </span>
           <span className="absolute bottom-2 left-2 text-[10px] text-white drop-shadow-sm">
             Studio photo
@@ -148,22 +139,13 @@ const StudioCard = ({
           isFeatured ? "h-60 sm:h-64 lg:h-72" : "h-36 sm:h-40"
         }`}
       >
-      {studio.imageUrl ? (
-        <Image
-          src={studio.imageUrl}
-          alt={studio.title}
-          fill
-          unoptimized
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          className="object-cover transition-transform duration-500 group-hover/card:scale-105"
-        />
-      ) : (
-        <div className="flex h-full items-center justify-center text-[#aaa398]">
-          <span aria-hidden className="text-5xl font-light">
-            ◎
-          </span>
-        </div>
-      )}
+      <StudioImage
+        src={studio.imageUrl}
+        alt={studio.title}
+        category={studio.category}
+        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        className="transition-transform duration-500 group-hover/card:scale-105"
+      />
         <span className="absolute left-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-medium text-neutral-800 shadow-sm backdrop-blur-sm">
           {isFeatured
             ? categoryLabel[studio.category] ?? studio.category

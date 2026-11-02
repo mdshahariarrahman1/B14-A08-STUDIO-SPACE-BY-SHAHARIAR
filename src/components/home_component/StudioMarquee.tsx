@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import Marquee from "react-fast-marquee";
+import StudioImage from "@/components/studios/StudioImage";
 import type { IStudio } from "@/type";
 
 const StudioMarquee = ({ studios }: { studios: IStudio[] }) => (
@@ -22,13 +22,11 @@ const StudioMarquee = ({ studios }: { studios: IStudio[] }) => (
           className="mx-3 w-70 shrink-0 overflow-hidden rounded-2xl border bg-white shadow-sm sm:w-80"
         >
           <div className="relative h-48 w-full">
-            <Image
+            <StudioImage
               src={studio.imageUrl}
               alt={studio.title}
-              fill
-              unoptimized
+              category={studio.category}
               sizes="220px"
-              className="object-cover"
             />
           </div>
         </article>

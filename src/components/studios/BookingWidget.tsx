@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
+import Link from "next/link";
 import { ArrowRight, Minus, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,10 +14,11 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { createBooking } from "@/lib/bookings";
+import FeedbackToast from "@/components/ui/feedback-toast";
+import { useSession } from "@/lib/auth-client";
+import { BOOKING_START_SLOTS, createBooking } from "@/lib/bookings";
 import type { IStudio } from "@/type";
 
-const START_SLOTS = ["09:00", "11:00", "13:00", "15:00", "17:00", "19:00"];
 const MAX_HOURS = 8;
 
 function formatDisplayDate(date: string): string {
@@ -35,6 +37,7 @@ function isDateInPast(date: string): boolean {
 }
 
 const BookingWidget = ({ studio }: { studio: IStudio }) => {
+  const { data: session, isPending: isSessionPending } = useSession();
   const [date, setDate] = useState("");
   const [startTime, setStartTime] = useState("11:00");
   const [duration, setDuration] = useState(2);
@@ -47,6 +50,9 @@ const BookingWidget = ({ studio }: { studio: IStudio }) => {
     duration: number;
     total: number;
   } | null>(null);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastTone, setToastTone] = useState<"success" | "error">("success");
+  const dismissToast = useCallback(() => setToastMessage(""), []);
 
   const subtotal = studio.hourlyRate * duration;
   const total = subtotal + studio.securityDeposit;
@@ -67,21 +73,29 @@ const BookingWidget = ({ studio }: { studio: IStudio }) => {
     setError(null);
 
     try {
-      await createBooking({
+      const booking = await createBooking({
         studioId: studio._id,
         date,
         startTime,
         durationHours: duration,
-        total,
       });
-      setConfirmedBooking({ date, startTime, duration, total });
+      setConfirmedBooking({
+        date: booking.date,
+        startTime: booking.startTime,
+        duration: booking.durationHours,
+        total: booking.total,
+      });
       setConfirmationOpen(true);
+      setToastTone("success");
+      setToastMessage("Your booking request was sent successfully.");
     } catch (err) {
-      setError(
+      const message =
         err instanceof Error
           ? err.message
-          : "Something went wrong while booking. Please try again.",
-      );
+          : "Something went wrong while booking. Please try again.";
+      setError(message);
+      setToastTone("error");
+      setToastMessage(message);
     } finally {
       setIsPending(false);
     }
@@ -124,7 +138,7 @@ const BookingWidget = ({ studio }: { studio: IStudio }) => {
         <div className="mt-5 space-y-2">
           <p className="text-sm font-semibold text-neutral-900">Start time</p>
           <div className="grid grid-cols-3 gap-2">
-            {START_SLOTS.map((slot) => (
+            {BOOKING_START_SLOTS.map((slot) => (
               <button
                 key={slot}
                 type="button"
@@ -211,14 +225,35 @@ const BookingWidget = ({ studio }: { studio: IStudio }) => {
           </p>
         ) : null}
 
-        <Button
-          onClick={handleBook}
-          disabled={isPending}
-          className="mt-4 h-11 w-full rounded-xl bg-[#F0A63C] text-base font-semibold text-[#141414] hover:bg-[#E2962B]"
-        >
-          {isPending ? "Booking…" : "Book instantly"}
-          {isPending ? null : <ArrowRight className="size-4" />}
-        </Button>
+        {isSessionPending ? (
+          <Button
+            disabled
+            className="mt-4 h-11 w-full rounded-xl bg-[#F0A63C] text-base font-semibold text-[#141414]"
+          >
+            Checking account…
+          </Button>
+        ) : session?.user?.email ? (
+          <Button
+            onClick={handleBook}
+            disabled={isPending}
+            className="mt-4 h-11 w-full rounded-xl bg-[#F0A63C] text-base font-semibold text-[#141414] hover:bg-[#E2962B]"
+          >
+            {isPending ? "Booking…" : "Book instantly"}
+            {isPending ? null : <ArrowRight className="size-4" />}
+          </Button>
+        ) : (
+          <Button
+            nativeButton={false}
+            render={
+              <Link
+                href={`/login?callbackURL=${encodeURIComponent(`/studios/${encodeURIComponent(studio._id)}`)}`}
+              />
+            }
+            className="mt-4 h-11 w-full rounded-xl bg-[#F0A63C] text-base font-semibold text-[#141414] hover:bg-[#E2962B]"
+          >
+            Sign in to book <ArrowRight className="size-4" />
+          </Button>
+        )}
 
         <p className="mt-3 text-center text-xs text-neutral-500">
           You won&apos;t be charged until the host confirms.
@@ -247,16 +282,30 @@ const BookingWidget = ({ studio }: { studio: IStudio }) => {
             </DialogDescription>
           </DialogHeader>
           <p className="text-sm text-neutral-600">
-            The host has {studio.ownerName}&apos;s contact details. You
-            won&apos;t be charged until they confirm.
+            Your request is pending. Track its status from My Bookings. You
+            won&apos;t be charged until the host confirms.
           </p>
           <DialogFooter>
+            <Button
+              nativeButton={false}
+              render={<Link href="/my-bookings" />}
+              className="bg-[#201a14] text-white hover:bg-[#3b3025]"
+            >
+              View my bookings
+            </Button>
             <DialogClose render={<Button variant="outline" />}>
               Done
             </DialogClose>
           </DialogFooter>
         </DialogContent>
       </Dialog>
+      {toastMessage ? (
+        <FeedbackToast
+          message={toastMessage}
+          tone={toastTone}
+          onDismiss={dismissToast}
+        />
+      ) : null}
     </div>
   );
 };

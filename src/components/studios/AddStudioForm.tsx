@@ -1,12 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
 import {
   ArrowRight,
-  Camera,
   Check,
   CheckCircle2,
   Link2,
@@ -25,6 +23,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { STUDIO_AMENITIES, STUDIO_CATEGORIES } from "@/lib/studio-options";
+import StudioImage from "@/components/studios/StudioImage";
 
 type StudioOwner = {
   name: string;
@@ -398,20 +397,12 @@ const AddStudioForm = ({ owner }: { owner: StudioOwner }) => {
                 Listing preview
               </p>
               <div className="relative mt-3 aspect-[1.4] overflow-hidden rounded-xl bg-[#eadfce]">
-                {imageUrl ? (
-                  <Image
-                    src={imageUrl}
-                    alt={title ? `${title} preview` : "Studio listing preview"}
-                    fill
-                    unoptimized
-                    sizes="300px"
-                    className="object-cover"
-                  />
-                ) : (
-                  <div className="grid h-full place-items-center text-[#805f43]">
-                    <Camera aria-hidden className="size-8" strokeWidth={1.5} />
-                  </div>
-                )}
+                <StudioImage
+                  src={imageUrl}
+                  alt={title ? `${title} preview` : "Studio listing preview"}
+                  category={category}
+                  sizes="300px"
+                />
               </div>
               <h2 className="mt-4 truncate font-serif text-lg text-[#201a14]">
                 {title || <>Your studio <span className="italic text-[#c66b20]">title</span></>}

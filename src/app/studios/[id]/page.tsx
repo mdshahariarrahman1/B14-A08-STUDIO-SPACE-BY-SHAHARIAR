@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
+import { connection } from "next/server";
 import { getStudioById } from "@/lib/studios";
 import StudioDetailsView from "@/components/studios/StudioDetailsView";
 
@@ -8,6 +9,7 @@ const StudioListing = async ({
 }: {
   params: Promise<{ id: string }>;
 }) => {
+  await connection();
   const { id } = await params;
   const studio = await getStudioById(id);
 

@@ -1,7 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { unstable_rethrow } from "next/navigation";
+import StudioImage from "@/components/studios/StudioImage";
 import { getStudios, normalizeStudioCategory } from "@/lib/studios";
 import type { IStudio } from "@/type";
 
@@ -111,23 +111,13 @@ const StudioCategories = async () => {
               aria-label={`Browse ${category.name} studios`}
               className="group relative block h-52 overflow-hidden rounded-xl border border-white/10 bg-[#2A1B10] transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E897A9] sm:last:col-span-2 lg:h-64 lg:last:col-span-1"
             >
-              {category.image ? (
-                <Image
-                  src={category.image}
-                  alt={category.alt}
-                  fill
-                  unoptimized
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 20vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-              ) : (
-                <div
-                  aria-hidden
-                  className="grid h-full place-items-center bg-[#2A1B10] text-5xl font-light text-[#8a7a6a]"
-                >
-                  ◎
-                </div>
-              )}
+              <StudioImage
+                src={category.image}
+                alt={category.alt}
+                category={category.name}
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 20vw"
+                className="transition-transform duration-500 group-hover:scale-105"
+              />
               <div
                 aria-hidden
                 className="absolute inset-0 bg-linear-to-t from-black/85 via-black/30 to-black/10"

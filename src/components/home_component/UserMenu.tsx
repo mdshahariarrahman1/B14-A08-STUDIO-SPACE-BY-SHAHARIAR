@@ -28,7 +28,7 @@ const MENU_LINKS = [
     accent: true,
   },
   { label: "My Studio Listings", href: "/my-listings", icon: Building2, accent: false },
-  { label: "My Bookings", href: "#", icon: CalendarDays, accent: false },
+  { label: "My Bookings", href: "/my-bookings", icon: CalendarDays, accent: false },
   { label: "Saved Wishlist", href: "#", icon: Heart, accent: false },
 ] as const;
 

@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Single-package Next.js (App Router) app — "StudioSpace", a studio-rental directory. Routes: `/` (home), `/studios`, `/studios/[id]`, `/login`, `/register` (grouped under `src/app/(auth)/`), `/my-listings`, `/add-studio`, plus API routes `/api/auth/[...all]` (better-auth handler) and `/api/studios` (POST create listing). All app code lives under `src/`; root has no business logic. No tests exist.
+Single-package Next.js (App Router) app — "StudioSpace", a studio-rental directory. Routes: `/` (home), `/studios`, `/studios/[id]`, `/studio/details/[studioId]`, `/login`, `/register` (grouped under `src/app/(auth)/`), `/my-listings`, `/my-bookings`, `/add-studio`, plus API routes `/api/auth/[...all]` (better-auth handler), `/api/studios` (POST create listing), and `/api/bookings` (authenticated booking operations). All app code lives under `src/`; root has no business logic. No tests exist.
 
 ## Commands
 
@@ -10,11 +10,12 @@ Single-package Next.js (App Router) app — "StudioSpace", a studio-rental direc
 - Typecheck: `npx tsc --noEmit` (no `typecheck` script). Run lint + typecheck before finishing changes.
 - No test runner is configured — don't invent one or add test files unless asked.
 
-## Data layer — backend on port 5000
+## Data layer — studio backend and MongoDB bookings
 
-- All studio/booking data lives in a **separate backend at `http://localhost:5000`** (not this repo; the URL is **hardcoded**, not read from `.env`) in `src/lib/studios.ts`, `src/lib/bookings.ts`, and `src/app/api/studios/route.ts`. If nothing is listening on port 5000, `/` and `/studios` fail to render and writes return 502.
+- Studio data lives in a **separate backend at `http://localhost:5000`** (not this repo; the URL is **hardcoded**, not read from `.env`) in `src/lib/studios.ts` and `src/app/api/studios/route.ts`. If nothing is listening on port 5000, `/` and `/studios` fail to render and studio writes return 502.
   - `GET /studios` — `getStudios()` (server, `cache: "no-store"`); `getStudioById(id)` loads the full list and filters in memory. Type is `IStudio` in `src/type.ts`.
-  - `POST /bookings` — `createBooking()` in `src/lib/bookings.ts`, called **from the browser** (`BookingWidget.tsx` client component), so the backend must serve CORS.
+  - Booking records are stored in the `bookings` collection in MongoDB database `studio_Space`. The authenticated Next.js handlers at `/api/bookings` and `/api/bookings/[id]` derive the user from the server session, verify studio data against port 5000, calculate prices on the server, and protect booking reads, cancellation, and deletion by user email.
+  - Hourly reservations are guarded by unique records in the MongoDB `bookingSlots` collection to prevent overlapping bookings; cancelling a pending reservation releases its slots.
   - `POST /studios` — listing creation goes through this repo's `/api/studios` (auth-gated, server-side), never directly from the client.
 - Valid `category`/`amenities` values come from `src/lib/studio-options.ts` (`STUDIO_CATEGORIES`, `STUDIO_AMENITIES`) — `/api/studios` rejects anything else; don't hardcode new option lists elsewhere.
 - Pages are thin server components under `src/app/` that fetch and pass data down to client components in `src/components/home_component/`, `src/components/studios/`, and `src/components/auth_component/`.
@@ -25,7 +26,7 @@ Single-package Next.js (App Router) app — "StudioSpace", a studio-rental direc
 - Server-side session: use `getCurrentUser()` from `src/lib/server-auth.ts` (`auth.api.getSession({ headers: await headers() })`) — never call `auth.api` directly from a page.
 - Required env vars (all in the gitignored `.env`): `MONGODB_URL` (`process.env.MONGODB_URL!` non-null assertion in `auth.ts`), `BETTER_AUTH_URL`, `BETTER_AUTH_SECRET`. If `MONGODB_URL` is missing, anything importing `@/lib/auth` breaks. Auth DB is MongoDB, `studio_Space` database.
 - Auth screens are real (`src/components/auth_component/`): `LoginScreen`/`RegisterScreen` use `authClient`, and the login page honors `?callbackURL=` (refuses non-local paths: must start with `/` and not `//`).
-- Protected pages (`/my-listings`, `/add-studio`) follow the existing pattern: async private server component that `redirect("/login?callbackURL=...")` when unauthenticated, wrapped in `<Suspense>` by the exported page; `/my-listings` filters studios by `ownerEmail`. Keep that pattern for new private pages.
+- Protected pages (`/my-listings`, `/my-bookings`, `/add-studio`) follow the existing pattern: async private server component that `redirect("/login?callbackURL=...")` when unauthenticated, wrapped in `<Suspense>` by the exported page; `/my-listings` filters studios by `ownerEmail`, and `/my-bookings` loads records through the authenticated bookings API. Keep that pattern for new private pages.
 
 ## Next.js quirks (verified in `next.config.ts`)
 

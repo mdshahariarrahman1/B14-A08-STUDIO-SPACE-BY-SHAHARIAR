@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Clock3, Sparkles, UsersRound } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -11,6 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import StudioImage from "@/components/studios/StudioImage";
 import type { IStudio } from "@/type";
 
 const PremiumStudioCard = ({
@@ -22,23 +22,13 @@ const PremiumStudioCard = ({
 }) => (
   <Card className="group gap-0 overflow-hidden rounded-xl border-0 bg-white py-0 shadow-[0_12px_40px_rgba(27,22,18,0.07)] ring-0 transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_48px_rgba(27,22,18,0.12)]">
     <div className="relative h-60 overflow-hidden bg-[#e8e4de] sm:h-64 lg:h-72">
-      {studio.imageUrl ? (
-        <Image
-          src={studio.imageUrl}
-          alt={studio.title}
-          fill
-          unoptimized
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 480px"
-          className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-        />
-      ) : (
-        <div
-          aria-hidden
-          className="grid h-full place-items-center text-6xl font-light text-[#a69b8e]"
-        >
-          ◎
-        </div>
-      )}
+      <StudioImage
+        src={studio.imageUrl}
+        alt={studio.title}
+        category={studio.category}
+        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 480px"
+        className="transition-transform duration-700 group-hover:scale-[1.04]"
+      />
       <span className="absolute left-4 top-4 rounded-full bg-white/95 px-3 py-1.5 text-[11px] font-medium text-neutral-800 shadow-sm backdrop-blur">
         {studio.studioType?.trim() || "Type unavailable"}
       </span>

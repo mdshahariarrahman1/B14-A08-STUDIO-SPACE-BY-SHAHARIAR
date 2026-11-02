@@ -33,6 +33,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import FeedbackToast from "@/components/ui/feedback-toast";
+import StudioImage from "@/components/studios/StudioImage";
 import {
   cancelBooking,
   deleteBooking,
@@ -127,26 +128,34 @@ function BookingCard({
   return (
     <Card className="group h-full min-w-0 gap-0 rounded-[20px] border-[#eee7dc] bg-white p-2.5 shadow-[0_6px_18px_rgba(54,39,23,0.04)] ring-0 transition-all hover:-translate-y-0.5 hover:border-[#dfd0bd] hover:shadow-[0_12px_28px_rgba(54,39,23,0.09)]">
       <div
-        className={`min-h-24 rounded-xl border px-2.5 py-2.5 ${getDateTone(
+        className={`flex min-h-24 items-center gap-2.5 rounded-xl border px-2.5 py-2.5 ${getDateTone(
           booking.studio.category,
         )}`}
       >
-        <div className="flex items-center justify-between gap-2">
-          <span
-            className={`inline-flex items-center gap-1 rounded-full px-2 py-1 text-[9px] font-medium ${statusStyles[booking.status]}`}
-          >
-            <span aria-hidden className="size-1 rounded-full bg-current" />
-            {booking.status}
-          </span>
-          <div className="flex items-center gap-1">
+        <div className="relative size-16 shrink-0 overflow-hidden rounded-lg border border-black/5">
+          <StudioImage
+            src={booking.studioImage}
+            alt={booking.studio.title}
+            category={booking.studio.category}
+            sizes="64px"
+          />
+        </div>
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center justify-between gap-2">
+            <span
+              className={`inline-flex items-center gap-1 rounded-full px-2 py-1 text-[9px] font-medium ${statusStyles[booking.status]}`}
+            >
+              <span aria-hidden className="size-1 rounded-full bg-current" />
+              {booking.status}
+            </span>
             <span className="shrink-0 text-[8px] tracking-wide text-[#62594e]">
               #{booking.id.slice(-8).toUpperCase()}
             </span>
           </div>
+          <p className="mt-3 font-serif text-[19px] leading-none tracking-tight text-[#201a14]">
+            {formatBookingDate(booking.date)}
+          </p>
         </div>
-        <p className="mt-4 font-serif text-[19px] leading-none tracking-tight text-[#201a14]">
-          {formatBookingDate(booking.date)}
-        </p>
       </div>
 
       <CardHeader className="gap-1 px-1.5 pt-3.5 pb-0">

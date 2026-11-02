@@ -18,6 +18,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import StudioImage from "@/components/studios/StudioImage";
+import WishlistButton from "@/components/studios/WishlistButton";
 import { normalizeStudioCategory } from "@/lib/studios";
 import type { IStudio } from "@/type";
 import BookingWidget from "./BookingWidget";
@@ -174,6 +175,7 @@ const StudioDetailsView = ({ studio }: { studio: IStudio }) => {
 
         {/* Hero image */}
         <div className="relative mt-6 h-72 overflow-hidden rounded-3xl bg-[#ded6c9] sm:h-96">
+          <WishlistButton studioId={studio._id} studioTitle={studio.title} />
           <StudioImage
             src={studio.imageUrl}
             alt={studio.title}

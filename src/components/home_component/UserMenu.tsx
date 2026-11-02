@@ -7,9 +7,11 @@ import {
   Building2,
   CalendarDays,
   ChevronDown,
+  ChevronRight,
   CirclePlus,
   Heart,
   LogOut,
+  UserRound,
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -29,7 +31,7 @@ const MENU_LINKS = [
   },
   { label: "My Studio Listings", href: "/my-listings", icon: Building2, accent: false },
   { label: "My Bookings", href: "/my-bookings", icon: CalendarDays, accent: false },
-  { label: "Saved Wishlist", href: "#", icon: Heart, accent: false },
+  { label: "Saved Wishlist", href: "/wishlist", icon: Heart, accent: false },
 ] as const;
 
 const menuItemClass =
@@ -96,18 +98,43 @@ const UserMenu = ({
         sideOffset={8}
         className="w-64 rounded-2xl gap-0 p-1.5"
       >
-        {/* Signed-in identity header */}
-        <div className="px-3 pt-1.5 pb-2.5">
-          <p className="text-xs font-medium text-neutral-400">Signed in as</p>
-          <p className="mt-1 truncate text-base font-bold text-neutral-900">
-            {user.name ?? "User"}
-          </p>
-          <p className="mt-0.5 truncate text-xs text-neutral-500">
-            {user.email && user.email.length > 0
-              ? user.email
-              : "No email on file"}
-          </p>
-        </div>
+        <Link
+          href="/profile"
+          onClick={() => setIsOpen(false)}
+          aria-label={`View ${user.name ?? "User"} profile`}
+          className="group/profile flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left outline-none transition-colors hover:bg-neutral-100 focus-visible:ring-2 focus-visible:ring-[#F0A63C]/40"
+        >
+          <Avatar
+            size="lg"
+            className="size-11 ring-2 ring-[#E4EDFB] *:data-[slot=avatar-fallback]:size-full"
+          >
+            <AvatarImage
+              src={user.image ?? undefined}
+              alt={user.name ?? "User"}
+            />
+            <AvatarFallback className="bg-[#E4EDFB] text-sm font-semibold text-[#2C4B92]">
+              {fallbackInitial}
+            </AvatarFallback>
+          </Avatar>
+          <div className="min-w-0 flex-1">
+            <p className="flex items-center gap-1.5 text-xs font-medium text-neutral-500">
+              <UserRound aria-hidden="true" className="size-3.5 shrink-0" />
+              Profile
+            </p>
+            <p className="mt-1 truncate text-base font-bold leading-tight text-neutral-900">
+              {user.name ?? "User"}
+            </p>
+            <p className="mt-1 truncate text-xs text-neutral-500">
+              {user.email && user.email.length > 0
+                ? user.email
+                : "No email on file"}
+            </p>
+          </div>
+          <ChevronRight
+            aria-hidden="true"
+            className="size-4 shrink-0 text-neutral-400 transition-transform group-hover/profile:translate-x-0.5"
+          />
+        </Link>
 
         {MENU_LINKS.map((link) => (
           <Link

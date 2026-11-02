@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   Camera,
   CheckCircle2,
@@ -25,6 +26,7 @@ import {
 } from "@/components/ui/card";
 import { STUDIO_CATEGORIES } from "@/lib/studio-options";
 import type { IStudio } from "@/type";
+import FeedbackToast from "@/components/ui/feedback-toast";
 
 const categoryBackgrounds: Record<string, string> = {
   "Photo Studio": "bg-[#eadfce]",
@@ -39,19 +41,84 @@ export default function MyListingsDashboard({
 }: {
   studios: IStudio[];
 }) {
+  const router = useRouter();
+  const [studioItems, setStudioItems] = useState(studios);
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [deletingStudioId, setDeletingStudioId] = useState<string | null>(null);
+  const [toast, setToast] = useState<{
+    message: string;
+    tone: "success" | "error";
+  } | null>(null);
+  const dismissToast = useCallback(() => setToast(null), []);
   const categories = useMemo(
-    () => STUDIO_CATEGORIES.filter((category) => studios.some((studio) => studio.category === category)),
-    [studios],
+    () =>
+      STUDIO_CATEGORIES.filter((category) =>
+        studioItems.some((studio) => studio.category === category),
+      ),
+    [studioItems],
   );
   const visibleStudios =
     selectedCategory === "All"
-      ? studios
-      : studios.filter((studio) => studio.category === selectedCategory);
-  const openStudios = studios.filter((studio) => studio.isAvailable).length;
-  const averageRate = studios.length
-    ? Math.round(studios.reduce((total, studio) => total + studio.hourlyRate, 0) / studios.length)
+      ? studioItems
+      : studioItems.filter((studio) => studio.category === selectedCategory);
+  const openStudios = studioItems.filter((studio) => studio.isAvailable).length;
+  const averageRate = studioItems.length
+    ? Math.round(
+        studioItems.reduce((total, studio) => total + studio.hourlyRate, 0) /
+          studioItems.length,
+      )
     : 0;
+
+  const handleDelete = async (studio: IStudio) => {
+    if (
+      !window.confirm(
+        `Delete "${studio.title}"? This listing will be permanently removed.`,
+      )
+    ) {
+      return;
+    }
+
+    setDeletingStudioId(studio._id);
+    try {
+      const response = await fetch(
+        `/api/studios/${encodeURIComponent(studio._id)}`,
+        { method: "DELETE" },
+      );
+      let result: unknown = null;
+      try {
+        result = await response.json();
+      } catch {
+        result = null;
+      }
+
+      if (!response.ok) {
+        const message =
+          typeof result === "object" &&
+          result !== null &&
+          "message" in result &&
+          typeof result.message === "string"
+            ? result.message
+            : "Could not delete the studio listing. Please try again.";
+        throw new Error(message);
+      }
+
+      setStudioItems((current) =>
+        current.filter((item) => item._id !== studio._id),
+      );
+      setToast({ message: "Studio listing deleted.", tone: "success" });
+      router.refresh();
+    } catch (error) {
+      setToast({
+        message:
+          error instanceof Error
+            ? error.message
+            : "Could not delete the studio listing. Please try again.",
+        tone: "error",
+      });
+    } finally {
+      setDeletingStudioId(null);
+    }
+  };
 
   return (
     <>
@@ -61,7 +128,7 @@ export default function MyListingsDashboard({
             <span className="grid size-7 place-items-center rounded-lg bg-[#ffecd1] text-[#a75c16]">
               <Camera aria-hidden className="size-3.5" />
             </span>
-            <p className="text-xl font-semibold leading-none text-[#201a14]">{studios.length}</p>
+            <p className="text-xl font-semibold leading-none text-[#201a14]">{studioItems.length}</p>
             <p className="text-[11px] text-[#756b5e]">Total listings</p>
           </CardContent>
         </Card>
@@ -183,11 +250,14 @@ export default function MyListingsDashboard({
                     View
                   </Button>
                   <Button
-                    type="button"
+                    nativeButton={false}
+                    render={
+                      <Link
+                        href={`/edit-studio/${encodeURIComponent(studio._id)}`}
+                      />
+                    }
                     variant="outline"
-                    disabled
-                    title="Editing listings is not available yet."
-                    aria-label={`Edit ${studio.title} (not available yet)`}
+                    aria-label={`Edit ${studio.title}`}
                     className="h-9 flex-1 gap-2 rounded-lg border-[#e8e0d5] px-2 text-[11px] font-normal"
                   >
                     <Pencil aria-hidden className="size-4" />
@@ -197,9 +267,10 @@ export default function MyListingsDashboard({
                     type="button"
                     variant="outline"
                     size="icon"
-                    disabled
-                    title="Deleting listings is not available yet."
-                    aria-label={`Delete ${studio.title} (not available yet)`}
+                    disabled={deletingStudioId === studio._id}
+                    onClick={() => handleDelete(studio)}
+                    title="Delete this listing"
+                    aria-label={`Delete ${studio.title}`}
                     className="size-9 rounded-lg border-[#f1d8d2] text-[#b34130]"
                   >
                     <Trash2 aria-hidden className="size-4" />
@@ -215,14 +286,16 @@ export default function MyListingsDashboard({
                 <Plus aria-hidden className="size-5" />
               </div>
               <h3 className="mt-4 font-serif text-xl text-[#201a14]">
-                {studios.length ? "No studios in this category" : "Your first listing starts here"}
+                {studioItems.length
+                  ? "No studios in this category"
+                  : "Your first listing starts here"}
               </h3>
               <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-[#756b5e]">
-                {studios.length
+                {studioItems.length
                   ? "Choose another category to see your studio listings."
                   : "Add your studio details and help creators find a space that fits their next project."}
               </p>
-              {!studios.length ? (
+              {!studioItems.length ? (
                 <Button
                   nativeButton={false}
                   render={<Link href="/add-studio" />}
@@ -235,6 +308,13 @@ export default function MyListingsDashboard({
           </Card>
         )}
       </section>
+      {toast && (
+        <FeedbackToast
+          message={toast.message}
+          tone={toast.tone}
+          onDismiss={dismissToast}
+        />
+      )}
     </>
   );
 }

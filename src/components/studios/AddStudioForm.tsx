@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/select";
 import { STUDIO_AMENITIES, STUDIO_CATEGORIES } from "@/lib/studio-options";
 import StudioImage from "@/components/studios/StudioImage";
+import type { IStudio } from "@/type";
 
 type StudioOwner = {
   name: string;
@@ -37,19 +38,31 @@ const fieldClass =
 const inputClass =
   "h-10 rounded-lg border-[#e7dfd4] bg-white px-3 text-sm placeholder:text-[#aaa197] focus-visible:border-[#d58821] focus-visible:ring-[#f7dfb3]";
 
-const AddStudioForm = ({ owner }: { owner: StudioOwner }) => {
+const AddStudioForm = ({
+  owner,
+  studio,
+}: {
+  owner: StudioOwner;
+  studio?: IStudio;
+}) => {
   const router = useRouter();
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState(studio?.title ?? "");
   const [category, setCategory] =
-    useState<(typeof STUDIO_CATEGORIES)[number]>("Photo Studio");
-  const [hourlyRate, setHourlyRate] = useState("35");
-  const [securityDeposit, setSecurityDeposit] = useState("100");
-  const [maxCapacity, setMaxCapacity] = useState("8");
-  const [rating, setRating] = useState("0");
-  const [location, setLocation] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
-  const [amenities, setAmenities] = useState<string[]>([]);
-  const [overview, setOverview] = useState("");
+    useState<(typeof STUDIO_CATEGORIES)[number]>(() =>
+      STUDIO_CATEGORIES.find((item) => item === studio?.category) ?? "Photo Studio",
+    );
+  const [hourlyRate, setHourlyRate] = useState(String(studio?.hourlyRate ?? 35));
+  const [securityDeposit, setSecurityDeposit] = useState(
+    String(studio?.securityDeposit ?? 100),
+  );
+  const [maxCapacity, setMaxCapacity] = useState(
+    String(studio?.maxCapacity ?? 8),
+  );
+  const [rating, setRating] = useState(String(studio?.rating ?? 0));
+  const [location, setLocation] = useState(studio?.location ?? "");
+  const [imageUrl, setImageUrl] = useState(studio?.imageUrl ?? "");
+  const [amenities, setAmenities] = useState<string[]>(studio?.amenities ?? []);
+  const [overview, setOverview] = useState(studio?.overview ?? "");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [showSuccessToast, setShowSuccessToast] = useState(false);
@@ -68,8 +81,12 @@ const AddStudioForm = ({ owner }: { owner: StudioOwner }) => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch("/api/studios", {
-        method: "POST",
+      const response = await fetch(
+        studio
+          ? `/api/studios/${encodeURIComponent(studio._id)}`
+          : "/api/studios",
+        {
+        method: studio ? "PATCH" : "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           title,
@@ -93,7 +110,7 @@ const AddStudioForm = ({ owner }: { owner: StudioOwner }) => {
           "message" in result &&
           typeof result.message === "string"
             ? result.message
-            : "Could not publish your studio. Please try again.";
+            : `Could not ${studio ? "update" : "publish"} your studio. Please try again.`;
         throw new Error(message);
       }
 
@@ -104,7 +121,7 @@ const AddStudioForm = ({ owner }: { owner: StudioOwner }) => {
       setErrorMessage(
         error instanceof Error
           ? error.message
-          : "Could not publish your studio. Please try again.",
+          : `Could not ${studio ? "update" : "publish"} your studio. Please try again.`,
       );
     } finally {
       setIsSubmitting(false);
@@ -123,20 +140,22 @@ const AddStudioForm = ({ owner }: { owner: StudioOwner }) => {
             My listings
           </Link>
           <span aria-hidden className="mx-2">/</span>
-          <span>Add new studio</span>
+          <span>{studio ? "Edit studio" : "Add new studio"}</span>
         </nav>
 
         <div className="mt-7 max-w-2xl">
           <p className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#c66b20]">
             <span aria-hidden className="size-1.5 rounded-full bg-[#d7831e]" />
-            New listing
+            {studio ? "Edit listing" : "New listing"}
           </p>
           <h1 className="mt-2 text-4xl font-medium tracking-tight text-[#201a14] sm:text-5xl">
-            List your <span className="font-serif italic text-[#c66b20]">studio</span>
+            {studio ? "Update your " : "List your "}
+            <span className="font-serif italic text-[#c66b20]">studio</span>
           </h1>
           <p className="mt-3 max-w-xl text-sm leading-6 text-[#62594e]">
-            Tell creators what makes your space special. Add the essentials
-            below, and your listing goes live as soon as you publish.
+            {studio
+              ? "Update the details creators see when they discover your space."
+              : "Tell creators what makes your space special. Add the essentials below, and your listing goes live as soon as you publish."}
           </p>
         </div>
 
@@ -324,6 +343,7 @@ const AddStudioForm = ({ owner }: { owner: StudioOwner }) => {
                       step="0.1"
                       value={rating}
                       onChange={(event) => setRating(event.target.value)}
+                      readOnly={Boolean(studio)}
                       required
                       className={`${inputClass} w-24 font-serif text-2xl font-semibold`}
                     />
@@ -342,7 +362,7 @@ const AddStudioForm = ({ owner }: { owner: StudioOwner }) => {
                       ))}
                     </div>
                     <p className="mt-1 text-xs text-[#62594e]">
-                      Set your creator rating
+                      {studio ? "Ratings are managed from guest reviews" : "Set your creator rating"}
                     </p>
                   </div>
                 </div>
@@ -423,11 +443,15 @@ const AddStudioForm = ({ owner }: { owner: StudioOwner }) => {
               <ul className="space-y-2.5 text-[11px] text-[#5e554a]">
                 <li className="flex items-center gap-2">
                   <CheckCircle2 aria-hidden className="size-4 shrink-0 text-emerald-600" />
-                  Saved to your studios as soon as you publish
+                  {studio ? "Changes update your live listing" : "Saved to your studios as soon as you publish"}
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckCircle2 aria-hidden className="size-4 shrink-0 text-emerald-600" />
-                  Open for booking right away
+                  {studio
+                    ? studio.isAvailable
+                      ? "Currently open for booking"
+                      : "Currently paused for booking"
+                    : "Open for booking right away"}
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckCircle2 aria-hidden className="size-4 shrink-0 text-emerald-600" />
@@ -446,7 +470,13 @@ const AddStudioForm = ({ owner }: { owner: StudioOwner }) => {
                 disabled={isSubmitting}
                 className="mt-5 h-11 w-full rounded-xl bg-[#f4a000] text-sm font-semibold text-[#201a14] hover:bg-[#e89400]"
               >
-                {isSubmitting ? "Publishing…" : "Publish studio"}
+                {isSubmitting
+                  ? studio
+                    ? "Saving changes…"
+                    : "Publishing…"
+                  : studio
+                    ? "Save changes"
+                    : "Publish studio"}
                 <ArrowRight data-icon="inline-end" />
               </Button>
               <Button
@@ -472,7 +502,7 @@ const AddStudioForm = ({ owner }: { owner: StudioOwner }) => {
           className="fixed bottom-5 right-5 z-50 flex items-center gap-2 rounded-xl bg-[#201a14] px-4 py-3 text-sm font-medium text-white shadow-xl"
         >
           <CheckCircle2 aria-hidden className="size-5 text-emerald-400" />
-          Studio published successfully
+          {studio ? "Studio updated successfully" : "Studio published successfully"}
         </div>
       ) : null}
     </main>

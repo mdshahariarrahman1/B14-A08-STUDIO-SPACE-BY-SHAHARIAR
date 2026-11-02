@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Single-package Next.js (App Router) app — "StudioSpace", a studio-rental directory. Routes: `/` (home), `/studios`, `/studios/[id]`, `/studio/details/[studioId]`, `/login`, `/register` (grouped under `src/app/(auth)/`), `/my-listings`, `/my-bookings`, `/add-studio`, plus API routes `/api/auth/[...all]` (better-auth handler), `/api/studios` (POST create listing), and `/api/bookings` (authenticated booking operations). All app code lives under `src/`; root has no business logic. No tests exist.
+Single-package Next.js (App Router) app — "StudioSpace", a studio-rental directory. Routes: `/` (home), `/studios`, `/studios/[id]`, `/studio/details/[studioId]`, `/login`, `/register` (grouped under `src/app/(auth)/`), `/my-listings`, `/my-bookings` (`/my-booking` is a redirect alias), `/add-studio`, `/edit-studio/[studioId]`, plus API routes `/api/auth/[...all]` (better-auth handler), `/api/studios` (POST create listing), `/api/studios/[studioId]` (authenticated listing updates/deletion), and `/api/bookings` + `/api/bookings/[id]` (authenticated booking ops). All app code lives under `src/`; root has no business logic. No tests exist.
 
 ## Commands
 
@@ -14,9 +14,12 @@ Single-package Next.js (App Router) app — "StudioSpace", a studio-rental direc
 
 - Studio data lives in a **separate backend at `http://localhost:5000`** (not this repo; the URL is **hardcoded**, not read from `.env`) in `src/lib/studios.ts` and `src/app/api/studios/route.ts`. If nothing is listening on port 5000, `/` and `/studios` fail to render and studio writes return 502.
   - `GET /studios` — `getStudios()` (server, `cache: "no-store"`); `getStudioById(id)` loads the full list and filters in memory. Type is `IStudio` in `src/type.ts`.
-  - Booking records are stored in the `bookings` collection in MongoDB database `studio_Space`. The authenticated Next.js handlers at `/api/bookings` and `/api/bookings/[id]` derive the user from the server session, verify studio data against port 5000, calculate prices on the server, and protect booking reads, cancellation, and deletion by user email.
-  - Hourly reservations are guarded by unique records in the MongoDB `bookingSlots` collection to prevent overlapping bookings; cancelling a pending reservation releases its slots.
+  - Booking records are stored in the `bookings` collection in MongoDB database `studio_Space`. The authenticated Next.js handlers at `/api/bookings` and `/api/bookings/[id]` derive the user from the server session, verify studio data against port 5000, calculate prices on the server, and protect booking reads, cancellation, and deletion by user email (cancel only works on `Pending` bookings, via PATCH).
+  - Hourly reservations are guarded by unique records in the MongoDB `bookingSlots` collection (unique index `{studioId, date, hour}`, created on every POST) to prevent overlapping bookings; a `E11000` duplicate-key error becomes a 409, and cancelling a pending reservation releases its slots.
+  - Fixed valid booking start times live in `BOOKING_START_SLOTS` in `src/lib/bookings.ts` (09:00–19:00, 2h grid); `/api/bookings` rejects anything else, plus durations outside 1–8h and past dates. Client code must go through the helpers in `src/lib/bookings.ts` (`createBooking`, `getMyBookings`, `cancelBooking`, `deleteBooking`) — never raw-fetch `/api/bookings`.
+  - Booking records deliberately store duplicate fields (`status`/`bookingStatus`, `total`/`totalPrice`, `date`/`bookingDate`, `user.*`/`userName`...) — the dashboards rely on this; keep the pairs in sync in any new write.
   - `POST /studios` — listing creation goes through this repo's `/api/studios` (auth-gated, server-side), never directly from the client.
+  - `PUT`/`PATCH`/`DELETE /studios/:id` — listing edits and deletion go through this repo's authenticated `/api/studios/[studioId]` proxy, which verifies the signed-in owner. Backend mutations require the shared `BOOKING_API_SECRET` and trusted owner-email headers; keep the secret configured in both ignored `.env` files.
 - Valid `category`/`amenities` values come from `src/lib/studio-options.ts` (`STUDIO_CATEGORIES`, `STUDIO_AMENITIES`) — `/api/studios` rejects anything else; don't hardcode new option lists elsewhere.
 - Pages are thin server components under `src/app/` that fetch and pass data down to client components in `src/components/home_component/`, `src/components/studios/`, and `src/components/auth_component/`.
 
@@ -24,8 +27,8 @@ Single-package Next.js (App Router) app — "StudioSpace", a studio-rental direc
 
 - Server instance is `auth` in `src/lib/auth.ts` (better-auth with `mongodbAdapter`, email+password enabled); the catch-all route at `src/app/api/auth/[...all]/route.ts` exposes it; browser client is `authClient` in `src/lib/auth-client.ts` (also re-exports `signIn`, `signUp`, `useSession`).
 - Server-side session: use `getCurrentUser()` from `src/lib/server-auth.ts` (`auth.api.getSession({ headers: await headers() })`) — never call `auth.api` directly from a page.
-- Required env vars (all in the gitignored `.env`): `MONGODB_URL` (`process.env.MONGODB_URL!` non-null assertion in `auth.ts`), `BETTER_AUTH_URL`, `BETTER_AUTH_SECRET`. If `MONGODB_URL` is missing, anything importing `@/lib/auth` breaks. Auth DB is MongoDB, `studio_Space` database.
-- Auth screens are real (`src/components/auth_component/`): `LoginScreen`/`RegisterScreen` use `authClient`, and the login page honors `?callbackURL=` (refuses non-local paths: must start with `/` and not `//`).
+- Shared Mongo client is `src/lib/mongodb.ts` (`mongoClient` + `mongoDb` = `studio_Space` db); API routes import `mongoDb` directly. Required env vars (all in the gitignored `.env`): `MONGODB_URL` (throws at import time if missing, in `mongodb.ts`), `BETTER_AUTH_URL`, `BETTER_AUTH_SECRET`. Auth DB is the same `studio_Space` database.
+- Auth screens are real (`src/components/auth_component/`): `LoginScreen`/`RegisterScreen` use `authClient`, read `?callbackURL=` from `window.location.search`, and refuse non-local paths (must start with `/` but not `//`).
 - Protected pages (`/my-listings`, `/my-bookings`, `/add-studio`) follow the existing pattern: async private server component that `redirect("/login?callbackURL=...")` when unauthenticated, wrapped in `<Suspense>` by the exported page; `/my-listings` filters studios by `ownerEmail`, and `/my-bookings` loads records through the authenticated bookings API. Keep that pattern for new private pages.
 
 ## Next.js quirks (verified in `next.config.ts`)
@@ -34,7 +37,7 @@ Single-package Next.js (App Router) app — "StudioSpace", a studio-rental direc
 - `reactCompiler: true` (`babel-plugin-react-compiler`) — write React Compiler-safe components (no hook calls in conditions, no mutating props/state, stable keys); it will transpile but misbehave otherwise.
 - `next/image` only allows `https://images.unsplash.com` with `/photo-*` pathname (remotePatterns in `next.config.ts`) — any other remote image URL fails the build; user-submitted imageUrl values get around this with `<Image unoptimized>` (see `my-listings/page.tsx`). Use `public/images/` for new local images.
 - Dev/build run on Turbopack. Tailwind v4 is wired via a Turbopack rule in `next.config.ts`; there is no `tailwind.config`, no PostCSS config — all theme/token config goes in `src/app/globals.css` (Tailwind v4 `@theme`). Most page styling uses arbitrary-value hex classes, not theme tokens.
-- Home section components are wrapped in `<Suspense>` with skeleton fallbacks and scroll-streamed via `await connection()` in `src/app/page.tsx` — follow this streaming pattern for new server-fetched sections.
+- Server-fetched home/studios sections are wrapped in `<Suspense>` with skeleton fallbacks; the data wrappers call `await connection()` (`src/app/page.tsx`, `src/app/studios/`) so they stream instead of prerendering — follow this streaming pattern for new server-fetched sections.
 
 ## shadcn / UI (verified in `components.json`)
 

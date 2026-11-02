@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactNode } from "react";
 import Link from "next/link";
 import {
   ArrowUpRight,
@@ -22,9 +23,11 @@ import type { IStudio } from "@/type";
 const StudioCard = ({
   studio,
   variant = "default",
+  action,
 }: {
   studio: IStudio;
   variant?: "default" | "featured" | "listing";
+  action?: ReactNode;
 }) => {
   const isFeatured = variant === "featured";
   const isListing = variant === "listing";
@@ -123,6 +126,7 @@ const StudioCard = ({
             <Eye aria-hidden className="size-4" />
             View Details
           </Button>
+          {action ? action : null}
         </CardFooter>
       </Card>
     );

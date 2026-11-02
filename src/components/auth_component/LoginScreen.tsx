@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { authClient } from "@/lib/auth-client";
+import { authClient, signIn } from "@/lib/auth-client";
 import AuthBrandHeader from "./AuthBrandHeader";
 
 const HIGHLIGHTS = [
@@ -63,6 +63,14 @@ const LoginScreen = () => {
       setIsSubmitting(false);
     }
   };
+
+  const handleGoogleSignIn = async () => {
+    const resData =  await signIn.social({
+      provider: "google",
+    });
+
+    console.log("Google sign-in response:", resData);
+  }
 
   return (
     <div className="min-h-screen bg-[#FAF8F3] lg:grid lg:grid-cols-2">
@@ -176,9 +184,10 @@ const LoginScreen = () => {
             <span className="h-px flex-1 bg-[#E3DDD2]" />
           </div>
 
-          {/* Placeholder only: Google social login is not configured in auth.ts yet. */}
           <Button
             type="button"
+            onClick={handleGoogleSignIn}
+            disabled={isSubmitting}
             className="mt-7 h-12 w-full rounded-xl border-[#DDD5C7] bg-white text-base font-semibold text-[#141414] shadow-sm hover:bg-[#FAF8F3] sm:mt-6"
           >
             <svg
@@ -186,16 +195,25 @@ const LoginScreen = () => {
               width="20"
               height="20"
               viewBox="0 0 24 24"
-              fill="none"
-              stroke="#141414"
-              strokeWidth="1.7"
-              strokeLinecap="round"
-              strokeLinejoin="round"
             >
-              <circle cx="12" cy="12" r="9.5" />
-              <path d="M16.3 8.7a4.7 4.7 0 1 0 1.2 3.3H12" />
+              <path
+                fill="#4285F4"
+                d="M21.6 12.2c0-.7-.1-1.4-.2-2.1H12v4h5.4a4.6 4.6 0 0 1-2 3v2.6h3.3c1.9-1.8 2.9-4.4 2.9-7.5Z"
+              />
+              <path
+                fill="#34A853"
+                d="M12 22c2.7 0 4.9-.9 6.6-2.4l-3.3-2.6c-.9.6-2 1-3.3 1-2.6 0-4.8-1.8-5.6-4.2H3v2.7A10 10 0 0 0 12 22Z"
+              />
+              <path
+                fill="#FBBC05"
+                d="M6.4 13.8a6 6 0 0 1 0-3.6V7.5H3a10 10 0 0 0 0 9l3.4-2.7Z"
+              />
+              <path
+                fill="#EA4335"
+                d="M12 6c1.5 0 2.8.5 3.8 1.5l2.9-2.9A9.7 9.7 0 0 0 12 2a10 10 0 0 0-9 5.5l3.4 2.7C7.2 7.8 9.4 6 12 6Z"
+              />
             </svg>
-            Continue with Google
+            {isSubmitting ? "Connecting to Google…" : "Continue with Google"}
           </Button>
 
           <p className="mt-6 text-center text-sm text-[#5B5347]">

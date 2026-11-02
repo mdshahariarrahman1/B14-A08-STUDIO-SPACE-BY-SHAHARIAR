@@ -16,6 +16,14 @@ import {
   Users,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import StudioImage from "@/components/studios/StudioImage";
 import {
   Card,
@@ -50,6 +58,7 @@ export default function MyListingsDashboard({
   );
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [deletingStudioId, setDeletingStudioId] = useState<string | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<IStudio | null>(null);
   const [toast, setToast] = useState<{
     message: string;
     tone: "success" | "error";
@@ -74,15 +83,9 @@ export default function MyListingsDashboard({
       )
     : 0;
 
-  const handleDelete = async (studio: IStudio) => {
-    if (
-      !window.confirm(
-        `Delete "${studio.title}"? This listing will be permanently removed.`,
-      )
-    ) {
-      return;
-    }
-
+  const handleDelete = async () => {
+    if (!deleteTarget) return;
+    const studio = deleteTarget;
     setDeletingStudioId(studio._id);
     try {
       const response = await fetch(
@@ -108,6 +111,7 @@ export default function MyListingsDashboard({
       }
 
       setDeletedStudioIds((current) => new Set(current).add(studio._id));
+      setDeleteTarget(null);
       setToast({ message: "Studio listing deleted.", tone: "success" });
       router.refresh();
     } catch (error) {
@@ -270,8 +274,8 @@ export default function MyListingsDashboard({
                     type="button"
                     variant="outline"
                     size="icon"
-                    disabled={deletingStudioId === studio._id}
-                    onClick={() => handleDelete(studio)}
+                    disabled={deletingStudioId !== null}
+                    onClick={() => setDeleteTarget(studio)}
                     title="Delete this listing"
                     aria-label={`Delete ${studio.title}`}
                     className="size-9 rounded-lg border-[#f1d8d2] text-[#b34130]"
@@ -318,6 +322,46 @@ export default function MyListingsDashboard({
           onDismiss={dismissToast}
         />
       )}
+      <Dialog
+        open={deleteTarget !== null}
+        onOpenChange={(open) => {
+          if (!open && deletingStudioId === null) {
+            setDeleteTarget(null);
+          }
+        }}
+      >
+        <DialogContent className="rounded-2xl border-[#eee7de]">
+          <DialogHeader>
+            <DialogTitle className="font-serif text-xl text-[#201a14]">
+              Delete this studio?
+            </DialogTitle>
+            <DialogDescription>
+              {deleteTarget
+                ? `"${deleteTarget.title}" will be permanently removed from your listings.`
+                : "This studio will be permanently removed from your listings."}
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button
+              type="button"
+              variant="outline"
+              disabled={deletingStudioId !== null}
+              onClick={() => setDeleteTarget(null)}
+            >
+              Cancel
+            </Button>
+            <Button
+              type="button"
+              variant="destructive"
+              disabled={deletingStudioId !== null}
+              onClick={() => void handleDelete()}
+            >
+              <Trash2 aria-hidden className="size-4" />
+              {deletingStudioId ? "Deleting…" : "Delete studio"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </>
   );
 }

@@ -97,15 +97,20 @@ const StudioExplorer = ({
 
   return (
     <main className="min-h-[calc(100vh-5rem)] bg-[#f7f5f0] pb-16">
-      <header className="bg-[#151619] px-5 py-7 text-white sm:px-8 sm:py-8">
-        <div className="mx-auto max-w-6xl">
-          <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-            Explore studios
-          </h1>
-          <p className="mt-1.5 max-w-md text-xs leading-4 text-white/70">
-            Search every listed space, filter by what you are making, and
-            compare hourly rates side by side.
+      <header className="bg-[#1A120B] px-5 py-8 text-white sm:px-8 sm:py-10">
+        <div className="mx-auto max-w-6xl text-left">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#E897A9] sm:text-xs">
+            <span aria-hidden>&bull; </span>Studio spaces
           </p>
+          <div className="mt-3 flex flex-row items-center justify-between gap-6">
+            <h1 className="shrink-0 whitespace-nowrap text-2xl font-medium leading-tight tracking-tight text-[#FAF7F2] sm:text-5xl">
+              Explore <span className="font-normal italic text-[#D8C4AE]">studios.</span>
+            </h1>
+            <p className="min-w-0 max-w-xl flex-1 font-serif text-left text-xs leading-5 text-[#D8C4AE]/80 sm:text-sm sm:leading-6">
+              Search every listed space, filter by what you are making, and
+              compare hourly rates side by side.
+            </p>
+          </div>
         </div>
       </header>
 

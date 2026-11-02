@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
+import { connection } from "next/server";
 import { redirect } from "next/navigation";
 import ProfileDashboard from "@/components/profile/ProfileDashboard";
 import { getCurrentUser } from "@/lib/server-auth";
@@ -12,6 +13,7 @@ export const metadata: Metadata = {
 };
 
 async function PrivateProfilePage() {
+  await connection();
   const user = await getCurrentUser();
   if (!user?.email) {
     redirect("/login?callbackURL=%2Fprofile");

@@ -343,7 +343,6 @@ const AddStudioForm = ({
                       step="0.1"
                       value={rating}
                       onChange={(event) => setRating(event.target.value)}
-                      readOnly={Boolean(studio)}
                       required
                       className={`${inputClass} w-24 font-serif text-2xl font-semibold`}
                     />

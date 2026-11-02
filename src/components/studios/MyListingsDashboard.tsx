@@ -42,7 +42,12 @@ export default function MyListingsDashboard({
   studios: IStudio[];
 }) {
   const router = useRouter();
-  const [studioItems, setStudioItems] = useState(studios);
+  const [deletedStudioIds, setDeletedStudioIds] = useState<Set<string>>(
+    () => new Set(),
+  );
+  const studioItems = studios.filter(
+    (studio) => !deletedStudioIds.has(studio._id),
+  );
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [deletingStudioId, setDeletingStudioId] = useState<string | null>(null);
   const [toast, setToast] = useState<{
@@ -102,9 +107,7 @@ export default function MyListingsDashboard({
         throw new Error(message);
       }
 
-      setStudioItems((current) =>
-        current.filter((item) => item._id !== studio._id),
-      );
+      setDeletedStudioIds((current) => new Set(current).add(studio._id));
       setToast({ message: "Studio listing deleted.", tone: "success" });
       router.refresh();
     } catch (error) {

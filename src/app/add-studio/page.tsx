@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
+import { connection } from "next/server";
 import { redirect } from "next/navigation";
 import AddStudioForm from "@/components/studios/AddStudioForm";
 import { getCurrentUser } from "@/lib/server-auth";
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
 };
 
 async function PrivateAddStudioPage() {
+  await connection();
   const user = await getCurrentUser();
   if (!user?.email) {
     redirect("/login?callbackURL=%2Fadd-studio");

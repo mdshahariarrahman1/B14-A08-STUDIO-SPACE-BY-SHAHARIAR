@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import Link from "next/link";
 import type { Metadata } from "next";
+import { connection } from "next/server";
 import { redirect } from "next/navigation";
 import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -14,6 +15,7 @@ export const metadata: Metadata = {
 };
 
 async function PrivateMyListingsPage() {
+  await connection();
   const user = await getCurrentUser();
   if (!user?.email) {
     redirect("/login?callbackURL=%2Fmy-listings");

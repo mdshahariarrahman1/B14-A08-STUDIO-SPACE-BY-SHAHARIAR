@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
+import { connection } from "next/server";
 import { notFound, redirect } from "next/navigation";
 import AddStudioForm from "@/components/studios/AddStudioForm";
 import { getCurrentUser } from "@/lib/server-auth";
@@ -16,6 +17,7 @@ async function PrivateEditStudioPage({
   params: Promise<{ studioId: string }>;
 }) {
   const { studioId } = await params;
+  await connection();
   const user = await getCurrentUser();
   if (!user?.email) {
     redirect(

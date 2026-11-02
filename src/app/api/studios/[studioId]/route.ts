@@ -1,3 +1,4 @@
+import { revalidatePath } from "next/cache";
 import { getCurrentUser } from "@/lib/server-auth";
 import { getStudioServiceHeaders } from "@/lib/studio-service";
 import { getStudioById } from "@/lib/studios";
@@ -88,6 +89,7 @@ async function forwardMutation(
     );
   }
 
+  revalidatePath("/my-listings");
   return Response.json(result, { status: response.status });
 }
 
@@ -138,6 +140,7 @@ async function updateStudio(
     "hourlyRate",
     "securityDeposit",
     "maxCapacity",
+    "rating",
     "location",
     "imageUrl",
     "amenities",
@@ -156,7 +159,7 @@ async function updateStudio(
   const studio = parseStudioInput({
     ...owned.studio,
     ...body,
-    rating: owned.studio.rating,
+    rating: body.rating ?? owned.studio.rating,
   });
   if (!studio) {
     return Response.json(
@@ -196,5 +199,9 @@ export async function DELETE(_request: Request, context: RouteContext) {
   const owned = await getOwnedStudio(studioId, user.email);
   if (owned.response) return owned.response;
 
-  return forwardMutation(studioId, user.email, "DELETE");
+  const response = await forwardMutation(studioId, user.email, "DELETE");
+  if (response.ok) {
+    revalidatePath("/my-listings");
+  }
+  return response;
 }

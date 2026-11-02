@@ -1,3 +1,4 @@
+import { revalidatePath } from "next/cache";
 import { getCurrentUser } from "@/lib/server-auth";
 import { getStudioServiceHeaders } from "@/lib/studio-service";
 import { parseStudioInput } from "@/lib/studio-validation";
@@ -84,5 +85,6 @@ export async function POST(request: Request) {
     );
   }
 
+  revalidatePath("/my-listings");
   return Response.json(result, { status: 201 });
 }

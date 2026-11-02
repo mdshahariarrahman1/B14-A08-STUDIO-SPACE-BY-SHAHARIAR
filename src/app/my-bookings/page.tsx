@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import Link from "next/link";
 import type { Metadata } from "next";
+import { connection } from "next/server";
 import { redirect } from "next/navigation";
 import MyBookingsDashboard from "@/components/studios/MyBookingsDashboard";
 import { getCurrentUser } from "@/lib/server-auth";
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
 };
 
 async function PrivateMyBookingsPage() {
+  await connection();
   const user = await getCurrentUser();
   if (!user?.email) {
     redirect("/login?callbackURL=%2Fmy-bookings");

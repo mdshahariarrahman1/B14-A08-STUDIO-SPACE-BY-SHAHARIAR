@@ -1,9 +1,8 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { unstable_rethrow } from "next/navigation";
 import StudioImage from "@/components/studios/StudioImage";
 import { normalizeStudioCategory } from "@/lib/studios";
-import { getStudios } from "@/lib/studios-server";
+import { getStudiosResult } from "@/lib/studios-server";
 import type { IStudio } from "@/type";
 
 const CategoriesFallback = ({ message }: { message: string }) => (
@@ -25,20 +24,13 @@ const CategoriesFallback = ({ message }: { message: string }) => (
 );
 
 const StudioCategories = async () => {
-  let studios: IStudio[];
-
-  try {
-    studios = await getStudios();
-  } catch (error) {
-    // Framework control-flow errors (e.g. the prerender cut-off aborting
-    // uncached fetches) must keep flowing so the section stays dynamic;
-    // only real failures should render the fallback panel.
-    unstable_rethrow(error);
-    console.error("Failed to load studio categories:", error);
+  const result = await getStudiosResult();
+  if (!result.ok) {
     return (
       <CategoriesFallback message="We couldn't load the studio catalog right now — categories will show up here as soon as it is back." />
     );
   }
+  const studios = result.studios;
 
   if (studios.length === 0) {
     return (

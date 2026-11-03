@@ -1,10 +1,14 @@
 import { Suspense } from "react";
-import { getStudios } from "@/lib/studios-server";
+import { getStudiosResult } from "@/lib/studios-server";
 import StudioMarquee from "./StudioMarquee";
+import StudiosUnavailable from "./StudiosUnavailable";
 
 const StudioImages = async () => {
-  const studios = await getStudios();
-  return <StudioMarquee studios={studios} />;
+  const result = await getStudiosResult();
+  if (!result.ok) {
+    return <StudiosUnavailable label="Studio highlights are temporarily unavailable" />;
+  }
+  return <StudioMarquee studios={result.studios} />;
 };
 
 const MarqueePage = () => (

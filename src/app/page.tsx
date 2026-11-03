@@ -8,19 +8,26 @@ import StudioCategories from "@/components/home_component/StudioCategories";
 import Testimonials from "@/components/home_component/Testimonials";
 import Pricing from "@/components/home_component/Pricing";
 import TrustedBrands from "@/components/home_component/TrustedBrands";
-import { getStudios } from "@/lib/studios-server";
+import { getStudiosResult } from "@/lib/studios-server";
 import MarqueePage from "@/components/home_component/Marquee";
 import FeaturedStudios from "@/components/home_component/FeaturedStudios";
+import StudiosUnavailable from "@/components/home_component/StudiosUnavailable";
 
 const PremiumStudioData = async () => {
   await connection();
-  const studios = await getStudios();
-  return <PremiumStudios studios={studios} />;
+  const result = await getStudiosResult();
+  if (!result.ok) {
+    return <StudiosUnavailable label="Premium studios are temporarily unavailable" />;
+  }
+  return <PremiumStudios studios={result.studios} />;
 };
 
 const FeaturedStudioData = async () => {
-  const studios = await getStudios();
-  return <FeaturedStudios studios={studios} />;
+  const result = await getStudiosResult();
+  if (!result.ok) {
+    return <StudiosUnavailable label="Featured studios are temporarily unavailable" />;
+  }
+  return <FeaturedStudios studios={result.studios} />;
 };
 
 const HomePage = () => {

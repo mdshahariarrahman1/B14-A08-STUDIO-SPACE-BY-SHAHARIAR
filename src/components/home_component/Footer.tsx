@@ -100,7 +100,7 @@ const Footer = async () => {
   const copyrightYear = await getCopyrightYear();
 
   return (
-    <footer className="bg-[#1a120b] px-5 text-white sm:px-8">
+    <footer id="footer" className="scroll-mt-20 bg-[#1a120b] px-5 text-white sm:px-8">
     <div className="mx-auto max-w-7xl pt-12 pb-8 sm:pt-16">
       <div className="grid grid-cols-2 gap-8 sm:gap-10 lg:grid-cols-[1.65fr_1fr_1fr_1fr] lg:gap-12">
         <div className="col-span-2 sm:col-span-1">

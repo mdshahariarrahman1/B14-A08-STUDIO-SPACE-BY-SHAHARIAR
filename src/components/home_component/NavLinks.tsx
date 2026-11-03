@@ -12,7 +12,7 @@ export const NAV_LINKS: NavLink[] = [
   { label: "Home", href: "/" },
   { label: "Explore Studios", href: "/studios" },
   { label: "How It Works", href: "/#how-it-works" },
-  { label: "About Us", href: "#" },
+  { label: "About Us", href: "#footer" },
 ];
 
 type NavLinksProps = {

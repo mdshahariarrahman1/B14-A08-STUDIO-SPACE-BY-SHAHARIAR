@@ -1,101 +1,94 @@
-# 🎬 StudioSpace
+# 🎬 StudioSpace — Frontend
+
 ### Find a creative space. Make something worth sharing.
 
-**StudioSpace** is a peer-to-peer creative workspace and production studio rental platform that connects creators with studio hosts. Users can discover, explore, and book creative spaces by the hour, while studio owners can manage their listings and reservations.
+**StudioSpace** is a modern and responsive creative studio rental platform that helps creators discover, explore, and book professional creative spaces. It provides an intuitive user interface for browsing studios, managing bookings, saving favorite spaces, and managing personal accounts.
 
 🌐 **Live Website:** [Visit StudioSpace](https://b14-a08-studio-space-by-shahariar.vercel.app/)
 
 ---
 
-## ✨ Features
+## ✨ Key Features
 
-- **Explore Creative Studios:** Browse photography studios, film stages, podcast lounges, music suites, workshops, and more.
-- **Search & Filter:** Easily discover creative spaces based on categories and preferences.
-- **Studio Details:** Explore studio images, descriptions, amenities, hourly rates, and booking information.
-- **Authentication:** Register and log in using email and password, with Google sign-in support when configured.
-- **Studio Booking:** Request studio reservations and track booking status.
-- **Wishlist:** Save favorite studios and manage your personal wishlist.
-- **Studio Management:** Create, edit, and manage studio listings.
-- **Personal Dashboard:** Manage profile information, studio listings, and reservations.
-- **Responsive UI:** Enjoy a smooth experience on desktop, tablet, and mobile devices.
-- **Notifications:** Get interactive success and error messages with loading states.
+- **Modern Landing Page:** Clean and attractive homepage with featured studios and creative categories.
+- **Browse Studios:** Explore photography studios, film stages, podcast lounges, music suites, workshops, and more.
+- **Search & Filtering:** Find creative spaces based on categories and preferences.
+- **Studio Details:** View studio images, descriptions, amenities, hourly rates, and booking information.
+- **User Authentication:** Responsive login and registration interfaces with Better Auth integration.
+- **Google Sign-In:** Social authentication support when provider credentials are configured.
+- **Studio Booking:** Request bookings and view reservation information.
+- **Wishlist:** Save favorite studios and access them from your personal account.
+- **Host Dashboard:** Create, edit, and manage studio listings.
+- **User Dashboard:** Manage profile information, personal bookings, and studio listings.
+- **Responsive Design:** Optimized user experience across desktop, tablet, and mobile devices.
+- **Interactive UI:** Loading states, toast notifications, dialogs, popovers, and smooth navigation.
 
 ---
 
 ## 🛠️ Technology Stack
 
-- **Frontend:** Next.js 16, React 19
+- **Framework:** Next.js 16 (App Router)
+- **Library:** React 19
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS 4
 - **Authentication:** Better Auth
-- **Database:** MongoDB
-- **Backend:** Separate Studio Catalog API
 - **UI Components:** Base UI
 - **Icons:** Lucide React
 - **Carousel:** Embla Carousel
+- **Notifications:** Toast Notifications
 - **Deployment:** Vercel
 
 ---
 
 ## 🚀 Local Installation & Setup
 
-Follow these steps to run the project locally.
+Follow these steps to run the frontend application locally.
 
-**1. Clone the repository**
-
-```bash
-git clone YOUR_GITHUB_REPOSITORY_URL
-```
-
-**2. Navigate to the project folder**
+### 1. Clone the Repository
 
 ```bash
-cd your-project-folder
+git clone YOUR_FRONTEND_GITHUB_REPOSITORY_URL
 ```
 
-**3. Install dependencies**
+### 2. Navigate to the Project Directory
+
+```bash
+cd your-frontend-project-folder
+```
+
+### 3. Install Dependencies
 
 ```bash
 npm install
 ```
 
-**4. Configure environment variables**
+### 4. Configure Environment Variables
 
 Create a `.env.local` file in the root directory:
 
 ```env
-BETTER_AUTH_URL=
-BETTER_AUTH_SECRET=
-MONGODB_URL=
-BACKEND_URL=
-BOOKING_API_SECRET=
+BETTER_AUTH_URL=http://localhost:3000
+BETTER_AUTH_SECRET=your_auth_secret
+MONGODB_URL=your_mongodb_connection_string
+BACKEND_URL=http://localhost:5000
+BOOKING_API_SECRET=your_shared_secret
 ```
 
-Configure the required credentials and make sure the studio backend is running with the matching shared secret.
+Configure the required credentials and ensure that the backend server is running.
 
-**5. Run the development server**
+### 5. Start the Development Server
 
 ```bash
 npm run dev
 ```
 
-**6. Open the application**
+### 6. Open in Browser
 
-Visit `http://localhost:3000` in your browser.
+Visit:
 
----
-
-## 🔐 Examiner Test Credentials
-
-There is no pre-configured shared examiner account.
-
-Please follow these steps to test the application:
-
-1. Visit the [StudioSpace Live Website](https://b14-a08-studio-space-by-shahariar.vercel.app/).
-2. Navigate to the **Register** page.
-3. Create a new account using your email and password.
-4. Log in with your newly created account.
-5. Explore the dashboard, studio listings, wishlist, and booking features.
+```text
+http://localhost:3000
+```
 
 ---
 
@@ -103,28 +96,42 @@ Please follow these steps to test the application:
 
 | Command | Description |
 |---|---|
-| `npm run dev` | Start development server |
+| `npm run dev` | Start the development server |
 | `npm run lint` | Run ESLint |
 | `npx tsc --noEmit` | Check TypeScript errors |
-| `npm run build` | Build production application |
-| `npm run start` | Start production server |
+| `npm run build` | Build the production application |
+| `npm run start` | Start the production server |
 
 ---
 
-## 👨‍💻 About the Developer
+## 🔐 Examiner Access
+
+There is no pre-configured shared examiner account.
+
+To explore the application:
+
+1. Visit the [StudioSpace Live Website](https://b14-a08-studio-space-by-shahariar.vercel.app/).
+2. Navigate to the **Register** page.
+3. Create an account using your email and password.
+4. Sign in to explore the application.
+5. Explore studio listings, wishlist, bookings, and dashboard features.
+
+---
+
+## 👨‍💻 Developer
 
 **Md Shahariar Rahman Shifat**
 
 **Full-Stack Web Developer**
 
-Passionate about building modern, responsive, and user-friendly web applications with a focus on clean code, performance, and great user experiences.
+Passionate about building modern, responsive, and user-friendly web applications with Next.js, React, TypeScript, and modern web technologies.
 
 - **GitHub:** [mdshahariarrahman1](https://github.com/mdshahariarrahman1)
-- **Project:** StudioSpace
-- **Project Type:** Full-Stack Web Application
+- **Project:** StudioSpace Frontend
+- **Project Type:** Frontend Application
 
 ---
 
 ### ❤️ Developed by Md Shahariar Rahman Shifat
 
-*Turning creative ideas into meaningful digital experiences.*
+*Turning creative ideas into beautiful digital experiences.*

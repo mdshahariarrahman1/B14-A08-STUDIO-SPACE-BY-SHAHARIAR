@@ -30,6 +30,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import FeedbackToast from "@/components/ui/feedback-toast";
+import { useAppToast } from "@/components/ui/toast-provider";
 import { authClient } from "@/lib/auth-client";
 
 type ProfileUser = {
@@ -52,6 +53,7 @@ export default function ProfileDashboard({
   stats: ProfileStats | null;
 }) {
   const router = useRouter();
+  const showToast = useAppToast();
   const [dialogOpen, setDialogOpen] = useState(false);
   const [name, setName] = useState(user.name);
   const [image, setImage] = useState(user.image ?? "");
@@ -139,6 +141,7 @@ export default function ProfileDashboard({
       if (result.error) {
         throw new Error(result.error.message || "You could not be signed out.");
       }
+      showToast("You have signed out successfully.", "success");
       router.replace("/login");
       router.refresh();
     } catch (error) {
@@ -490,8 +493,8 @@ function NotificationToggle({
         }`}
       >
         <span
-          className={`size-[18px] rounded-full bg-white shadow-sm transition-transform ${
-            checked ? "translate-x-[22px]" : "translate-x-[3px]"
+          className={`size-4.5 rounded-full bg-white shadow-sm transition-transform ${
+            checked ? "translate-x-5.5" : "translate-x-0.75"
           }`}
         />
       </button>

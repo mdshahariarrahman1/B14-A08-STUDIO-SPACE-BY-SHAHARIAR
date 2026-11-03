@@ -4,8 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import FeedbackToast from "@/components/ui/feedback-toast";
 import { Input } from "@/components/ui/input";
+import { useAppToast } from "@/components/ui/toast-provider";
 import { authClient, signIn } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import AuthBrandHeader from "./AuthBrandHeader";
@@ -36,6 +36,7 @@ const STEPS = [
 
 const RegisterScreen = () => {
   const router = useRouter();
+  const showToast = useAppToast();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [photoUrl, setPhotoUrl] = useState("");
@@ -44,7 +45,6 @@ const RegisterScreen = () => {
   const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [toast, setToast] = useState<string | null>(null);
 
   const passwordChecks = buildPasswordChecks(password);
   const isPasswordValid = passwordChecks.every((check) => check.met);
@@ -58,9 +58,10 @@ const RegisterScreen = () => {
     const trimmedPhotoUrl = photoUrl.trim();
 
     if (!trimmedName || !trimmedEmail || !isPasswordValid) {
-      setErrorMessage(
-        "Please fill in your name and email and meet every password rule.",
-      );
+      const message =
+        "Please fill in your name and email and meet every password rule.";
+      setErrorMessage(message);
+      showToast(message, "error");
       return;
     }
 
@@ -76,12 +77,14 @@ const RegisterScreen = () => {
       });
 
       if (error) {
-        setErrorMessage(
-          error.message ?? "Registration failed. Please try again.",
-        );
+        const message =
+          error.message ?? "Registration failed. Please try again.";
+        setErrorMessage(message);
+        showToast(message, "error");
         return;
       }
 
+      showToast("Your account has been created successfully.", "success");
       const callbackURL = new URLSearchParams(window.location.search).get(
         "callbackURL",
       );
@@ -90,6 +93,13 @@ const RegisterScreen = () => {
           ? callbackURL
           : "/",
       );
+    } catch (error) {
+      const message =
+        error instanceof Error
+          ? error.message
+          : "Registration failed. Please try again.";
+      setErrorMessage(message);
+      showToast(message, "error");
     } finally {
       setIsSubmitting(false);
     }
@@ -113,13 +123,14 @@ const RegisterScreen = () => {
       });
 
       if (error) {
-        setToast(error.message ?? "Google sign-up failed. Please try again.");
+        showToast(error.message ?? "Google sign-up failed. Please try again.", "error");
       }
     } catch (error) {
-      setToast(
+      showToast(
         error instanceof Error
           ? error.message
           : "Google sign-up failed. Please try again.",
+        "error",
       );
     } finally {
       setIsSubmitting(false);
@@ -366,13 +377,6 @@ const RegisterScreen = () => {
           </p>
         </div>
       </aside>
-      {toast ? (
-        <FeedbackToast
-          message={toast}
-          tone="error"
-          onDismiss={() => setToast(null)}
-        />
-      ) : null}
     </div>
   );
 };

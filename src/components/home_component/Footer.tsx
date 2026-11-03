@@ -16,6 +16,7 @@ const QUICK_LINKS = [
   { label: "Home", href: "/" },
   { label: "Spaces", href: "/studios" },
   { label: "How it works", href: "/#how-it-works" },
+  { label: "About us", href: "/about" },
   { label: "Stories", href: "/#testimonials" },
   { label: "Log in", href: "#" },
   { label: "Register", href: "#" },

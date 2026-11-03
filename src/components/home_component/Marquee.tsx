@@ -1,19 +1,9 @@
 import { Suspense } from "react";
-import type { IStudio } from "@/type";
+import { getStudios } from "@/lib/studios";
 import StudioMarquee from "./StudioMarquee";
 
 const StudioImages = async () => {
-  const response = await fetch("http://localhost:5000/studios", {
-    cache: "no-store",
-  });
-  if (!response.ok) {
-    throw new Error(
-      `Failed to load studios: ${response.status} ${response.statusText}`,
-    );
-  }
-
-  const studios: IStudio[] = await response.json();
-
+  const studios = await getStudios();
   return <StudioMarquee studios={studios} />;
 };
 

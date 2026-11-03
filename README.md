@@ -20,6 +20,18 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Backend configuration
+
+Studio data is loaded from the backend URL configured with `BACKEND_URL`. Set it
+in your local `.env` file and in your Vercel project's Environment Variables.
+Use the backend origin without a trailing slash, for example:
+
+```env
+BACKEND_URL=https://your-backend.example.com
+```
+
+The app adds `/studios` to this URL for studio data requests.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

@@ -4,8 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import FeedbackToast from "@/components/ui/feedback-toast";
 import { Input } from "@/components/ui/input";
+import { useAppToast } from "@/components/ui/toast-provider";
 import { authClient, signIn } from "@/lib/auth-client";
 import AuthBrandHeader from "./AuthBrandHeader";
 
@@ -17,13 +17,13 @@ const HIGHLIGHTS = [
 
 const LoginScreen = () => {
   const router = useRouter();
+  const showToast = useAppToast();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [toast, setToast] = useState<string | null>(null);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -33,6 +33,7 @@ const LoginScreen = () => {
 
     if (!trimmedEmail || !password) {
       setErrorMessage("Please enter your email and password.");
+      showToast("Please enter your email and password.", "error");
       return;
     }
 
@@ -46,13 +47,14 @@ const LoginScreen = () => {
       });
 
       if (error) {
-        setErrorMessage(
-          error.message ??
-            "Invalid email or password. Please try again.",
-        );
+        const message =
+          error.message ?? "Invalid email or password. Please try again.";
+        setErrorMessage(message);
+        showToast(message, "error");
         return;
       }
 
+      showToast("You have logged in successfully.", "success");
       const callbackURL = new URLSearchParams(window.location.search).get(
         "callbackURL",
       );
@@ -61,6 +63,13 @@ const LoginScreen = () => {
           ? callbackURL
           : "/",
       );
+    } catch (error) {
+      const message =
+        error instanceof Error
+          ? error.message
+          : "Login failed. Please try again.";
+      setErrorMessage(message);
+      showToast(message, "error");
     } finally {
       setIsSubmitting(false);
     }
@@ -75,13 +84,14 @@ const LoginScreen = () => {
       });
 
       if (error) {
-        setToast(error.message ?? "Google sign-in failed. Please try again.");
+        showToast(error.message ?? "Google sign-in failed. Please try again.", "error");
       }
     } catch (error) {
-      setToast(
+      showToast(
         error instanceof Error
           ? error.message
           : "Google sign-in failed. Please try again.",
+        "error",
       );
     } finally {
       setIsSubmitting(false);
@@ -328,13 +338,6 @@ const LoginScreen = () => {
           </div>
         </div>
       </aside>
-      {toast ? (
-        <FeedbackToast
-          message={toast}
-          tone="error"
-          onDismiss={() => setToast(null)}
-        />
-      ) : null}
     </div>
   );
 };

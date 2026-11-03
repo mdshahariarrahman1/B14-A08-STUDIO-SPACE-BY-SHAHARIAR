@@ -19,6 +19,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { useAppToast } from "@/components/ui/toast-provider";
 import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 
@@ -47,6 +48,7 @@ const UserMenu = ({
   };
 }) => {
   const router = useRouter();
+  const showToast = useAppToast();
   const [isOpen, setIsOpen] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
@@ -58,8 +60,19 @@ const UserMenu = ({
     setIsLoggingOut(true);
 
     try {
-      await authClient.signOut();
+      const result = await authClient.signOut();
+      if (result.error) {
+        throw new Error(result.error.message || "You could not be signed out.");
+      }
+      showToast("You have signed out successfully.", "success");
       router.push("/login");
+    } catch (error) {
+      showToast(
+        error instanceof Error
+          ? error.message
+          : "You could not be signed out. Please try again.",
+        "error",
+      );
     } finally {
       setIsLoggingOut(false);
     }

@@ -50,7 +50,7 @@ async function forwardMutation(
   let response: Response;
   try {
     response = await fetch(
-      `http://localhost:5000/studios/${encodeURIComponent(studioId)}`,
+      `${process.env.BACKEND_URL}/studios/${encodeURIComponent(studioId)}`,
       {
         method,
         headers,

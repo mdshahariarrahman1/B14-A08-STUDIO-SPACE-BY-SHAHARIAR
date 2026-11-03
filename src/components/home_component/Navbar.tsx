@@ -12,7 +12,12 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { data: session, isPending } = useSession();
   const pathname = usePathname();
-  const active = pathname === "/studios" ? "Explore Studios" : "Home";
+  const active =
+    pathname === "/studios"
+      ? "Explore Studios"
+      : pathname === "/about"
+        ? "About Us"
+        : "Home";
   const sessionUser = session?.user;
   const isAuthenticated = !isPending && Boolean(sessionUser);
 

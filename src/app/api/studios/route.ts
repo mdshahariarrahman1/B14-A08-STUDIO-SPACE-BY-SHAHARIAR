@@ -45,7 +45,7 @@ export async function POST(request: Request) {
 
   let response: Response;
   try {
-    response = await fetch("http://localhost:5000/studios", {
+    response = await fetch(`${process.env.BACKEND_URL}/studios`, {
       method: "POST",
       headers,
       body: JSON.stringify({

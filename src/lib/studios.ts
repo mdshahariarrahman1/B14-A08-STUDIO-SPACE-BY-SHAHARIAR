@@ -5,7 +5,7 @@ export function normalizeStudioCategory(category: string): string {
 }
 
 export async function getStudios(): Promise<IStudio[]> {
-  const response = await fetch("http://localhost:5000/studios", {
+  const response = await fetch(`${process.env.BACKEND_URL}/studios`, {
     cache: "no-store",
   });
 

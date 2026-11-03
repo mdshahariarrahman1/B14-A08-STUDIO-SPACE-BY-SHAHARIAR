@@ -31,7 +31,10 @@ function validateStudioId(studioId: string): string | null {
 }
 
 export async function getWishlist(): Promise<IStudio[]> {
-  const response = await fetch("/api/wishlist", { cache: "no-store" });
+  const response = await fetch("/api/wishlist", {
+    cache: "no-store",
+    credentials: "include",
+  });
   const body = await readResponse<{ studios: IStudio[] }>(response);
 
   return Array.isArray(body.studios) ? body.studios : [];
@@ -43,7 +46,7 @@ export async function getWishlistStatus(studioId: string): Promise<boolean> {
 
   const response = await fetch(
     `/api/wishlist?studioId=${encodeURIComponent(id)}`,
-    { cache: "no-store" },
+    { cache: "no-store", credentials: "include" },
   );
   const body = await readResponse<{ saved: boolean }>(response);
 
@@ -56,6 +59,7 @@ export async function addItemToWishlist(studioId: string): Promise<void> {
 
   const response = await fetch("/api/wishlist", {
     method: "POST",
+    credentials: "include",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ studioId: id }),
   });
@@ -71,6 +75,7 @@ export async function removeItemFromWishlist(
 
   const response = await fetch("/api/wishlist", {
     method: "DELETE",
+    credentials: "include",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ studioId: id }),
   });

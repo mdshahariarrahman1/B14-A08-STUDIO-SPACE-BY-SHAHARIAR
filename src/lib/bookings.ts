@@ -91,6 +91,7 @@ export async function createBooking(
 ): Promise<BookingRecord> {
   const response = await fetch("/api/bookings", {
     method: "POST",
+    credentials: "include",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
   });
@@ -99,7 +100,10 @@ export async function createBooking(
 }
 
 export async function getMyBookings(): Promise<BookingRecord[]> {
-  const response = await fetch("/api/bookings", { cache: "no-store" });
+  const response = await fetch("/api/bookings", {
+    cache: "no-store",
+    credentials: "include",
+  });
   const body = await readResponse<{ bookings: BookingRecord[] }>(response);
 
   return body.bookings;
@@ -108,6 +112,7 @@ export async function getMyBookings(): Promise<BookingRecord[]> {
 export async function cancelBooking(bookingId: string): Promise<BookingRecord> {
   const response = await fetch(`/api/bookings/${encodeURIComponent(bookingId)}`, {
     method: "PATCH",
+    credentials: "include",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ status: "Cancelled" }),
   });
@@ -120,6 +125,7 @@ export async function deleteBooking(
 ): Promise<{ message: string; availabilityUpdated?: boolean }> {
   const response = await fetch(`/api/bookings/${encodeURIComponent(bookingId)}`, {
     method: "DELETE",
+    credentials: "include",
   });
 
   return readResponse<{ message: string; availabilityUpdated?: boolean }>(

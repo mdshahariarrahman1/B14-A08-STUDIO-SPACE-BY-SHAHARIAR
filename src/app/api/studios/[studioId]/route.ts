@@ -1,7 +1,7 @@
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { getCurrentUser } from "@/lib/server-auth";
 import { getStudioServiceHeaders } from "@/lib/studio-service";
-import { getStudioById } from "@/lib/studios";
+import { getStudioById, STUDIOS_CACHE_TAG } from "@/lib/studios-server";
 import { parseStudioInput } from "@/lib/studio-validation";
 
 type RouteContext = {
@@ -89,6 +89,7 @@ async function forwardMutation(
     );
   }
 
+  revalidateTag(STUDIOS_CACHE_TAG, { expire: 0 });
   revalidatePath("/my-listings");
   return Response.json(result, { status: response.status });
 }

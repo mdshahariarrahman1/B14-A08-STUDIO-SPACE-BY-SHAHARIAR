@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { getStudios } from "@/lib/studios";
+import { getStudios } from "@/lib/studios-server";
 import StudioMarquee from "./StudioMarquee";
 
 const StudioImages = async () => {

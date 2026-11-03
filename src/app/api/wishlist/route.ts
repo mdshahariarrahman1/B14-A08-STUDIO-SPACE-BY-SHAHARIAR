@@ -1,6 +1,6 @@
 import { getCurrentUser } from "@/lib/server-auth";
 import { mongoDb } from "@/lib/mongodb";
-import { getStudioById, getStudios } from "@/lib/studios";
+import { getStudioById, getStudios } from "@/lib/studios-server";
 import type { IStudio } from "@/type";
 
 function isRecord(value: unknown): value is Record<string, unknown> {

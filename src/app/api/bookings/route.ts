@@ -1,7 +1,7 @@
 import { ObjectId } from "mongodb";
 import { getCurrentUser } from "@/lib/server-auth";
 import { mongoDb } from "@/lib/mongodb";
-import { getStudioById } from "@/lib/studios";
+import { getStudioById } from "@/lib/studios-server";
 import {
   BOOKING_START_SLOTS,
   type BookingRequest,

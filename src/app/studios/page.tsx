@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { connection } from "next/server";
 import StudioExplorer from "@/components/studios/StudioExplorer";
-import { getStudios } from "@/lib/studios";
+import { getStudios } from "@/lib/studios-server";
 
 const StudioListing = async () => {
   await connection();

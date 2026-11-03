@@ -2,7 +2,8 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { unstable_rethrow } from "next/navigation";
 import StudioImage from "@/components/studios/StudioImage";
-import { getStudios, normalizeStudioCategory } from "@/lib/studios";
+import { normalizeStudioCategory } from "@/lib/studios";
+import { getStudios } from "@/lib/studios-server";
 import type { IStudio } from "@/type";
 
 const CategoriesFallback = ({ message }: { message: string }) => (

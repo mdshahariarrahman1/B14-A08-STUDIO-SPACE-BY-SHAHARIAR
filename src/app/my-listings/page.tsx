@@ -7,7 +7,7 @@ import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import MyListingsDashboard from "@/components/studios/MyListingsDashboard";
 import { getCurrentUser } from "@/lib/server-auth";
-import { getStudios } from "@/lib/studios";
+import { getStudios } from "@/lib/studios-server";
 
 export const metadata: Metadata = {
   title: "My listings | StudioSpace",

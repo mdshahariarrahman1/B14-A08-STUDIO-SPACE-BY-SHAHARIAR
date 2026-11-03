@@ -8,7 +8,7 @@ import StudioCategories from "@/components/home_component/StudioCategories";
 import Testimonials from "@/components/home_component/Testimonials";
 import Pricing from "@/components/home_component/Pricing";
 import TrustedBrands from "@/components/home_component/TrustedBrands";
-import { getStudios } from "@/lib/studios";
+import { getStudios } from "@/lib/studios-server";
 import MarqueePage from "@/components/home_component/Marquee";
 import FeaturedStudios from "@/components/home_component/FeaturedStudios";
 

@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
-import { getStudioById } from "@/lib/studios";
+import { getStudioById } from "@/lib/studios-server";
 import StudioDetailsView from "@/components/studios/StudioDetailsView";
 
 async function StudioDetails({

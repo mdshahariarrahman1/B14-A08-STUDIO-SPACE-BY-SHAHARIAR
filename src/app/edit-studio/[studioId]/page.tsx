@@ -4,7 +4,7 @@ import { connection } from "next/server";
 import { notFound, redirect } from "next/navigation";
 import AddStudioForm from "@/components/studios/AddStudioForm";
 import { getCurrentUser } from "@/lib/server-auth";
-import { getStudioById } from "@/lib/studios";
+import { getStudioById } from "@/lib/studios-server";
 
 export const metadata: Metadata = {
   title: "Edit studio | StudioSpace",

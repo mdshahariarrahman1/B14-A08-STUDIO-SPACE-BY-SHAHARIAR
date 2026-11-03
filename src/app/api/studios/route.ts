@@ -1,6 +1,7 @@
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { getCurrentUser } from "@/lib/server-auth";
 import { getStudioServiceHeaders } from "@/lib/studio-service";
+import { STUDIOS_CACHE_TAG } from "@/lib/studios-server";
 import { parseStudioInput } from "@/lib/studio-validation";
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -85,6 +86,7 @@ export async function POST(request: Request) {
     );
   }
 
+  revalidateTag(STUDIOS_CACHE_TAG, { expire: 0 });
   revalidatePath("/my-listings");
   return Response.json(result, { status: 201 });
 }

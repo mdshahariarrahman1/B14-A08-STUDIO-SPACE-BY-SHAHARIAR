@@ -16,7 +16,7 @@ const StudioMarquee = ({ studios }: { studios: IStudio[] }) => (
       pauseOnHover={false}
       speed={40}
     >
-      {studios.map((studio) => (
+      {studios.slice(0, 6).map((studio) => (
         <article
           key={studio._id}
           className="mx-3 w-70 shrink-0 overflow-hidden rounded-2xl border bg-white shadow-sm sm:w-80"

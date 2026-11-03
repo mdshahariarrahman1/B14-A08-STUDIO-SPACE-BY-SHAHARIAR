@@ -31,6 +31,9 @@ BACKEND_URL=https://your-backend.example.com
 ```
 
 The app adds `/studios` to this URL for studio data requests.
+The studio catalog is cached for faster page loads, refreshed on a short
+interval, and invalidated immediately after a listing is created, edited, or
+deleted.
 
 ## Learn More
 

@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "StudioSpace | Find your creative space",
+  title: "StudioSpace",
   description:
     "Discover inspiring photo studios, podcast rooms, sound stages, and creative workspaces on StudioSpace.",
 };

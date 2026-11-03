@@ -74,13 +74,13 @@ const HeroSection = () => {
       >
         <CarouselContent className="h-full ml-0">
           {SLIDES.map((slide, index) => (
-            <CarouselItem key={slide.image} className="h-full pl-0">
+            <CarouselItem key={slide.image} className="relative h-full pl-0">
               <Image
                 src={slide.image}
                 alt={slide.alt}
                 fill
                 preload={index === 0}
-                loading={index === 0 ? undefined : "lazy"}
+                loading={index === 0 ? undefined : "eager"}
                 sizes="100vw"
                 quality={70}
                 className="object-cover object-center"

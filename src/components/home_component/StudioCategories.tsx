@@ -61,9 +61,13 @@ const StudioCategories = async () => {
   const categories = [...studiosByCategory.values()]
     .map(({ name, studios: group }) => {
       // Feature the category through its highest-rated studio's imagery.
-      const representative = [...group].sort(
-        (a, b) => b.rating - a.rating || a.title.localeCompare(b.title),
-      )[0];
+      // reduce: no array copy + no full sort per group.
+      const representative = group.reduce((best, s) =>
+        s.rating > best.rating ||
+        (s.rating === best.rating && s.title.localeCompare(best.title) < 0)
+          ? s
+          : best,
+      );
       return {
         name,
         count: group.length,
@@ -77,7 +81,7 @@ const StudioCategories = async () => {
     <section
       id="studio-categories"
       aria-labelledby="studio-categories-heading"
-      className="scroll-mt-20 bg-[#1A120B] px-5 py-14 text-white sm:px-8 sm:py-20"
+      className="scroll-mt-20 bg-[#1A120B] px-5 py-14 text-white [contain-intrinsic-size:auto_700px] [content-visibility:auto] sm:px-8 sm:py-20"
     >
       <div className="mx-auto max-w-6xl">
         <div className="text-center">
@@ -102,14 +106,14 @@ const StudioCategories = async () => {
               key={category.name}
               href={`/studios?category=${encodeURIComponent(category.name)}`}
               aria-label={`Browse ${category.name} studios`}
-              className="group relative block h-52 overflow-hidden rounded-xl border border-white/10 bg-[#2A1B10] transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E897A9] sm:last:col-span-2 lg:h-64 lg:last:col-span-1"
+              className="group relative block h-52 overflow-hidden rounded-xl border border-white/10 bg-[#2A1B10] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E897A9] sm:last:col-span-2 lg:h-64 lg:last:col-span-1"
             >
               <StudioImage
                 src={category.image}
                 alt={category.alt}
                 category={category.name}
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 20vw"
-                className="transition-transform duration-500 group-hover:scale-105"
+                className="transform-gpu transition-transform duration-500 group-hover:scale-105"
               />
               <div
                 aria-hidden
@@ -134,7 +138,7 @@ const StudioCategories = async () => {
                       : `${category.count} spaces`}
                   </p>
                 </div>
-                <span className="grid size-8 shrink-0 place-items-center rounded-full border border-white/15 bg-white/10 text-white/90 backdrop-blur-sm transition-all duration-300 group-hover:-translate-y-0.5 group-hover:border-white/30 group-hover:bg-white/20">
+                <span className="grid size-8 shrink-0 place-items-center rounded-full border border-white/15 bg-white/15 text-white/90 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:border-white/30 group-hover:bg-white/25">
                   <ArrowUpRight className="size-4" />
                 </span>
               </div>

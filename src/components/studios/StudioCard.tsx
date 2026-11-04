@@ -44,18 +44,18 @@ const StudioCard = ({
 
   if (isListing) {
     const categoryBackgrounds: Record<string, string> = {
-      "Photo Studio": "bg-[#eadfce]",
-      "Podcast Lounge": "bg-[#dcecf2]",
-      "Film Stage": "bg-[#e8dff0]",
-      "Music Suite": "bg-[#dcefe2]",
-      Workshop: "bg-[#f1e7d2]",
+      "Photo Studio": "bg-[#eadfce] dark:bg-[#1f1911]",
+      "Podcast Lounge": "bg-[#dcecf2] dark:bg-[#10283c]",
+      "Film Stage": "bg-[#e8dff0] dark:bg-[#2b2140]",
+      "Music Suite": "bg-[#dcefe2] dark:bg-[#10301f]",
+      Workshop: "bg-[#f1e7d2] dark:bg-[#1f1911]",
     };
 
     return (
-      <Card className="flex h-100 min-w-0 flex-col gap-0 rounded-2xl border-[#eee7dc] bg-white p-2 shadow-none ring-0">
+      <Card className="flex h-100 min-w-0 flex-col gap-0 rounded-2xl border-[#eee7dc] dark:border-[#33291d] bg-card p-2 shadow-none ring-0">
         <div
           className={`relative h-36 shrink-0 overflow-hidden rounded-xl sm:h-40 ${
-            categoryBackgrounds[studio.category] ?? "bg-[#eadfce]"
+            categoryBackgrounds[studio.category] ?? "bg-[#eadfce] dark:bg-[#1f1911]"
           }`}
         >
           <StudioImage
@@ -67,14 +67,14 @@ const StudioCard = ({
           <span
             className={`absolute left-2 top-2 inline-flex items-center gap-1 rounded-full px-2 py-1 text-[9px] font-medium ${
               studio.isAvailable
-                ? "bg-[#e0f2e7] text-[#247443]"
-                : "bg-[#eee9e1] text-[#5f574c]"
+                ? "bg-[#e0f2e7] dark:bg-[#10301f] text-[#247443] dark:text-[#8fe3b4]"
+                : "bg-[#eee9e1] dark:bg-[#1f1911] text-[#5f574c] dark:text-[#c9bda8]"
             }`}
           >
             <span aria-hidden className="size-1 rounded-full bg-current" />
             {studio.isAvailable ? "Available for booking" : "Paused"}
           </span>
-          <span className="absolute right-2 top-2 inline-flex items-center gap-1 rounded-full bg-white/90 px-2 py-1 text-[9px] font-semibold text-[#201a14]">
+          <span className="absolute right-2 top-2 inline-flex items-center gap-1 rounded-full bg-card/90 px-2 py-1 text-[9px] font-semibold text-[#201a14] dark:text-[#f2eadf]">
             <Star aria-hidden className="size-3 fill-[#c8831d] text-[#c8831d]" />
             {studio.rating}
           </span>
@@ -84,17 +84,17 @@ const StudioCard = ({
         </div>
 
         <CardHeader className="min-h-29 gap-1 px-2 pt-4 pb-0">
-          <p className="text-[9px] font-semibold uppercase tracking-[0.16em] text-[#bd5b0d]">
+          <p className="text-[9px] font-semibold uppercase tracking-[0.16em] text-[#bd5b0d] dark:text-[#f0a63c]">
             {studio.category}
           </p>
-          <CardTitle className="line-clamp-1 min-h-5 truncate font-serif text-base font-normal leading-snug text-[#201a14]">
+          <CardTitle className="line-clamp-1 min-h-5 truncate font-serif text-base font-normal leading-snug text-[#201a14] dark:text-[#f2eadf]">
             {studio.title}
           </CardTitle>
-          <p className="flex items-center gap-1 truncate text-[10px] text-[#756b5e]">
+          <p className="flex items-center gap-1 truncate text-[10px] text-[#756b5e] dark:text-[#a4987f]">
             <MapPin aria-hidden className="size-3 shrink-0" />
             {studio.location}
           </p>
-          <p className="flex items-center gap-1 text-[10px] text-[#201a14]">
+          <p className="flex items-center gap-1 text-[10px] text-[#201a14] dark:text-[#f2eadf]">
             <Star aria-hidden className="size-3 fill-[#c8831d] text-[#c8831d]" />
             {studio.reviewCount > 0
               ? `${studio.rating.toFixed(1)} (${studio.reviewCount} reviews)`
@@ -103,19 +103,19 @@ const StudioCard = ({
         </CardHeader>
 
         <CardContent className="flex min-h-12 flex-wrap content-start gap-1.5 px-2 pt-3 pb-2">
-          <span className="rounded-full bg-[#ffecd1] px-2 py-1 text-[9px] font-medium text-[#74400f]">
+          <span className="rounded-full bg-[#ffecd1] dark:bg-[#3a2a12] px-2 py-1 text-[9px] font-medium text-[#74400f] dark:text-[#f5cf8d]">
             ${studio.hourlyRate} / hour
           </span>
-          <span className="inline-flex items-center gap-1 rounded-full bg-[#e1eff8] px-2 py-1 text-[9px] font-medium text-[#245b7e]">
+          <span className="inline-flex items-center gap-1 rounded-full bg-[#e1eff8] dark:bg-[#10283c] px-2 py-1 text-[9px] font-medium text-[#245b7e] dark:text-[#9fcaf5]">
             <Users aria-hidden className="size-2.5" />
             {studio.maxCapacity} people
           </span>
-          <span className="rounded-full bg-[#e0f2e7] px-2 py-1 text-[9px] font-medium text-[#245b3a]">
+          <span className="rounded-full bg-[#e0f2e7] dark:bg-[#10301f] px-2 py-1 text-[9px] font-medium text-[#245b3a] dark:text-[#8fe3b4]">
             ${studio.securityDeposit} deposit
           </span>
         </CardContent>
 
-        <CardFooter className="mt-auto gap-2 border-t border-[#eee7dc] bg-transparent px-2 pt-3 pb-2">
+        <CardFooter className="mt-auto gap-2 border-t border-[#eee7dc] dark:border-[#33291d] bg-transparent px-2 pt-3 pb-2">
           <Button
             nativeButton={false}
             render={
@@ -134,7 +134,7 @@ const StudioCard = ({
 
   return (
     <Card
-      className={`gap-0 overflow-hidden rounded-lg bg-white py-0 shadow-sm ring-black/8 transition-shadow duration-300 hover:shadow-md ${
+      className={`gap-0 overflow-hidden rounded-lg bg-card py-0 shadow-sm ring-black/8 transition-shadow duration-300 hover:shadow-md ${
         isFeatured ? "h-full" : ""
       }`}
     >
@@ -150,18 +150,18 @@ const StudioCard = ({
         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         className="transition-transform duration-500 group-hover/card:scale-105"
       />
-        <span className="absolute left-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-medium text-neutral-800 shadow-sm backdrop-blur-sm">
+        <span className="absolute left-3 top-3 rounded-full bg-card/90 px-2.5 py-1 text-[10px] font-medium text-foreground shadow-sm backdrop-blur-sm">
           {isFeatured
             ? categoryLabel[studio.category] ?? studio.category
             : studio.category}
         </span>
         {!isFeatured ? (
           <>
-            <span className="absolute right-2 top-2 inline-flex items-center gap-1 rounded-full bg-white px-2 py-1 text-[10px] font-semibold text-neutral-800">
+            <span className="absolute right-2 top-2 inline-flex items-center gap-1 rounded-full bg-card px-2 py-1 text-[10px] font-semibold text-foreground">
               <Star className="size-3 fill-amber-400 text-amber-400" />
               {studio.rating.toFixed(1)}
             </span>
-            <span className="absolute bottom-2 left-2 text-[10px] text-neutral-800 drop-shadow-sm">
+            <span className="absolute bottom-2 left-2 text-[10px] text-foreground drop-shadow-sm">
               Studio photo
             </span>
           </>
@@ -199,11 +199,11 @@ const StudioCard = ({
           ) : null}
         </div>
         {isFeatured ? (
-          <p className="line-clamp-2 min-h-10 text-xs leading-5 text-neutral-500">
+          <p className="line-clamp-2 min-h-10 text-xs leading-5 text-muted-foreground">
             {description}
           </p>
         ) : (
-          <p className="flex items-center gap-1 truncate text-[11px] text-neutral-500">
+          <p className="flex items-center gap-1 truncate text-[11px] text-muted-foreground">
             <MapPin className="size-3 shrink-0" />
             {studio.location}
           </p>
@@ -213,7 +213,7 @@ const StudioCard = ({
       <CardContent
         className={`pt-3 pb-0 ${isFeatured ? "px-4 pt-4" : "px-3"}`}
       >
-        <div className="border-t border-neutral-100" />
+        <div className="border-t border-border" />
       </CardContent>
 
       <CardFooter
@@ -222,17 +222,17 @@ const StudioCard = ({
         }`}
       >
         <p
-          className={`font-semibold text-neutral-900 ${
+          className={`font-semibold text-foreground ${
             isFeatured ? "text-sm" : "text-xs"
           }`}
         >
           {isFeatured ? "From " : ""}${studio.hourlyRate}
-          <span className="ml-1 text-[10px] font-normal text-neutral-500">
+          <span className="ml-1 text-[10px] font-normal text-muted-foreground">
             / hr
           </span>
         </p>
         {isFeatured ? (
-          <span className="text-[10px] text-neutral-400">
+          <span className="text-[10px] text-muted-foreground">
             Hourly · Daily · Project
           </span>
         ) : (

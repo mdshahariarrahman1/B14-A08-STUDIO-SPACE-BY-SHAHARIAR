@@ -27,10 +27,10 @@ async function PrivateMyListingsPage() {
   );
 
   return (
-    <main className="min-h-[calc(100vh-5rem)] bg-[#f7f3eb] px-5 py-10 sm:px-8">
+    <main className="min-h-[calc(100vh-5rem)] bg-[#f7f3eb] dark:bg-[#14100c] px-5 py-10 sm:px-8">
       <div className="mx-auto max-w-6xl">
-        <nav aria-label="Breadcrumb" className="text-xs text-[#756b5e]">
-          <Link className="underline underline-offset-2 hover:text-[#201a14]" href="/studios">
+        <nav aria-label="Breadcrumb" className="text-xs text-[#756b5e] dark:text-[#a4987f]">
+          <Link className="underline underline-offset-2 hover:text-[#201a14] dark:text-[#f2eadf]" href="/studios">
             Spaces
           </Link>
           <span aria-hidden className="mx-2">/</span>
@@ -39,20 +39,20 @@ async function PrivateMyListingsPage() {
 
         <div className="mt-5 flex flex-wrap items-end justify-between gap-5">
           <div>
-            <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#c66b20]">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#c66b20] dark:text-[#f0a63c]">
               Host dashboard
             </p>
-            <h1 className="mt-2 text-4xl font-medium tracking-tight text-[#201a14] sm:text-5xl">
-              My <span className="font-serif italic text-[#c66b20]">listings</span>
+            <h1 className="mt-2 text-4xl font-medium tracking-tight text-[#201a14] dark:text-[#f2eadf] sm:text-5xl">
+              My <span className="font-serif italic text-[#c66b20] dark:text-[#f0a63c]">listings</span>
             </h1>
-            <p className="mt-3 max-w-md text-xs leading-5 text-[#62594e]">
+            <p className="mt-3 max-w-md text-xs leading-5 text-[#62594e] dark:text-[#c9bda8]">
               Every studio you&apos;ve added, in one place. Review the details, update them or take a listing down.
             </p>
           </div>
           <Button
             nativeButton={false}
             render={<Link href="/add-studio" />}
-            className="h-10 rounded-full bg-[#f4a000] px-5 text-sm font-semibold text-[#201a14] hover:bg-[#e89400]"
+            className="h-10 rounded-full bg-[#f4a000] px-5 text-sm font-semibold text-[#201a14] dark:text-[#201a14] hover:bg-[#e89400]"
           >
             <Plus aria-hidden className="size-4" />
             Add new studio
@@ -71,7 +71,7 @@ export default function MyListingsPage() {
       fallback={
         <div
           aria-label="Loading your studio listings"
-          className="min-h-[calc(100vh-5rem)] animate-pulse bg-[#f7f3eb]"
+          className="min-h-[calc(100vh-5rem)] animate-pulse bg-[#f7f3eb] dark:bg-[#14100c]"
         />
       }
     >

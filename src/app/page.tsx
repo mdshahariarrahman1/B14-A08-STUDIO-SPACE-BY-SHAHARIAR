@@ -53,7 +53,7 @@ const HomePage = () => {
           fallback={
             <div
               aria-label="Loading featured studios"
-              className="h-96 animate-pulse bg-[#f7f5f0]"
+              className="h-96 animate-pulse bg-[#f7f5f0] dark:bg-[#14100c]"
             />
           }
         >
@@ -63,7 +63,7 @@ const HomePage = () => {
           fallback={
             <div
               aria-label="Loading premium studios"
-              className="h-96 animate-pulse bg-white"
+              className="h-96 animate-pulse bg-card"
             />
           }
         >

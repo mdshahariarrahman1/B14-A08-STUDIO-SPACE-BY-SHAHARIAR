@@ -145,19 +145,19 @@ function NotFoundIllustration() {
 
 export default function NotFound() {
   return (
-    <main className="flex min-h-[calc(100vh-5rem)] items-center justify-center bg-[#f7f3eb] px-5 py-12 sm:px-8 lg:py-16">
+    <main className="flex min-h-[calc(100vh-5rem)] items-center justify-center bg-[#f7f3eb] dark:bg-[#14100c] px-5 py-12 sm:px-8 lg:py-16">
       <div className="grid w-full max-w-6xl items-center gap-12 lg:grid-cols-2 lg:gap-10">
         <section className="flex flex-col items-start">
-          <p className="flex items-center gap-2.5 text-xs font-bold tracking-[0.28em] text-[#c66b20] uppercase">
+          <p className="flex items-center gap-2.5 text-xs font-bold tracking-[0.28em] text-[#c66b20] dark:text-[#f0a63c] uppercase">
             <span aria-hidden className="size-1.5 rounded-full bg-[#c66b20]" />
             Error 404
           </p>
 
-          <h1 className="mt-5 max-w-xl font-serif text-5xl leading-[1.08] font-medium tracking-tight text-[#201a14] sm:text-6xl lg:text-7xl">
-            This page is <em className="italic text-[#c66b20]">off the set</em>
+          <h1 className="mt-5 max-w-xl font-serif text-5xl leading-[1.08] font-medium tracking-tight text-[#201a14] dark:text-[#f2eadf] sm:text-6xl lg:text-7xl">
+            This page is <em className="italic text-[#c66b20] dark:text-[#f0a63c]">off the set</em>
           </h1>
 
-          <p className="mt-7 max-w-md text-base leading-7 text-[#62594e] sm:text-lg sm:leading-8">
+          <p className="mt-7 max-w-md text-base leading-7 text-[#62594e] dark:text-[#c9bda8] sm:text-lg sm:leading-8">
             The page you&apos;re looking for has wrapped up, moved to another
             stage, or never made it to the call sheet. Let&apos;s get you back
             to the main studio.
@@ -167,7 +167,7 @@ export default function NotFound() {
             <Button
               nativeButton={false}
               render={<Link href="/" />}
-              className="h-12 rounded-full bg-[#f4a000] px-6 text-sm font-semibold text-[#201a14] hover:bg-[#e89400]"
+              className="h-12 rounded-full bg-[#f4a000] px-6 text-sm font-semibold text-[#201a14] dark:text-[#201a14] hover:bg-[#e89400]"
             >
               <House aria-hidden className="size-4" />
               Return to Home
@@ -176,14 +176,14 @@ export default function NotFound() {
               nativeButton={false}
               render={<Link href="/studios" />}
               variant="outline"
-              className="h-12 rounded-full border-[#e8e0d2] bg-white px-6 text-sm font-semibold text-[#201a14] hover:bg-[#faf6ec]"
+              className="h-12 rounded-full border-[#e8e0d2] dark:border-[#33291d] bg-card px-6 text-sm font-semibold text-[#201a14] dark:text-[#f2eadf] hover:bg-[#faf6ec] dark:bg-[#1c1610]"
             >
               <Search aria-hidden className="size-4" />
               Browse studios
             </Button>
           </div>
 
-          <p className="mt-9 text-sm text-[#8a7f70]">Or jump straight to</p>
+          <p className="mt-9 text-sm text-[#8a7f70] dark:text-[#a4987f]">Or jump straight to</p>
           <div className="mt-3 flex flex-wrap items-center justify-center gap-3 sm:justify-start">
             {QUICK_LINKS.map((quickLink) => (
               <Button
@@ -191,7 +191,7 @@ export default function NotFound() {
                 nativeButton={false}
                 render={<Link href={quickLink.href} />}
                 variant="outline"
-                className="h-10 rounded-full border-[#e8e0d2] bg-white px-5 text-sm font-medium text-[#201a14] shadow-sm hover:bg-[#faf6ec]"
+                className="h-10 rounded-full border-[#e8e0d2] dark:border-[#33291d] bg-card px-5 text-sm font-medium text-[#201a14] dark:text-[#f2eadf] shadow-sm hover:bg-[#faf6ec] dark:bg-[#1c1610]"
               >
                 {quickLink.label}
               </Button>
@@ -199,17 +199,17 @@ export default function NotFound() {
           </div>
         </section>
 
-        <Card className="gap-0 rounded-[28px] bg-white py-0 shadow-[0_24px_50px_-28px_rgba(32,26,20,0.28)] ring-1 ring-black/5">
+        <Card className="gap-0 rounded-[28px] bg-card py-0 shadow-[0_24px_50px_-28px_rgba(32,26,20,0.28)] ring-1 ring-black/5">
           <CardContent className="p-4">
-            <div className="overflow-hidden rounded-2xl bg-[#cddceb]">
+            <div className="overflow-hidden rounded-2xl bg-[#cddceb] dark:bg-[#10283c]">
               <NotFoundIllustration />
             </div>
           </CardContent>
-          <CardFooter className="flex items-center justify-between rounded-b-[28px] border-t border-[#f0e7d8] bg-transparent px-6 py-5">
-            <p className="text-sm text-[#62594e] sm:text-base">
+          <CardFooter className="flex items-center justify-between rounded-b-[28px] border-t border-[#f0e7d8] dark:border-[#33291d] bg-transparent px-6 py-5">
+            <p className="text-sm text-[#62594e] dark:text-[#c9bda8] sm:text-base">
               Scene 4 · Take 0 · Page not found
             </p>
-            <span className="flex items-center gap-2 rounded-full bg-[#fbe7ab] px-4 py-1.5 text-sm font-semibold text-[#201a14]">
+            <span className="flex items-center gap-2 rounded-full bg-[#fbe7ab] dark:bg-[#3a2a12] px-4 py-1.5 text-sm font-semibold text-[#201a14] dark:text-[#f5cf8d]">
               <span
                 aria-hidden
                 className="size-1.5 rounded-full bg-[#c66b20]"

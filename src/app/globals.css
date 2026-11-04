@@ -4,6 +4,11 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* react-fast-marquee gradient fades into the page background in either theme */
+:root {
+  --marquee-fade: var(--background);
+}
+
 @theme inline {
     --font-heading: var(--font-sans);
     --font-sans: var(--font-sans);

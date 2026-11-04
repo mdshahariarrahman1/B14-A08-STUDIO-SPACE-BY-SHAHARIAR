@@ -81,26 +81,26 @@ const UserMenu = ({
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger
-        className="group/user-menu flex shrink-0 items-center gap-2.5 rounded-full border border-neutral-200 bg-white py-1.5 pr-3 pl-1.5 shadow-sm outline-none transition-colors duration-200 hover:bg-neutral-50 focus-visible:ring-2 focus-visible:ring-[#F0A63C]/40"
+        className="group/user-menu flex shrink-0 items-center gap-2.5 rounded-full border border-border bg-card py-1.5 pr-3 pl-1.5 shadow-sm outline-none transition-colors duration-200 hover:bg-muted focus-visible:ring-2 focus-visible:ring-[#F0A63C]/40"
         aria-haspopup="menu"
         aria-expanded={isOpen}
       >
         <Avatar
           size="lg"
-          className="ring-2 ring-[#E4EDFB] *:data-[slot=avatar-fallback]:size-full"
+          className="ring-2 ring-[#E4EDFB] dark:ring-[#1f3a4c] *:data-[slot=avatar-fallback]:size-full"
         >
           <AvatarImage src={user.image ?? undefined} alt={user.name ?? "User"} />
-          <AvatarFallback className="bg-[#E4EDFB] text-sm font-semibold text-[#2C4B92]">
+          <AvatarFallback className="bg-[#E4EDFB] text-sm font-semibold text-[#2C4B92] dark:text-[#9fcaf5]">
             {fallbackInitial}
           </AvatarFallback>
         </Avatar>
-        <span className="max-w-32 truncate text-sm font-semibold text-[#141414]">
+        <span className="max-w-32 truncate text-sm font-semibold text-[#141414] dark:text-[#f2eadf]">
           {user.name ?? "User"}
         </span>
         <ChevronDown
           aria-hidden="true"
           className={cn(
-            "size-4 shrink-0 text-neutral-500 transition-transform duration-200",
+            "size-4 shrink-0 text-muted-foreground transition-transform duration-200",
             isOpen && "rotate-180",
           )}
         />
@@ -115,29 +115,29 @@ const UserMenu = ({
           href="/profile"
           onClick={() => setIsOpen(false)}
           aria-label={`View ${user.name ?? "User"} profile`}
-          className="group/profile flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left outline-none transition-colors hover:bg-neutral-100 focus-visible:ring-2 focus-visible:ring-[#F0A63C]/40"
+          className="group/profile flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left outline-none transition-colors hover:bg-muted focus-visible:ring-2 focus-visible:ring-[#F0A63C]/40"
         >
           <Avatar
             size="lg"
-            className="size-11 ring-2 ring-[#E4EDFB] *:data-[slot=avatar-fallback]:size-full"
+            className="size-11 ring-2 ring-[#E4EDFB] dark:ring-[#1f3a4c] *:data-[slot=avatar-fallback]:size-full"
           >
             <AvatarImage
               src={user.image ?? undefined}
               alt={user.name ?? "User"}
             />
-            <AvatarFallback className="bg-[#E4EDFB] text-sm font-semibold text-[#2C4B92]">
+            <AvatarFallback className="bg-[#E4EDFB] text-sm font-semibold text-[#2C4B92] dark:text-[#9fcaf5]">
               {fallbackInitial}
             </AvatarFallback>
           </Avatar>
           <div className="min-w-0 flex-1">
-            <p className="flex items-center gap-1.5 text-xs font-medium text-neutral-500">
+            <p className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
               <UserRound aria-hidden="true" className="size-3.5 shrink-0" />
               Profile
             </p>
-            <p className="mt-1 truncate text-base font-bold leading-tight text-neutral-900">
+            <p className="mt-1 truncate text-base font-bold leading-tight text-foreground">
               {user.name ?? "User"}
             </p>
-            <p className="mt-1 truncate text-xs text-neutral-500">
+            <p className="mt-1 truncate text-xs text-muted-foreground">
               {user.email && user.email.length > 0
                 ? user.email
                 : "No email on file"}
@@ -145,7 +145,7 @@ const UserMenu = ({
           </div>
           <ChevronRight
             aria-hidden="true"
-            className="size-4 shrink-0 text-neutral-400 transition-transform group-hover/profile:translate-x-0.5"
+            className="size-4 shrink-0 text-muted-foreground transition-transform group-hover/profile:translate-x-0.5"
           />
         </Link>
 
@@ -157,8 +157,8 @@ const UserMenu = ({
             className={cn(
               menuItemClass,
               link.accent
-                ? "text-[#E08A1E] hover:bg-[#FDF3E3] hover:text-[#C97A12]"
-                : "text-neutral-800 hover:bg-neutral-100 hover:text-neutral-900",
+                ? "text-[#E08A1E] hover:bg-[#FDF3E3] dark:bg-[#3a2a12] hover:text-[#C97A12]"
+                : "text-foreground hover:bg-muted hover:text-foreground",
             )}
           >
             <link.icon
@@ -169,7 +169,7 @@ const UserMenu = ({
           </Link>
         ))}
 
-        <div aria-hidden="true" className="my-1.5 h-px bg-neutral-200" />
+        <div aria-hidden="true" className="my-1.5 h-px bg-muted" />
 
         <button
           type="button"

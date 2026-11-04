@@ -188,7 +188,7 @@ const Footer = async () => {
                   aria-label={label}
                   target="_blank"
                   rel="noreferrer"
-                  className="grid size-11 place-items-center rounded-full border border-white/10 bg-white/4 text-white/90 transition-colors hover:border-[#f5a000]/50 hover:bg-[#f5a000]/10 hover:text-[#f5a000]"
+                  className="grid size-11 place-items-center rounded-full border border-white/10 bg-card/4 text-white/90 transition-colors hover:border-[#f5a000]/50 hover:bg-[#f5a000]/10 hover:text-[#f5a000]"
                 >
                   <SocialIcon network={network} />
                 </a>

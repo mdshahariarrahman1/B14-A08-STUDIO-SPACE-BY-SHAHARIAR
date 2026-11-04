@@ -23,7 +23,7 @@ const AuthBrandHeader = () => {
             <circle cx="16.8" cy="7.2" r="0.4" fill="#ffffff" />
           </svg>
         </span>
-        <span className="text-xl font-bold tracking-tight text-[#141414]">
+        <span className="text-xl font-bold tracking-tight text-[#141414] dark:text-[#f2eadf]">
           StudioSpace
         </span>
       </Link>

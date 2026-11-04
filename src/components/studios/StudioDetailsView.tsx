@@ -24,18 +24,18 @@ import type { IStudio } from "@/type";
 import BookingWidget from "./BookingWidget";
 
 const AMENITY_STYLES: Record<string, { icon: LucideIcon; chip: string }> = {
-  "professional lighting": { icon: Sun, chip: "bg-amber-100 text-amber-700" },
-  lighting: { icon: Sun, chip: "bg-amber-100 text-amber-700" },
+  "professional lighting": { icon: Sun, chip: "bg-amber-100 dark:bg-[#3a2a12] text-amber-700 dark:text-[#f5cf8d]" },
+  lighting: { icon: Sun, chip: "bg-amber-100 dark:bg-[#3a2a12] text-amber-700 dark:text-[#f5cf8d]" },
   "changing room": { icon: DoorOpen, chip: "bg-sky-100 text-sky-700" },
   "makeup station": { icon: Sparkles, chip: "bg-purple-100 text-purple-700" },
   "air conditioning": { icon: Wind, chip: "bg-teal-100 text-teal-700" },
-  "wi-fi": { icon: Wifi, chip: "bg-amber-100 text-amber-700" },
-  wifi: { icon: Wifi, chip: "bg-amber-100 text-amber-700" },
+  "wi-fi": { icon: Wifi, chip: "bg-amber-100 dark:bg-[#3a2a12] text-amber-700 dark:text-[#f5cf8d]" },
+  wifi: { icon: Wifi, chip: "bg-amber-100 dark:bg-[#3a2a12] text-amber-700 dark:text-[#f5cf8d]" },
 };
 
 const AMENITY_FALLBACK = {
   icon: CircleCheck,
-  chip: "bg-neutral-100 text-neutral-700",
+  chip: "bg-muted text-muted-foreground",
 };
 
 function getAmenityStyle(amenity: string) {
@@ -67,10 +67,10 @@ function getInitials(name: string) {
 }
 
 const SectionHeading = ({ pre, accent }: { pre: string; accent?: string }) => (
-  <h2 className="text-2xl font-medium tracking-tight text-neutral-900 sm:text-3xl">
+  <h2 className="text-2xl font-medium tracking-tight text-foreground sm:text-3xl">
     {pre}
     {accent ? (
-      <span className="ml-2 font-serif font-normal italic text-[#8a6a4f]">
+      <span className="ml-2 font-serif font-normal italic text-[#8a6a4f] dark:text-[#c8ab7f]">
         {accent}
       </span>
     ) : null}
@@ -84,7 +84,7 @@ const StudioDetailsView = ({ studio }: { studio: IStudio }) => {
   const statCards = [
     {
       icon: Clock,
-      chip: "bg-amber-100 text-amber-700",
+      chip: "bg-amber-100 dark:bg-[#3a2a12] text-amber-700 dark:text-[#f5cf8d]",
       value: `$${studio.hourlyRate}`,
       label: "Hourly rate",
     },
@@ -103,35 +103,35 @@ const StudioDetailsView = ({ studio }: { studio: IStudio }) => {
   ];
 
   return (
-    <main className="min-h-[calc(100vh-5rem)] bg-[#f7f5f0] pb-20">
+    <main className="min-h-[calc(100vh-5rem)] bg-[#f7f5f0] dark:bg-[#14100c] pb-20">
       <div className="mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-10">
         {/* Breadcrumbs */}
-        <nav aria-label="Breadcrumb" className="text-sm text-neutral-500">
+        <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground">
           <Link
             href="/studios"
-            className="underline decoration-neutral-300 underline-offset-2 transition-colors hover:text-neutral-800"
+            className="underline decoration-neutral-300 underline-offset-2 transition-colors hover:text-foreground"
           >
             Spaces
           </Link>
           <span aria-hidden className="mx-1.5">
             /
           </span>
-          <span className="text-neutral-600">{studio.category}</span>
+          <span className="text-muted-foreground">{studio.category}</span>
         </nav>
 
         {/* Header */}
         <div className="mt-5 flex flex-wrap items-end justify-between gap-4">
           <div className="min-w-0">
-            <p className="flex items-center gap-2 text-xs font-semibold tracking-[0.2em] text-neutral-500 uppercase">
-              <span aria-hidden className="text-[#C96F4A]">
+            <p className="flex items-center gap-2 text-xs font-semibold tracking-[0.2em] text-muted-foreground uppercase">
+              <span aria-hidden className="text-[#C96F4A] dark:text-[#f2937f]">
                 •
               </span>
               {studio.category}
             </p>
-            <h1 className="mt-2 text-4xl font-semibold tracking-tight text-neutral-900 sm:text-5xl">
+            <h1 className="mt-2 text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
               {lead}
               {accent ? (
-                <span className="font-serif font-normal italic text-[#8a6a4f]">
+                <span className="font-serif font-normal italic text-[#8a6a4f] dark:text-[#c8ab7f]">
                   {" "}
                   {accent}
                 </span>
@@ -143,14 +143,14 @@ const StudioDetailsView = ({ studio }: { studio: IStudio }) => {
                   aria-hidden
                   className="size-4 fill-amber-500 text-amber-500"
                 />
-                <span className="font-semibold text-neutral-900">
+                <span className="font-semibold text-foreground">
                   {studio.rating.toFixed(1)}
                 </span>
-                <span className="text-neutral-500">
+                <span className="text-muted-foreground">
                   ({studio.reviewCount} reviews)
                 </span>
               </span>
-              <span className="flex items-center gap-1.5 text-neutral-600">
+              <span className="flex items-center gap-1.5 text-muted-foreground">
                 <MapPin aria-hidden className="size-4" />
                 {studio.location}
               </span>
@@ -160,13 +160,13 @@ const StudioDetailsView = ({ studio }: { studio: IStudio }) => {
             className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium ${
               studio.isAvailable
                 ? "bg-emerald-100 text-emerald-800"
-                : "bg-neutral-200 text-neutral-600"
+                : "bg-muted text-muted-foreground"
             }`}
           >
             <span
               aria-hidden
               className={`size-1.5 rounded-full ${
-                studio.isAvailable ? "bg-emerald-600" : "bg-neutral-500"
+                studio.isAvailable ? "bg-emerald-600" : "bg-muted0"
               }`}
             />
             {studio.isAvailable ? "Available for booking" : "Unavailable"}
@@ -193,7 +193,7 @@ const StudioDetailsView = ({ studio }: { studio: IStudio }) => {
                 <Card
                   key={stat.label}
                   size="sm"
-                  className="rounded-2xl bg-white shadow-sm ring-black/8"
+                  className="rounded-2xl bg-card shadow-sm ring-black/8"
                 >
                   <CardContent className="p-5">
                     <span
@@ -201,10 +201,10 @@ const StudioDetailsView = ({ studio }: { studio: IStudio }) => {
                     >
                       <stat.icon aria-hidden className="size-5" />
                     </span>
-                    <p className="mt-4 text-xl font-semibold text-neutral-900">
+                    <p className="mt-4 text-xl font-semibold text-foreground">
                       {stat.value}
                     </p>
-                    <p className="mt-0.5 text-sm text-neutral-500">
+                    <p className="mt-0.5 text-sm text-muted-foreground">
                       {stat.label}
                     </p>
                   </CardContent>
@@ -215,7 +215,7 @@ const StudioDetailsView = ({ studio }: { studio: IStudio }) => {
             {/* About */}
             <section className="space-y-4">
               <SectionHeading pre="About this" accent="space" />
-              <p className="max-w-2xl leading-7 text-neutral-600">
+              <p className="max-w-2xl leading-7 text-muted-foreground">
                 {studio.overview}
               </p>
             </section>
@@ -231,7 +231,7 @@ const StudioDetailsView = ({ studio }: { studio: IStudio }) => {
                       <li key={amenity}>
                         <Card
                           size="sm"
-                          className="rounded-2xl bg-white shadow-sm ring-black/8"
+                          className="rounded-2xl bg-card shadow-sm ring-black/8"
                         >
                           <CardContent className="flex items-center gap-3 p-3.5">
                             <span
@@ -242,7 +242,7 @@ const StudioDetailsView = ({ studio }: { studio: IStudio }) => {
                                 className="size-4.5"
                               />
                             </span>
-                            <span className="truncate text-sm font-medium text-neutral-900">
+                            <span className="truncate text-sm font-medium text-foreground">
                               {amenity}
                             </span>
                           </CardContent>
@@ -257,7 +257,7 @@ const StudioDetailsView = ({ studio }: { studio: IStudio }) => {
             {/* Host */}
             <section className="space-y-5">
               <SectionHeading pre="Your" accent="host" />
-              <Card className="rounded-2xl bg-white py-0 shadow-sm ring-black/8">
+              <Card className="rounded-2xl bg-card py-0 shadow-sm ring-black/8">
                 <div className="flex flex-wrap items-center justify-between gap-4 p-4">
                   <div className="flex items-center gap-4">
                     <Avatar size="lg" className="size-12">
@@ -266,10 +266,10 @@ const StudioDetailsView = ({ studio }: { studio: IStudio }) => {
                       </AvatarFallback>
                     </Avatar>
                     <div>
-                      <p className="font-semibold text-neutral-900">
+                      <p className="font-semibold text-foreground">
                         {studio.ownerName}
                       </p>
-                      <p className="text-sm text-neutral-500">Studio owner</p>
+                      <p className="text-sm text-muted-foreground">Studio owner</p>
                     </div>
                   </div>
                   <Button
@@ -294,9 +294,9 @@ const StudioDetailsView = ({ studio }: { studio: IStudio }) => {
             {/* Rating */}
             <section className="space-y-5">
               <SectionHeading pre="Creator" accent="rating" />
-              <Card className="rounded-2xl bg-white py-0 shadow-sm ring-black/8">
+              <Card className="rounded-2xl bg-card py-0 shadow-sm ring-black/8">
                 <div className="flex items-center gap-6 p-6">
-                  <span className="text-4xl font-semibold text-neutral-900">
+                  <span className="text-4xl font-semibold text-foreground">
                     {studio.rating.toFixed(1)}
                   </span>
                   <div>
@@ -308,12 +308,12 @@ const StudioDetailsView = ({ studio }: { studio: IStudio }) => {
                           className={`size-4 ${
                             index < Math.round(studio.rating)
                               ? "fill-amber-500 text-amber-500"
-                              : "text-neutral-300"
+                              : "text-muted-foreground"
                           }`}
                         />
                       ))}
                     </div>
-                    <p className="mt-1 text-sm text-neutral-600">
+                    <p className="mt-1 text-sm text-muted-foreground">
                       Based on {studio.reviewCount} creator reviews
                     </p>
                   </div>

@@ -14,12 +14,12 @@ const BRANDS = [
 const TrustedBrands = () => (
   <section
     aria-labelledby="trusted-brands-heading"
-    className="min-h-62 border-b-4 border-[#f1efeb] border-l-4 border-l-[#f5c2cf] bg-white px-5 pt-1"
+    className="min-h-62 border-b-4 border-[#f1efeb] dark:border-[#33291d] border-l-4 border-l-[#f5c2cf] bg-card px-5 pt-1"
   >
-    <div className="mx-auto min-h-60 max-w-7xl border-t border-neutral-100">
+    <div className="mx-auto min-h-60 max-w-7xl border-t border-border">
       <h2
         id="trusted-brands-heading"
-        className="pt-11 text-center text-[11px] font-medium tracking-[0.23em] text-[#927d72] sm:text-xs"
+        className="pt-11 text-center text-[11px] font-medium tracking-[0.23em] text-[#927d72] dark:text-[#a4987f] sm:text-xs"
       >
         TRUSTED BY CREATORS &amp; BRANDS WORLDWIDE
       </h2>
@@ -35,7 +35,7 @@ const TrustedBrands = () => (
           {BRANDS.map((brand, index) => (
             <div
               key={`${brand.name}-${index}`}
-              className="mx-6 flex h-12 min-w-40 items-center justify-center gap-2.5 text-[#c9c9c9] sm:mx-8 sm:min-w-48"
+              className="mx-6 flex h-12 min-w-40 items-center justify-center gap-2.5 text-[#c9c9c9] dark:text-[#555555] sm:mx-8 sm:min-w-48"
             >
               {brand.mark === "sun" ? (
                 <>
@@ -44,7 +44,7 @@ const TrustedBrands = () => (
                   </span>
                   <span
                     aria-hidden="true"
-                    className="size-9 shrink-0 rounded-full bg-[repeating-linear-gradient(135deg,#d4d4d4_0px,#d4d4d4_1px,transparent_1px,transparent_3px)]"
+                    className="size-9 shrink-0 rounded-full bg-[repeating-linear-gradient(135deg,#d4d4d4_0px,#d4d4d4_1px,transparent_1px,transparent_3px)] dark:bg-[repeating-linear-gradient(135deg,#4a4034_0px,#4a4034_1px,transparent_1px,transparent_3px)]"
                   />
                 </>
               ) : null}
@@ -70,7 +70,7 @@ const TrustedBrands = () => (
                 <>
                   <span
                     aria-hidden="true"
-                    className="flex size-8 items-center justify-center rounded-full bg-[#d2d2d2] text-2xl font-black text-white"
+                    className="flex size-8 items-center justify-center rounded-full bg-[#d2d2d2] dark:bg-[#4d4d4d] text-2xl font-black text-white"
                   >
                     S
                   </span>
@@ -83,7 +83,7 @@ const TrustedBrands = () => (
                 <>
                   <span
                     aria-hidden="true"
-                    className="text-[27px] leading-none text-[#d2d2d2]"
+                    className="text-[27px] leading-none text-[#d2d2d2] dark:text-[#4d4d4d]"
                   >
                     ✣
                   </span>

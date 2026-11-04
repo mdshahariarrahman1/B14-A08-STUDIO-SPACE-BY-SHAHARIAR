@@ -19,11 +19,11 @@ async function PrivateMyBookingsPage() {
   }
 
   return (
-    <main className="min-h-[calc(100vh-5rem)] bg-[#f7f3eb] px-5 py-10 sm:px-8">
+    <main className="min-h-[calc(100vh-5rem)] bg-[#f7f3eb] dark:bg-[#14100c] px-5 py-10 sm:px-8">
       <div className="mx-auto max-w-5xl">
-        <nav aria-label="Breadcrumb" className="text-xs text-[#756b5e]">
+        <nav aria-label="Breadcrumb" className="text-xs text-[#756b5e] dark:text-[#a4987f]">
           <Link
-            className="underline underline-offset-2 hover:text-[#201a14]"
+            className="underline underline-offset-2 hover:text-[#201a14] dark:text-[#f2eadf]"
             href="/studios"
           >
             Spaces
@@ -44,7 +44,7 @@ export default function MyBookingsPage() {
       fallback={
         <div
           aria-label="Loading your bookings"
-          className="min-h-[calc(100vh-5rem)] animate-pulse bg-[#f7f3eb]"
+          className="min-h-[calc(100vh-5rem)] animate-pulse bg-[#f7f3eb] dark:bg-[#14100c]"
         />
       }
     >

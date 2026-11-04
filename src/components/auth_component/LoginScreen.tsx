@@ -99,13 +99,13 @@ const LoginScreen = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF8F3] lg:grid lg:grid-cols-2">
+    <div className="min-h-screen bg-[#FAF8F3] dark:bg-[#14100c] lg:grid lg:grid-cols-2">
       {/* Left column: brand header + form */}
       <div className="mx-auto w-full max-w-150 px-6 pb-14 pt-7 sm:px-10 lg:mx-0 lg:max-w-none lg:px-16 lg:pb-16 lg:pt-9 xl:px-20">
         <AuthBrandHeader />
 
         <form onSubmit={handleSubmit} noValidate className="mt-16 lg:mt-24">
-          <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-[#9A7B4F]">
+          <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-[#9A7B4F] dark:text-[#c8ab7f]">
             <span
               aria-hidden="true"
               className="size-1.5 rounded-full bg-[#C08552]"
@@ -113,14 +113,14 @@ const LoginScreen = () => {
             Welcome back
           </p>
 
-          <h1 className="mt-4 text-4xl font-bold leading-[1.12] tracking-tight text-[#141414] sm:text-5xl">
+          <h1 className="mt-4 text-4xl font-bold leading-[1.12] tracking-tight text-[#141414] dark:text-[#f2eadf] sm:text-5xl">
             Login{" "}
-            <span className="font-medium italic text-[#8A6F52]">
+            <span className="font-medium italic text-[#8A6F52] dark:text-[#c8ab7f]">
               to your account.
             </span>
           </h1>
 
-          <p className="mt-4 max-w-sm text-base leading-relaxed text-[#5B5347]">
+          <p className="mt-4 max-w-sm text-base leading-relaxed text-[#5B5347] dark:text-[#c9bda8]">
             Log in to manage your bookings and find your next studio.
           </p>
 
@@ -128,7 +128,7 @@ const LoginScreen = () => {
             <div>
               <label
                 htmlFor="login-email"
-                className="mb-2 block text-sm font-semibold text-[#141414]"
+                className="mb-2 block text-sm font-semibold text-[#141414] dark:text-[#f2eadf]"
               >
                 Email
               </label>
@@ -143,7 +143,7 @@ const LoginScreen = () => {
                 aria-invalid={
                   hasAttemptedSubmit && !email.trim() ? true : undefined
                 }
-                className="h-12 rounded-xl border-neutral-300 bg-white px-4 text-base text-[#141414] shadow-sm placeholder:text-neutral-400 focus-visible:border-[#F0A63C] focus-visible:ring-[#F5D9A5] md:text-base"
+                className="h-12 rounded-xl border-border bg-card px-4 text-base text-[#141414] dark:text-[#f2eadf] shadow-sm placeholder:text-muted-foreground focus-visible:border-[#F0A63C] focus-visible:ring-[#F5D9A5] dark:ring-[#7a5320] md:text-base"
               />
             </div>
 
@@ -151,13 +151,13 @@ const LoginScreen = () => {
               <div className="mb-2 flex items-center justify-between">
                 <label
                   htmlFor="login-password"
-                  className="block text-sm font-semibold text-[#141414]"
+                  className="block text-sm font-semibold text-[#141414] dark:text-[#f2eadf]"
                 >
                   Password
                 </label>
                 <a
                   href="#"
-                  className="text-sm font-medium text-[#8A6F52] underline underline-offset-4 transition-colors hover:text-[#141414]"
+                  className="text-sm font-medium text-[#8A6F52] dark:text-[#c8ab7f] underline underline-offset-4 transition-colors hover:text-[#141414] dark:text-[#f2eadf]"
                 >
                   Forgot password?
                 </a>
@@ -174,12 +174,12 @@ const LoginScreen = () => {
                   aria-invalid={
                     hasAttemptedSubmit && !password ? true : undefined
                   }
-                  className="h-12 rounded-xl border-neutral-300 bg-white px-4 pr-16 text-base text-[#141414] shadow-sm placeholder:text-neutral-400 focus-visible:border-[#F0A63C] focus-visible:ring-[#F5D9A5] md:text-base"
+                  className="h-12 rounded-xl border-border bg-card px-4 pr-16 text-base text-[#141414] dark:text-[#f2eadf] shadow-sm placeholder:text-muted-foreground focus-visible:border-[#F0A63C] focus-visible:ring-[#F5D9A5] dark:ring-[#7a5320] md:text-base"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-4 z-10 flex items-center text-sm font-medium text-[#6B6459] transition-colors hover:text-[#141414]"
+                  className="absolute inset-y-0 right-4 z-10 flex items-center text-sm font-medium text-[#6B6459] dark:text-[#c9bda8] transition-colors hover:text-[#141414] dark:text-[#f2eadf]"
                 >
                   {showPassword ? "Hide" : "Show"}
                 </button>
@@ -196,7 +196,7 @@ const LoginScreen = () => {
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="mt-7 h-12 w-full rounded-xl bg-[#F0A63C] text-base font-semibold text-[#141414] shadow-[0_14px_34px_-10px_rgba(240,166,60,0.55)] transition-colors hover:bg-[#E2962B] sm:mt-6"
+            className="mt-7 h-12 w-full rounded-xl bg-[#F0A63C] text-base font-semibold text-[#141414] dark:text-[#201a14] shadow-[0_14px_34px_-10px_rgba(240,166,60,0.55)] transition-colors hover:bg-[#E2962B] sm:mt-6"
           >
             {isSubmitting ? "Logging in…" : "Login"}
           </Button>
@@ -206,7 +206,7 @@ const LoginScreen = () => {
             className="mt-7 flex items-center gap-4 sm:gap-5"
           >
             <span className="h-px flex-1 bg-[#E3DDD2]" />
-            <span className="text-sm text-[#6B6459]">or</span>
+            <span className="text-sm text-[#6B6459] dark:text-[#c9bda8]">or</span>
             <span className="h-px flex-1 bg-[#E3DDD2]" />
           </div>
 
@@ -214,7 +214,7 @@ const LoginScreen = () => {
             type="button"
             onClick={handleGoogleSignIn}
             disabled={isSubmitting}
-            className="mt-7 h-12 w-full rounded-xl border-[#DDD5C7] bg-white text-base font-semibold text-[#141414] shadow-sm hover:bg-[#FAF8F3] sm:mt-6"
+            className="mt-7 h-12 w-full rounded-xl border-[#DDD5C7] dark:border-[#33291d] bg-card text-base font-semibold text-[#141414] dark:text-[#f2eadf] shadow-sm hover:bg-[#FAF8F3] dark:bg-[#14100c] sm:mt-6"
           >
             <svg
               aria-hidden="true"
@@ -242,11 +242,11 @@ const LoginScreen = () => {
             {isSubmitting ? "Connecting to Google…" : "Continue with Google"}
           </Button>
 
-          <p className="mt-6 text-center text-sm text-[#5B5347]">
+          <p className="mt-6 text-center text-sm text-[#5B5347] dark:text-[#c9bda8]">
             Don&apos;t have an account?{" "}
             <Link
               href="/register"
-              className="font-semibold text-[#141414] underline underline-offset-4 hover:text-[#8A6F52]"
+              className="font-semibold text-[#141414] dark:text-[#f2eadf] underline underline-offset-4 hover:text-[#8A6F52] dark:text-[#c8ab7f]"
             >
               Register
             </Link>
@@ -298,7 +298,7 @@ const LoginScreen = () => {
           <div className="mt-auto flex items-center gap-4 rounded-2xl bg-[#3C2C1D] px-4 py-4 sm:px-5">
             <span
               aria-hidden="true"
-              className="grid size-14 shrink-0 place-items-center rounded-2xl bg-[#F0E2C4]"
+              className="grid size-14 shrink-0 place-items-center rounded-2xl bg-[#F0E2C4] dark:bg-[#3a2a12]"
             >
               <svg
                 width="24"

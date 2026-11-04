@@ -17,14 +17,14 @@ type WishlistToast = {
 
 function WishlistCardSkeleton() {
   return (
-    <Card className="flex h-100 min-w-0 flex-col gap-0 rounded-2xl border-[#eee7dc] bg-white p-2 shadow-none ring-0">
+    <Card className="flex h-100 min-w-0 flex-col gap-0 rounded-2xl border-[#eee7dc] dark:border-[#33291d] bg-card p-2 shadow-none ring-0">
       <div className="h-36 shrink-0 animate-pulse rounded-xl bg-[#eee7dc] sm:h-40" />
       <CardContent className="px-2 pt-4 pb-2">
         <div className="h-2.5 w-1/3 animate-pulse rounded-full bg-[#eee7dc]" />
         <div className="mt-3 h-4 w-3/4 animate-pulse rounded-full bg-[#eee7dc]" />
         <div className="mt-2 h-2.5 w-1/2 animate-pulse rounded-full bg-[#eee7dc]" />
       </CardContent>
-      <div className="mt-auto flex gap-2 border-t border-[#eee7dc] px-2 pt-3 pb-2">
+      <div className="mt-auto flex gap-2 border-t border-[#eee7dc] dark:border-[#33291d] px-2 pt-3 pb-2">
         <div className="h-9 flex-1 animate-pulse rounded-lg bg-[#eee7dc]" />
         <div className="h-9 w-24 animate-pulse rounded-lg bg-[#eee7dc]" />
       </div>
@@ -115,14 +115,14 @@ export default function WishlistDashboard() {
   return (
     <>
       <div className="mt-5">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#c66b20]">
+        <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#c66b20] dark:text-[#f0a63c]">
           Your saved spaces
         </p>
-        <h1 className="mt-2 text-4xl font-medium tracking-tight text-[#201a14] sm:text-5xl">
+        <h1 className="mt-2 text-4xl font-medium tracking-tight text-[#201a14] dark:text-[#f2eadf] sm:text-5xl">
           Saved{" "}
-          <span className="font-serif italic text-[#c66b20]">wishlist</span>
+          <span className="font-serif italic text-[#c66b20] dark:text-[#f0a63c]">wishlist</span>
         </h1>
-        <p className="mt-3 max-w-md text-xs leading-5 text-[#62594e]">
+        <p className="mt-3 max-w-md text-xs leading-5 text-[#62594e] dark:text-[#c9bda8]">
           {isLoading
             ? "Loading the studios you have saved."
             : studios.length === 0
@@ -141,15 +141,15 @@ export default function WishlistDashboard() {
             ))}
           </div>
         ) : loadError ? (
-          <Card className="mx-auto max-w-md rounded-[20px] border-[#eee7dc] bg-white p-8 text-center shadow-[0_6px_18px_rgba(54,39,23,0.04)] ring-0">
+          <Card className="mx-auto max-w-md rounded-[20px] border-[#eee7dc] dark:border-[#33291d] bg-card p-8 text-center shadow-[0_6px_18px_rgba(54,39,23,0.04)] ring-0">
             <CardContent className="space-y-4">
-              <span className="mx-auto flex size-12 items-center justify-center rounded-full bg-[#f6e3e0] text-[#b34130]">
+              <span className="mx-auto flex size-12 items-center justify-center rounded-full bg-[#f6e3e0] dark:bg-[#331b19] text-[#b34130] dark:text-[#f2937f]">
                 <Heart aria-hidden className="size-6" />
               </span>
-              <h2 className="font-serif text-xl text-[#201a14]">
+              <h2 className="font-serif text-xl text-[#201a14] dark:text-[#f2eadf]">
                 Your wishlist could not be loaded
               </h2>
-              <p className="text-xs leading-5 text-[#756b5e]">{loadError}</p>
+              <p className="text-xs leading-5 text-[#756b5e] dark:text-[#a4987f]">{loadError}</p>
               <Button
                 type="button"
                 onClick={() => void loadWishlist()}
@@ -160,22 +160,22 @@ export default function WishlistDashboard() {
             </CardContent>
           </Card>
         ) : studios.length === 0 ? (
-          <div className="mx-auto max-w-md rounded-[28px] border border-[#eee7dc] bg-white px-8 py-14 text-center shadow-[0_6px_18px_rgba(54,39,23,0.04)]">
+          <div className="mx-auto max-w-md rounded-[28px] border border-[#eee7dc] dark:border-[#33291d] bg-card px-8 py-14 text-center shadow-[0_6px_18px_rgba(54,39,23,0.04)]">
             <div className="relative mx-auto flex size-16 items-center justify-center">
               <span
                 aria-hidden
-                className="absolute inset-0 rounded-full bg-[#ffecd1]"
+                className="absolute inset-0 rounded-full bg-[#ffecd1] dark:bg-[#3a2a12]"
               />
               <Heart
                 aria-hidden
-                className="relative size-8 fill-[#f0b25a] text-[#c66b20]"
+                className="relative size-8 fill-[#f0b25a] text-[#c66b20] dark:text-[#f0a63c]"
               />
             </div>
-            <h2 className="mt-6 text-3xl font-medium tracking-tight text-[#201a14]">
+            <h2 className="mt-6 text-3xl font-medium tracking-tight text-[#201a14] dark:text-[#f2eadf]">
               Nothing saved{" "}
-              <span className="font-serif italic text-[#8a6a4f]">yet</span>
+              <span className="font-serif italic text-[#8a6a4f] dark:text-[#c8ab7f]">yet</span>
             </h2>
-            <p className="mx-auto mt-3 max-w-xs text-xs leading-5 text-[#62594e]">
+            <p className="mx-auto mt-3 max-w-xs text-xs leading-5 text-[#62594e] dark:text-[#c9bda8]">
               Tap the heart on any studio to keep it here for your next
               project.
             </p>
@@ -205,7 +205,7 @@ export default function WishlistDashboard() {
                     onClick={() => void removeStudio(studio)}
                     disabled={removingId !== null}
                     aria-label={`Remove ${studio.title} from your wishlist`}
-                    className="h-9 shrink-0 gap-1.5 rounded-lg border border-[#eee7dc] bg-white px-3 text-[11px] text-[#b34130] hover:bg-[#f6e3e0] hover:text-[#96362a]"
+                    className="h-9 shrink-0 gap-1.5 rounded-lg border border-[#eee7dc] dark:border-[#33291d] bg-card px-3 text-[11px] text-[#b34130] dark:text-[#f2937f] hover:bg-[#f6e3e0] dark:bg-[#331b19] hover:text-[#96362a] dark:text-[#f2937f]"
                   >
                     <Trash2 aria-hidden className="size-3.5" />
                     {removingId === studio._id ? "Removing…" : "Remove"}

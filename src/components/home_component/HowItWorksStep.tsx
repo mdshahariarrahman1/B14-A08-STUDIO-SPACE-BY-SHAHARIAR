@@ -16,7 +16,7 @@ const HowItWorksStep = ({
   icon: Icon,
   iconClassName,
 }: HowItWorksStepProps) => (
-  <Card className="rounded-[1.25rem] border-[#ebe6df] bg-white py-0 shadow-none transition duration-300 hover:-translate-y-1 hover:shadow-lg">
+  <Card className="rounded-[1.25rem] border-[#ebe6df] dark:border-[#33291d] bg-card py-0 shadow-none transition duration-300 hover:-translate-y-1 hover:shadow-lg">
     <CardContent className="min-h-64 p-6 sm:min-h-66 sm:p-7">
       <div className="flex items-start justify-between">
         <span
@@ -28,10 +28,10 @@ const HowItWorksStep = ({
           {number}
         </span>
       </div>
-      <h3 className="mt-7 text-lg font-semibold tracking-tight text-neutral-950">
+      <h3 className="mt-7 text-lg font-semibold tracking-tight text-foreground">
         {title}
       </h3>
-      <p className="mt-2.5 text-sm leading-[1.65] text-neutral-600">
+      <p className="mt-2.5 text-sm leading-[1.65] text-muted-foreground">
         {description}
       </p>
     </CardContent>

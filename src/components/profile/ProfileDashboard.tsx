@@ -167,11 +167,11 @@ export default function ProfileDashboard({
   };
 
   return (
-    <main className="min-h-[calc(100vh-5rem)] bg-[#f7f3eb] px-5 py-10 sm:px-8 sm:py-14 lg:px-10">
+    <main className="min-h-[calc(100vh-5rem)] bg-[#f7f3eb] dark:bg-[#14100c] px-5 py-10 sm:px-8 sm:py-14 lg:px-10">
       <div className="mx-auto max-w-7xl">
-        <nav aria-label="Breadcrumb" className="text-sm text-[#756b5e]">
+        <nav aria-label="Breadcrumb" className="text-sm text-[#756b5e] dark:text-[#a4987f]">
           <Link
-            className="underline underline-offset-2 hover:text-[#201a14]"
+            className="underline underline-offset-2 hover:text-[#201a14] dark:text-[#f2eadf]"
             href="/studios"
           >
             Spaces
@@ -184,13 +184,13 @@ export default function ProfileDashboard({
 
         <div className="mt-7 flex flex-wrap items-end justify-between gap-6">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#c66b20]">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#c66b20] dark:text-[#f0a63c]">
               Account
             </p>
-            <h1 className="mt-2 text-5xl font-medium tracking-tight text-[#201a14] sm:text-6xl">
-              My <span className="font-serif italic text-[#c66b20]">profile</span>
+            <h1 className="mt-2 text-5xl font-medium tracking-tight text-[#201a14] dark:text-[#f2eadf] sm:text-6xl">
+              My <span className="font-serif italic text-[#c66b20] dark:text-[#f0a63c]">profile</span>
             </h1>
-            <p className="mt-4 max-w-xl text-sm leading-6 text-[#62594e]">
+            <p className="mt-4 max-w-xl text-sm leading-6 text-[#62594e] dark:text-[#c9bda8]">
               Keep your details up to date so creators know who they&apos;re
               booking with.
             </p>
@@ -205,22 +205,22 @@ export default function ProfileDashboard({
         </div>
 
         <div className="mt-9 grid items-start gap-7 lg:grid-cols-[17rem_minmax(0,1fr)]">
-          <Card className="rounded-3xl border-[#eee7de] bg-white py-7 shadow-[0_12px_28px_rgba(47,35,20,0.08)] ring-0">
+          <Card className="rounded-3xl border-[#eee7de] dark:border-[#33291d] bg-card py-7 shadow-[0_12px_28px_rgba(47,35,20,0.08)] ring-0">
             <CardContent className="px-6">
               <div className="flex flex-col items-center text-center">
-                <Avatar className="size-24 border-4 border-[#f5dfc2] bg-[#201a14]">
+                <Avatar className="size-24 border-4 border-[#f5dfc2] dark:border-[#33291d] bg-[#201a14]">
                   <AvatarImage src={user.image ?? undefined} alt={displayName} />
                   <AvatarFallback className="bg-[#201a14] font-serif text-3xl text-[#f4dfc3]">
                     {initials}
                   </AvatarFallback>
                 </Avatar>
-                <h2 className="mt-4 font-serif text-2xl tracking-tight text-[#201a14]">
+                <h2 className="mt-4 font-serif text-2xl tracking-tight text-[#201a14] dark:text-[#f2eadf]">
                   {displayName}
                 </h2>
-                <p className="mt-1 max-w-full truncate text-sm text-[#756b5e]">
+                <p className="mt-1 max-w-full truncate text-sm text-[#756b5e] dark:text-[#a4987f]">
                   {user.email}
                 </p>
-                <span className="mt-3 rounded-full bg-[#e6f4eb] px-3 py-1.5 text-xs font-medium text-[#287346]">
+                <span className="mt-3 rounded-full bg-[#e6f4eb] dark:bg-[#10301f] px-3 py-1.5 text-xs font-medium text-[#287346] dark:text-[#8fe3b4]">
                   <span aria-hidden className="mr-1">
                     •
                   </span>
@@ -228,33 +228,33 @@ export default function ProfileDashboard({
                 </span>
               </div>
 
-              <div className="mt-6 grid grid-cols-3 divide-x divide-[#f0ece6] border-t border-[#f0ece6] pt-5">
+              <div className="mt-6 grid grid-cols-3 divide-x divide-[#f0ece6] dark:divide-[#33291d] border-t border-[#f0ece6] dark:border-[#33291d] pt-5">
                 <div className="text-center">
-                  <p className="text-2xl font-semibold leading-7 text-[#201a14]">
+                  <p className="text-2xl font-semibold leading-7 text-[#201a14] dark:text-[#f2eadf]">
                     {stats?.listings ?? "—"}
                   </p>
-                  <p className="mt-1 text-xs text-[#756b5e]">Listings</p>
+                  <p className="mt-1 text-xs text-[#756b5e] dark:text-[#a4987f]">Listings</p>
                 </div>
                 <div className="text-center">
-                  <p className="text-2xl font-semibold leading-7 text-[#201a14]">
+                  <p className="text-2xl font-semibold leading-7 text-[#201a14] dark:text-[#f2eadf]">
                     {stats?.open ?? "—"}
                   </p>
-                  <p className="mt-1 text-xs text-[#756b5e]">Open</p>
+                  <p className="mt-1 text-xs text-[#756b5e] dark:text-[#a4987f]">Open</p>
                 </div>
                 <div className="text-center">
-                  <p className="flex items-center justify-center gap-1 text-2xl font-semibold leading-7 text-[#201a14]">
+                  <p className="flex items-center justify-center gap-1 text-2xl font-semibold leading-7 text-[#201a14] dark:text-[#f2eadf]">
                     <Star
                       aria-hidden
                       className="size-4 fill-[#d58b23] text-[#d58b23]"
                     />
                     {stats?.rating?.toFixed(1) ?? "—"}
                   </p>
-                  <p className="mt-1 text-xs text-[#756b5e]">Rating</p>
+                  <p className="mt-1 text-xs text-[#756b5e] dark:text-[#a4987f]">Rating</p>
                 </div>
               </div>
 
               {stats === null && (
-                <p className="mt-3 text-center text-xs text-[#8b8175]">
+                <p className="mt-3 text-center text-xs text-[#8b8175] dark:text-[#a4987f]">
                   Studio totals are temporarily unavailable.
                 </p>
               )}
@@ -264,7 +264,7 @@ export default function ProfileDashboard({
                   nativeButton={false}
                   render={<Link href="/my-listings" />}
                   variant="outline"
-                  className="h-11 rounded-xl border-[#e8dfd3] text-sm text-[#201a14] hover:bg-[#faf7f2]"
+                  className="h-11 rounded-xl border-[#e8dfd3] dark:border-[#33291d] text-sm text-[#201a14] dark:text-[#f2eadf] hover:bg-[#faf7f2] dark:bg-[#1c1610]"
                 >
                   <SquareLibrary aria-hidden className="size-4" />
                   View my listings
@@ -272,7 +272,7 @@ export default function ProfileDashboard({
                 <Button
                   nativeButton={false}
                   render={<Link href="/add-studio" />}
-                  className="h-11 rounded-xl bg-[#f4a000] text-sm font-semibold text-[#201a14] shadow-[0_5px_12px_rgba(244,160,0,0.2)] hover:bg-[#e89400]"
+                  className="h-11 rounded-xl bg-[#f4a000] text-sm font-semibold text-[#201a14] dark:text-[#201a14] shadow-[0_5px_12px_rgba(244,160,0,0.2)] hover:bg-[#e89400]"
                 >
                   <Plus aria-hidden className="size-4" />
                   Add new studio
@@ -282,16 +282,16 @@ export default function ProfileDashboard({
           </Card>
 
           <div className="grid gap-5">
-            <Card className="rounded-3xl border-[#eee7de] bg-white py-6 shadow-none ring-0">
+            <Card className="rounded-3xl border-[#eee7de] dark:border-[#33291d] bg-card py-6 shadow-none ring-0">
               <CardHeader className="flex flex-row items-center justify-between gap-4 px-6 pb-0">
-                <CardTitle className="font-serif text-2xl font-normal tracking-tight text-[#201a14] sm:text-3xl">
+                <CardTitle className="font-serif text-2xl font-normal tracking-tight text-[#201a14] dark:text-[#f2eadf] sm:text-3xl">
                   Personal{" "}
-                  <span className="italic text-[#c66b20]">information</span>
+                  <span className="italic text-[#c66b20] dark:text-[#f0a63c]">information</span>
                 </CardTitle>
                 <Button
                   variant="outline"
                   onClick={openEditor}
-                  className="h-9 rounded-lg border-[#e8dfd3] px-4 text-xs text-[#201a14] hover:bg-[#faf7f2]"
+                  className="h-9 rounded-lg border-[#e8dfd3] dark:border-[#33291d] px-4 text-xs text-[#201a14] dark:text-[#f2eadf] hover:bg-[#faf7f2] dark:bg-[#1c1610]"
                 >
                   <Edit2 aria-hidden className="size-3.5" />
                   Edit
@@ -312,25 +312,25 @@ export default function ProfileDashboard({
               </CardContent>
             </Card>
 
-            <Card className="rounded-3xl border-[#eee7de] bg-white py-6 shadow-none ring-0">
+            <Card className="rounded-3xl border-[#eee7de] dark:border-[#33291d] bg-card py-6 shadow-none ring-0">
               <CardHeader className="px-6 pb-0">
-                <CardTitle className="font-serif text-2xl font-normal tracking-tight text-[#201a14] sm:text-3xl">
-                  About <span className="italic text-[#c66b20]">you</span>
+                <CardTitle className="font-serif text-2xl font-normal tracking-tight text-[#201a14] dark:text-[#f2eadf] sm:text-3xl">
+                  About <span className="italic text-[#c66b20] dark:text-[#f0a63c]">you</span>
                 </CardTitle>
               </CardHeader>
               <CardContent className="px-6 pt-3">
-                <p className="text-sm leading-6 text-[#756b5e]">
+                <p className="text-sm leading-6 text-[#756b5e] dark:text-[#a4987f]">
                   Your bio is empty. Add a few lines about yourself and the
                   spaces you host.
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="rounded-3xl border-[#eee7de] bg-white py-6 shadow-none ring-0">
+            <Card className="rounded-3xl border-[#eee7de] dark:border-[#33291d] bg-card py-6 shadow-none ring-0">
               <CardHeader className="px-6 pb-0">
-                <CardTitle className="font-serif text-2xl font-normal tracking-tight text-[#201a14] sm:text-3xl">
+                <CardTitle className="font-serif text-2xl font-normal tracking-tight text-[#201a14] dark:text-[#f2eadf] sm:text-3xl">
                   Notification{" "}
-                  <span className="italic text-[#c66b20]">preferences</span>
+                  <span className="italic text-[#c66b20] dark:text-[#f0a63c]">preferences</span>
                 </CardTitle>
               </CardHeader>
               <CardContent className="px-6 pt-3">
@@ -354,7 +354,7 @@ export default function ProfileDashboard({
                 variant="outline"
                 onClick={signOut}
                 disabled={isLoggingOut}
-                className="h-10 rounded-lg border-[#f0d7cf] bg-white px-4 text-xs font-medium text-[#bd4d3e] hover:bg-[#fff7f4]"
+                className="h-10 rounded-lg border-[#f0d7cf] dark:border-[#4a2724] bg-card px-4 text-xs font-medium text-[#bd4d3e] dark:text-[#f2937f] hover:bg-[#fff7f4] dark:bg-[#331b19]"
               >
                 {isLoggingOut ? (
                     <ArrowLeft aria-hidden className="size-3.5" />
@@ -369,9 +369,9 @@ export default function ProfileDashboard({
       </div>
 
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent className="rounded-2xl border-[#eee7de]">
+        <DialogContent className="rounded-2xl border-[#eee7de] dark:border-[#33291d]">
           <DialogHeader>
-            <DialogTitle className="font-serif text-xl text-[#201a14]">
+            <DialogTitle className="font-serif text-xl text-[#201a14] dark:text-[#f2eadf]">
               Edit your profile
             </DialogTitle>
             <DialogDescription>
@@ -380,7 +380,7 @@ export default function ProfileDashboard({
             </DialogDescription>
           </DialogHeader>
           <form onSubmit={saveProfile} className="grid gap-4">
-            <label className="grid gap-1.5 text-xs font-medium text-[#62594e]">
+            <label className="grid gap-1.5 text-xs font-medium text-[#62594e] dark:text-[#c9bda8]">
               Full name
               <Input
                 autoComplete="name"
@@ -388,18 +388,18 @@ export default function ProfileDashboard({
                 onChange={(event) => setName(event.target.value)}
                 required
                 value={name}
-                className="h-10 rounded-lg border-[#e8dfd3] bg-white"
+                className="h-10 rounded-lg border-[#e8dfd3] dark:border-[#33291d] bg-card"
               />
             </label>
-            <label className="grid gap-1.5 text-xs font-medium text-[#62594e]">
+            <label className="grid gap-1.5 text-xs font-medium text-[#62594e] dark:text-[#c9bda8]">
               Email
               <Input
                 value={user.email}
                 readOnly
-                className="h-10 rounded-lg border-[#e8dfd3] bg-[#faf7f2] text-[#756b5e]"
+                className="h-10 rounded-lg border-[#e8dfd3] dark:border-[#33291d] bg-[#faf7f2] dark:bg-[#1c1610] text-[#756b5e] dark:text-[#a4987f]"
               />
             </label>
-            <label className="grid gap-1.5 text-xs font-medium text-[#62594e]">
+            <label className="grid gap-1.5 text-xs font-medium text-[#62594e] dark:text-[#c9bda8]">
               Image URL
               <Input
                 autoComplete="url"
@@ -407,7 +407,7 @@ export default function ProfileDashboard({
                 placeholder="https://example.com/photo.jpg"
                 type="url"
                 value={image}
-                className="h-10 rounded-lg border-[#e8dfd3] bg-white"
+                className="h-10 rounded-lg border-[#e8dfd3] dark:border-[#33291d] bg-card"
               />
             </label>
             <DialogFooter className="mt-2">
@@ -453,10 +453,10 @@ function ProfileField({
 }) {
   return (
     <div className="min-w-0">
-      <dt className="text-xs text-[#8b8175]">{label}</dt>
+      <dt className="text-xs text-[#8b8175] dark:text-[#a4987f]">{label}</dt>
       <dd
         className={`mt-1 truncate text-sm ${
-          muted ? "text-[#756b5e]" : "text-[#201a14]"
+          muted ? "text-[#756b5e] dark:text-[#a4987f]" : "text-[#201a14] dark:text-[#f2eadf]"
         }`}
       >
         {value}
@@ -477,10 +477,10 @@ function NotificationToggle({
   onCheckedChange: () => void;
 }) {
   return (
-    <div className="flex items-center justify-between gap-5 border-t border-[#f0ece6] py-4 first:border-t-0">
+    <div className="flex items-center justify-between gap-5 border-t border-[#f0ece6] dark:border-[#33291d] py-4 first:border-t-0">
       <div>
-        <p className="text-sm font-medium text-[#201a14]">{label}</p>
-        <p className="mt-1 text-xs text-[#756b5e]">{description}</p>
+        <p className="text-sm font-medium text-[#201a14] dark:text-[#f2eadf]">{label}</p>
+        <p className="mt-1 text-xs text-[#756b5e] dark:text-[#a4987f]">{description}</p>
       </div>
       <button
         type="button"
@@ -493,7 +493,7 @@ function NotificationToggle({
         }`}
       >
         <span
-          className={`size-4.5 rounded-full bg-white shadow-sm transition-transform ${
+          className={`size-4.5 rounded-full bg-card shadow-sm transition-transform ${
             checked ? "translate-x-5.5" : "translate-x-0.75"
           }`}
         />

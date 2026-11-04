@@ -19,7 +19,7 @@ const PasswordChecklist = ({ checks }: { checks: PasswordCheck[] }) => {
       {checks.map((check) => (
         <li
           key={check.label}
-          className="flex items-center gap-2.5 text-sm text-[#6B6459]"
+          className="flex items-center gap-2.5 text-sm text-[#6B6459] dark:text-[#c9bda8]"
         >
           <span
             aria-hidden="true"

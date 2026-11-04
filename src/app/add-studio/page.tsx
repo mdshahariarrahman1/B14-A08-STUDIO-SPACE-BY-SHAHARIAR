@@ -33,7 +33,7 @@ export default function AddStudioPage() {
       fallback={
         <div
           aria-label="Loading add studio form"
-          className="min-h-[calc(100vh-5rem)] animate-pulse bg-[#f7f3eb]"
+          className="min-h-[calc(100vh-5rem)] animate-pulse bg-[#f7f3eb] dark:bg-[#14100c]"
         />
       }
     >

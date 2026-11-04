@@ -32,8 +32,8 @@ const NavLinks = ({ active, onLinkClick }: NavLinksProps) => {
           className={cn(
             "relative flex h-full items-center px-5 text-base font-medium transition-colors duration-200",
             active === link.label
-              ? "text-neutral-900"
-              : "text-neutral-600 hover:text-neutral-900"
+              ? "text-foreground"
+              : "text-muted-foreground hover:text-foreground"
           )}
         >
           {link.label}

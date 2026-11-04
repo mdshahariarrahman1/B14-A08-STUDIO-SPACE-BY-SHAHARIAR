@@ -11,7 +11,7 @@ const CategoriesFallback = ({ message }: { message: string }) => (
     className="bg-[#1A120B] px-5 py-14 sm:px-8 sm:py-20"
   >
     <div className="mx-auto max-w-6xl">
-      <div className="rounded-xl border border-dashed border-white/15 bg-white/3 p-8 text-center">
+      <div className="rounded-xl border border-dashed border-white/15 bg-card/3 p-8 text-center">
         <h2 className="text-2xl font-medium tracking-tight text-[#FAF7F2]">
           Categories are on the way
         </h2>
@@ -106,7 +106,7 @@ const StudioCategories = async () => {
               key={category.name}
               href={`/studios?category=${encodeURIComponent(category.name)}`}
               aria-label={`Browse ${category.name} studios`}
-              className="group relative block h-52 overflow-hidden rounded-xl border border-white/10 bg-[#2A1B10] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E897A9] sm:last:col-span-2 lg:h-64 lg:last:col-span-1"
+              className="group relative block h-52 overflow-hidden rounded-xl border border-white/10 bg-[#2A1B10] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E897A9] dark:ring-[#54303e] sm:last:col-span-2 lg:h-64 lg:last:col-span-1"
             >
               <StudioImage
                 src={category.image}
@@ -138,7 +138,7 @@ const StudioCategories = async () => {
                       : `${category.count} spaces`}
                   </p>
                 </div>
-                <span className="grid size-8 shrink-0 place-items-center rounded-full border border-white/15 bg-white/15 text-white/90 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:border-white/30 group-hover:bg-white/25">
+                <span className="grid size-8 shrink-0 place-items-center rounded-full border border-white/15 bg-card/15 text-white/90 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:border-white/30 group-hover:bg-card/25">
                   <ArrowUpRight className="size-4" />
                 </span>
               </div>

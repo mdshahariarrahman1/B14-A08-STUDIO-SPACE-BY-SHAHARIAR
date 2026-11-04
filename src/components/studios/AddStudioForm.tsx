@@ -32,11 +32,11 @@ type StudioOwner = {
 };
 
 const sectionClass =
-  "rounded-2xl border border-[#eee7dc] bg-white p-5 shadow-sm sm:p-6";
+  "rounded-2xl border border-[#eee7dc] dark:border-[#33291d] bg-card p-5 shadow-sm sm:p-6";
 const fieldClass =
-  "grid gap-2 text-xs font-medium text-[#2e281f]";
+  "grid gap-2 text-xs font-medium text-[#2e281f] dark:text-[#f2eadf]";
 const inputClass =
-  "h-10 rounded-lg border-[#e7dfd4] bg-white px-3 text-sm placeholder:text-[#aaa197] focus-visible:border-[#d58821] focus-visible:ring-[#f7dfb3]";
+  "h-10 rounded-lg border-[#e7dfd4] dark:border-[#33291d] bg-card px-3 text-sm placeholder:text-[#aaa197] dark:placeholder:text-[#857a64] focus-visible:border-[#d58821] focus-visible:ring-[#f7dfb3] dark:ring-[#7a5320]";
 
 const AddStudioForm = ({
   owner,
@@ -129,14 +129,14 @@ const AddStudioForm = ({
   };
 
   return (
-    <main className="min-h-[calc(100vh-5rem)] bg-[#f7f3eb] pb-16">
+    <main className="min-h-[calc(100vh-5rem)] bg-[#f7f3eb] dark:bg-[#14100c] pb-16">
       <div className="mx-auto max-w-6xl px-5 pt-7 sm:px-8 sm:pt-9">
-        <nav aria-label="Breadcrumb" className="text-xs text-[#756b5e]">
-          <Link className="underline underline-offset-2 hover:text-[#201a14]" href="/studios">
+        <nav aria-label="Breadcrumb" className="text-xs text-[#756b5e] dark:text-[#a4987f]">
+          <Link className="underline underline-offset-2 hover:text-[#201a14] dark:text-[#f2eadf]" href="/studios">
             Spaces
           </Link>
           <span aria-hidden className="mx-2">/</span>
-          <Link className="underline underline-offset-2 hover:text-[#201a14]" href="/my-listings">
+          <Link className="underline underline-offset-2 hover:text-[#201a14] dark:text-[#f2eadf]" href="/my-listings">
             My listings
           </Link>
           <span aria-hidden className="mx-2">/</span>
@@ -144,15 +144,15 @@ const AddStudioForm = ({
         </nav>
 
         <div className="mt-7 max-w-2xl">
-          <p className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#c66b20]">
+          <p className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#c66b20] dark:text-[#f0a63c]">
             <span aria-hidden className="size-1.5 rounded-full bg-[#d7831e]" />
             {studio ? "Edit listing" : "New listing"}
           </p>
-          <h1 className="mt-2 text-4xl font-medium tracking-tight text-[#201a14] sm:text-5xl">
+          <h1 className="mt-2 text-4xl font-medium tracking-tight text-[#201a14] dark:text-[#f2eadf] sm:text-5xl">
             {studio ? "Update your " : "List your "}
-            <span className="font-serif italic text-[#c66b20]">studio</span>
+            <span className="font-serif italic text-[#c66b20] dark:text-[#f0a63c]">studio</span>
           </h1>
-          <p className="mt-3 max-w-xl text-sm leading-6 text-[#62594e]">
+          <p className="mt-3 max-w-xl text-sm leading-6 text-[#62594e] dark:text-[#c9bda8]">
             {studio
               ? "Update the details creators see when they discover your space."
               : "Tell creators what makes your space special. Add the essentials below, and your listing goes live as soon as you publish."}
@@ -221,7 +221,7 @@ const AddStudioForm = ({
                     required
                     className={inputClass}
                   />
-                  <span className="-mt-1 text-[10px] font-normal text-[#887e71]">USD / hour</span>
+                  <span className="-mt-1 text-[10px] font-normal text-[#887e71] dark:text-[#a4987f]">USD / hour</span>
                 </label>
                 <label className={fieldClass} htmlFor="security-deposit">
                   Security deposit <RequiredMark />
@@ -236,7 +236,7 @@ const AddStudioForm = ({
                     required
                     className={inputClass}
                   />
-                  <span className="-mt-1 text-[10px] font-normal text-[#887e71]">USD</span>
+                  <span className="-mt-1 text-[10px] font-normal text-[#887e71] dark:text-[#a4987f]">USD</span>
                 </label>
                 <label className={fieldClass} htmlFor="max-capacity">
                   Max capacity <RequiredMark />
@@ -251,7 +251,7 @@ const AddStudioForm = ({
                     required
                     className={inputClass}
                   />
-                  <span className="-mt-1 text-[10px] font-normal text-[#887e71]">People</span>
+                  <span className="-mt-1 text-[10px] font-normal text-[#887e71] dark:text-[#a4987f]">People</span>
                 </label>
               </div>
             </section>
@@ -262,7 +262,7 @@ const AddStudioForm = ({
                 <label className={fieldClass} htmlFor="studio-location">
                   Location / address <RequiredMark />
                   <span className="relative">
-                    <MapPin aria-hidden className="absolute left-3 top-3 size-4 text-[#8c8173]" />
+                    <MapPin aria-hidden className="absolute left-3 top-3 size-4 text-[#8c8173] dark:text-[#a4987f]" />
                     <Input
                       id="studio-location"
                       name="location"
@@ -277,7 +277,7 @@ const AddStudioForm = ({
                 <label className={fieldClass} htmlFor="studio-image">
                   Image URL <RequiredMark />
                   <span className="relative">
-                    <Link2 aria-hidden className="absolute left-3 top-3 size-4 text-[#8c8173]" />
+                    <Link2 aria-hidden className="absolute left-3 top-3 size-4 text-[#8c8173] dark:text-[#a4987f]" />
                     <Input
                       id="studio-image"
                       name="imageUrl"
@@ -289,7 +289,7 @@ const AddStudioForm = ({
                       className={`${inputClass} pl-9`}
                     />
                   </span>
-                  <span className="-mt-1 text-[10px] font-normal text-[#887e71]">
+                  <span className="-mt-1 text-[10px] font-normal text-[#887e71] dark:text-[#a4987f]">
                     Use a bright, landscape photo. It becomes the hero image on your listing.
                   </span>
                 </label>
@@ -299,11 +299,11 @@ const AddStudioForm = ({
             <section aria-labelledby="included-amenities" className={sectionClass}>
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <SectionTitle number="4" id="included-amenities" lead="What’s" accent="included" />
-                <span className="rounded-full bg-[#fff0d9] px-3 py-1 text-[10px] font-medium text-[#8c571a]">
+                <span className="rounded-full bg-[#fff0d9] dark:bg-[#3a2a12] px-3 py-1 text-[10px] font-medium text-[#8c571a] dark:text-[#f5cf8d]">
                   {amenities.length} selected
                 </span>
               </div>
-              <p className="mt-4 text-xs text-[#756b5e]">
+              <p className="mt-4 text-xs text-[#756b5e] dark:text-[#a4987f]">
                 Tap to select everything guests can use during a booking.
               </p>
               <div className="mt-4 flex flex-wrap gap-2">
@@ -317,8 +317,8 @@ const AddStudioForm = ({
                       onClick={() => toggleAmenity(amenity)}
                       className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-2 text-[11px] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#c66b20] ${
                         selected
-                          ? "border-[#e8b66d] bg-[#fff1d9] text-[#70410c]"
-                          : "border-[#e7dfd4] bg-white text-[#40382f] hover:bg-[#faf7f1]"
+                          ? "border-[#e8b66d] bg-[#fff1d9] dark:bg-[#3a2a12] text-[#70410c] dark:text-[#f5cf8d]"
+                          : "border-[#e7dfd4] dark:border-[#33291d] bg-card text-[#40382f] dark:text-[#f2eadf] hover:bg-[#faf7f1] dark:bg-[#1c1610]"
                       }`}
                     >
                       {selected ? <Check aria-hidden className="size-3" /> : <Plus aria-hidden className="size-3" />}
@@ -328,12 +328,12 @@ const AddStudioForm = ({
                 })}
               </div>
               <div className="mt-6">
-                <h3 className="font-serif text-2xl tracking-tight text-[#201a14]">
-                  Creator <span className="italic text-[#a06a3b]">rating</span>
+                <h3 className="font-serif text-2xl tracking-tight text-[#201a14] dark:text-[#f2eadf]">
+                  Creator <span className="italic text-[#a06a3b] dark:text-[#c8ab7f]">rating</span>
                 </h3>
-                <div className="mt-4 flex min-h-22.5 flex-wrap items-center gap-5 rounded-2xl border border-[#dedbd5] bg-white px-5 py-4 shadow-sm">
-                  <label className="grid gap-1.5 text-xs font-medium text-[#2e281f]" htmlFor="creator-rating">
-                    Rating <span className="text-[10px] font-normal text-[#887e71]">out of 5</span>
+                <div className="mt-4 flex min-h-22.5 flex-wrap items-center gap-5 rounded-2xl border border-[#dedbd5] dark:border-[#33291d] bg-card px-5 py-4 shadow-sm">
+                  <label className="grid gap-1.5 text-xs font-medium text-[#2e281f] dark:text-[#f2eadf]" htmlFor="creator-rating">
+                    Rating <span className="text-[10px] font-normal text-[#887e71] dark:text-[#a4987f]">out of 5</span>
                     <Input
                       id="creator-rating"
                       name="rating"
@@ -360,7 +360,7 @@ const AddStudioForm = ({
                         />
                       ))}
                     </div>
-                    <p className="mt-1 text-xs text-[#62594e]">
+                    <p className="mt-1 text-xs text-[#62594e] dark:text-[#c9bda8]">
                       {studio ? "Ratings are managed from guest reviews" : "Set your creator rating"}
                     </p>
                   </div>
@@ -381,29 +381,29 @@ const AddStudioForm = ({
                   rows={5}
                   maxLength={4000}
                   required
-                  className="w-full resize-y rounded-lg border border-[#e7dfd4] bg-white px-3 py-3 text-sm font-normal leading-6 outline-none placeholder:text-[#aaa197] focus-visible:border-[#d58821] focus-visible:ring-3 focus-visible:ring-[#f7dfb3]"
+                  className="w-full resize-y rounded-lg border border-[#e7dfd4] dark:border-[#33291d] bg-card px-3 py-3 text-sm font-normal leading-6 outline-none placeholder:text-[#aaa197] dark:placeholder:text-[#857a64] focus-visible:border-[#d58821] focus-visible:ring-3 focus-visible:ring-[#f7dfb3] dark:ring-[#7a5320]"
                 />
               </label>
             </section>
 
             <section aria-labelledby="host-details" className={sectionClass}>
               <SectionTitle number="6" id="host-details" lead="Your" accent="host details" />
-              <p className="mt-3 text-xs text-[#756b5e]">
+              <p className="mt-3 text-xs text-[#756b5e] dark:text-[#a4987f]">
                 Taken from your account, so guests know who they’re booking with.
               </p>
               <div className="mt-4 grid gap-3 sm:grid-cols-2">
                 <label className={fieldClass} htmlFor="owner-name">
                   Name
                   <span className="relative">
-                    <LockKeyhole aria-hidden className="absolute left-3 top-3 size-3.5 text-[#8c8173]" />
-                    <Input id="owner-name" value={owner.name} readOnly className={`${inputClass} bg-[#f7f3eb] pl-9`} />
+                    <LockKeyhole aria-hidden className="absolute left-3 top-3 size-3.5 text-[#8c8173] dark:text-[#a4987f]" />
+                    <Input id="owner-name" value={owner.name} readOnly className={`${inputClass} bg-[#f7f3eb] dark:bg-[#14100c] pl-9`} />
                   </span>
                 </label>
                 <label className={fieldClass} htmlFor="owner-email">
                   Email
                   <span className="relative">
-                    <LockKeyhole aria-hidden className="absolute left-3 top-3 size-3.5 text-[#8c8173]" />
-                    <Input id="owner-email" type="email" value={owner.email} readOnly className={`${inputClass} bg-[#f7f3eb] pl-9`} />
+                    <LockKeyhole aria-hidden className="absolute left-3 top-3 size-3.5 text-[#8c8173] dark:text-[#a4987f]" />
+                    <Input id="owner-email" type="email" value={owner.email} readOnly className={`${inputClass} bg-[#f7f3eb] dark:bg-[#14100c] pl-9`} />
                   </span>
                 </label>
               </div>
@@ -411,11 +411,11 @@ const AddStudioForm = ({
           </div>
 
           <aside className="lg:sticky lg:top-24">
-            <section className="rounded-2xl border border-[#eee7dc] bg-white p-5 shadow-[0_16px_40px_rgba(47,35,20,0.08)]">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#c66b20]">
+            <section className="rounded-2xl border border-[#eee7dc] dark:border-[#33291d] bg-card p-5 shadow-[0_16px_40px_rgba(47,35,20,0.08)]">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#c66b20] dark:text-[#f0a63c]">
                 Listing preview
               </p>
-              <div className="relative mt-3 aspect-[1.4] overflow-hidden rounded-xl bg-[#eadfce]">
+              <div className="relative mt-3 aspect-[1.4] overflow-hidden rounded-xl bg-[#eadfce] dark:bg-[#1f1911]">
                 <StudioImage
                   src={imageUrl}
                   alt={title ? `${title} preview` : "Studio listing preview"}
@@ -423,23 +423,23 @@ const AddStudioForm = ({
                   sizes="300px"
                 />
               </div>
-              <h2 className="mt-4 truncate font-serif text-lg text-[#201a14]">
-                {title || <>Your studio <span className="italic text-[#c66b20]">title</span></>}
+              <h2 className="mt-4 truncate font-serif text-lg text-[#201a14] dark:text-[#f2eadf]">
+                {title || <>Your studio <span className="italic text-[#c66b20] dark:text-[#f0a63c]">title</span></>}
               </h2>
-              <div className="mt-1 flex justify-between gap-3 text-xs text-[#756b5e]">
+              <div className="mt-1 flex justify-between gap-3 text-xs text-[#756b5e] dark:text-[#a4987f]">
                 <span className="truncate">{category}</span>
-                <span className="shrink-0 font-semibold text-[#201a14]">
-                  ${hourlyRate || "—"} <span className="font-normal text-[#756b5e]">/ hour</span>
+                <span className="shrink-0 font-semibold text-[#201a14] dark:text-[#f2eadf]">
+                  ${hourlyRate || "—"} <span className="font-normal text-[#756b5e] dark:text-[#a4987f]">/ hour</span>
                 </span>
               </div>
               {location ? (
-                <p className="mt-2 flex items-center gap-1.5 truncate text-[11px] text-[#756b5e]">
+                <p className="mt-2 flex items-center gap-1.5 truncate text-[11px] text-[#756b5e] dark:text-[#a4987f]">
                   <MapPin aria-hidden className="size-3 shrink-0" />
                   {location}
                 </p>
               ) : null}
               <div className="my-4 h-px bg-[#eee7dc]" />
-              <ul className="space-y-2.5 text-[11px] text-[#5e554a]">
+              <ul className="space-y-2.5 text-[11px] text-[#5e554a] dark:text-[#c9bda8]">
                 <li className="flex items-center gap-2">
                   <CheckCircle2 aria-hidden className="size-4 shrink-0 text-emerald-600" />
                   {studio ? "Changes update your live listing" : "Saved to your studios as soon as you publish"}
@@ -467,7 +467,7 @@ const AddStudioForm = ({
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="mt-5 h-11 w-full rounded-xl bg-[#f4a000] text-sm font-semibold text-[#201a14] hover:bg-[#e89400]"
+                className="mt-5 h-11 w-full rounded-xl bg-[#f4a000] text-sm font-semibold text-[#201a14] dark:text-[#201a14] hover:bg-[#e89400]"
               >
                 {isSubmitting
                   ? studio
@@ -482,11 +482,11 @@ const AddStudioForm = ({
                 nativeButton={false}
                 render={<Link href="/my-listings" />}
                 variant="outline"
-                className="mt-2 h-10 w-full rounded-xl border-[#e7dfd4] text-xs"
+                className="mt-2 h-10 w-full rounded-xl border-[#e7dfd4] dark:border-[#33291d] text-xs"
               >
                 Cancel
               </Button>
-              <p className="mt-3 text-center text-[10px] text-[#887e71]">
+              <p className="mt-3 text-center text-[10px] text-[#887e71] dark:text-[#a4987f]">
                 Fields marked <RequiredMark /> are required.
               </p>
             </section>
@@ -509,7 +509,7 @@ const AddStudioForm = ({
 };
 
 const RequiredMark = () => (
-  <span aria-hidden className="inline text-[#c64e2a]">*</span>
+  <span aria-hidden className="inline text-[#c64e2a] dark:text-[#f2937f]">*</span>
 );
 
 const SectionTitle = ({
@@ -523,11 +523,11 @@ const SectionTitle = ({
   lead: string;
   accent: string;
 }) => (
-  <h2 id={id} className="flex items-center gap-3 font-serif text-xl tracking-tight text-[#201a14]">
+  <h2 id={id} className="flex items-center gap-3 font-serif text-xl tracking-tight text-[#201a14] dark:text-[#f2eadf]">
     <span className="grid size-7 shrink-0 place-items-center rounded-full bg-[#2b2118] font-sans text-[10px] text-white">
       {number}
     </span>
-    {lead} <span className="-ml-2 italic text-[#c66b20]">{accent}</span>
+    {lead} <span className="-ml-2 italic text-[#c66b20] dark:text-[#f0a63c]">{accent}</span>
   </h2>
 );
 

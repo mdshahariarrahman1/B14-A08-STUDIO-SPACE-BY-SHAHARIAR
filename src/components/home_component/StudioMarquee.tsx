@@ -7,7 +7,7 @@ import type { IStudio } from "@/type";
 
 const StudioCard = memo(({ studio }: { studio: IStudio }) => (
   <article
-    className="mx-3 w-70 shrink-0 overflow-hidden rounded-2xl border bg-white shadow-sm sm:w-80"
+    className="mx-3 w-70 shrink-0 overflow-hidden rounded-2xl border bg-card shadow-sm sm:w-80"
     style={{ willChange: "transform", contain: "layout paint" }}
   >
     <div className="relative h-48 w-full">
@@ -30,7 +30,7 @@ const StudioMarquee = ({ studios }: { studios: IStudio[] }) => (
     <Marquee
       autoFill
       gradient
-      gradientColor="#ffffff"
+      gradientColor="var(--marquee-fade)"
       gradientWidth={60}
       pauseOnHover={false}
       speed={40}

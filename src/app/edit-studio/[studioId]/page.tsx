@@ -54,7 +54,7 @@ export default function EditStudioPage({
       fallback={
         <div
           aria-label="Loading edit studio form"
-          className="min-h-[calc(100vh-5rem)] animate-pulse bg-[#f7f3eb]"
+          className="min-h-[calc(100vh-5rem)] animate-pulse bg-[#f7f3eb] dark:bg-[#14100c]"
         />
       }
     >

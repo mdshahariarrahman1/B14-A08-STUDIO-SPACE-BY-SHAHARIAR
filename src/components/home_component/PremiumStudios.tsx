@@ -9,26 +9,26 @@ const PremiumStudios = ({ studios }: { studios: IStudio[] }) => {
   return (
     <section
       aria-labelledby="premium-studios-heading"
-      className="bg-white px-5 py-12 sm:px-8 sm:py-16"
+      className="bg-card px-5 py-12 sm:px-8 sm:py-16"
     >
       <div className="mx-auto max-w-5xl">
         <div className="mb-8 flex flex-col justify-between gap-5 sm:mb-10 sm:flex-row sm:items-end sm:gap-10">
           <div>
-            <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-[#927d72]">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-[#927d72] dark:text-[#a4987f]">
               <span aria-hidden>· </span>Feature spaces
             </p>
             <h2
               id="premium-studios-heading"
-              className="mt-2 text-4xl font-medium leading-[1.05] tracking-tight text-neutral-950 sm:text-5xl"
+              className="mt-2 text-4xl font-medium leading-[1.05] tracking-tight text-foreground sm:text-5xl"
             >
               Premium studios.
               <br />
-              <span className="font-normal italic text-[#806049]">
+              <span className="font-normal italic text-[#806049] dark:text-[#c8ab7f]">
                 Exceptional results.
               </span>
             </h2>
           </div>
-          <p className="max-w-sm text-sm leading-6 text-neutral-500">
+          <p className="max-w-sm text-sm leading-6 text-muted-foreground">
             Our flagship spaces, equipped for demanding productions. Every
             detail designed to help your creative work shine.
           </p>
@@ -45,11 +45,11 @@ const PremiumStudios = ({ studios }: { studios: IStudio[] }) => {
             ))}
           </div>
         ) : (
-          <div className="rounded-xl border border-dashed border-neutral-200 bg-[#faf9f7] px-6 py-12 text-center">
-            <p className="text-sm font-medium text-neutral-800">
+          <div className="rounded-xl border border-dashed border-border bg-[#faf9f7] dark:bg-[#1c1610] px-6 py-12 text-center">
+            <p className="text-sm font-medium text-foreground">
               Premium studios are coming soon
             </p>
-            <p className="mx-auto mt-2 max-w-md text-xs leading-5 text-neutral-500">
+            <p className="mx-auto mt-2 max-w-md text-xs leading-5 text-muted-foreground">
               There are no studios in the Premium category yet. Add a Premium
               studio to the catalog and it will appear here automatically.
             </p>

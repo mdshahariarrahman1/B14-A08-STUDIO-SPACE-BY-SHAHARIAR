@@ -23,9 +23,9 @@ export default function FeedbackToast({
     <div
       role={tone === "success" ? "status" : "alert"}
       aria-live={tone === "success" ? "polite" : "assertive"}
-      className={`fixed right-4 bottom-4 z-70 flex max-w-sm items-center gap-3 rounded-xl border bg-white px-4 py-3 text-sm shadow-lg ${
+      className={`fixed right-4 bottom-4 z-70 flex max-w-sm items-center gap-3 rounded-xl border bg-card px-4 py-3 text-sm shadow-lg ${
         tone === "success"
-          ? "border-[#cfe1d4] text-[#245b3a]"
+          ? "border-[#cfe1d4] dark:border-[#24442e] text-[#245b3a] dark:text-[#8fe3b4]"
           : "border-red-200 text-red-700"
       }`}
     >

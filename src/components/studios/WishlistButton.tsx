@@ -114,8 +114,8 @@ const WishlistButton = ({
         aria-pressed={isSaved}
         disabled={isSessionPending || isMutating}
         className={cn(
-          "absolute right-3 top-3 z-10 flex size-10 items-center justify-center rounded-full bg-white/90 shadow-sm outline-none backdrop-blur-sm transition duration-200 sm:right-4 sm:top-4 sm:size-11",
-          "hover:bg-white focus-visible:ring-2 focus-visible:ring-[#F0A63C]/40",
+          "absolute right-3 top-3 z-10 flex size-10 items-center justify-center rounded-full bg-card/90 shadow-sm outline-none backdrop-blur-sm transition duration-200 sm:right-4 sm:top-4 sm:size-11",
+          "hover:bg-card focus-visible:ring-2 focus-visible:ring-[#F0A63C]/40",
           (isSessionPending || isMutating) && "cursor-wait opacity-90",
         )}
       >
@@ -124,8 +124,8 @@ const WishlistButton = ({
           className={cn(
             "size-5 transition-colors duration-200",
             isSaved
-              ? "fill-[#c9556e] text-[#c9556e]"
-              : "fill-transparent text-[#453a2e]",
+              ? "fill-[#c9556e] text-[#c9556e] dark:text-[#f2a0a8]"
+              : "fill-transparent text-[#453a2e] dark:text-[#f2eadf]",
             isSessionPending && !isMutating && "opacity-50",
           )}
         />

@@ -53,17 +53,17 @@ const filters: BookingFilter[] = [
 ];
 
 const statusStyles: Record<BookingStatus, string> = {
-  Pending: "bg-[#ffecd1] text-[#74400f]",
-  Confirmed: "bg-[#e0f2e7] text-[#245b3a]",
-  Completed: "bg-[#e1eff8] text-[#245b7e]",
-  Cancelled: "bg-[#eee9e1] text-[#5f574c]",
+  Pending: "bg-[#ffecd1] dark:bg-[#3a2a12] text-[#74400f] dark:text-[#f5cf8d]",
+  Confirmed: "bg-[#e0f2e7] dark:bg-[#10301f] text-[#245b3a] dark:text-[#8fe3b4]",
+  Completed: "bg-[#e1eff8] dark:bg-[#10283c] text-[#245b7e] dark:text-[#9fcaf5]",
+  Cancelled: "bg-[#eee9e1] dark:bg-[#1f1911] text-[#5f574c] dark:text-[#c9bda8]",
 };
 
 const dateToneStyles: Record<string, string> = {
-  photo: "border-[#dfd0bd] bg-[#eadfce]",
-  podcast: "border-[#d0e0e8] bg-[#dcecf2]",
-  music: "border-[#cfe1d4] bg-[#dcefe2]",
-  default: "border-[#dfd0bd] bg-[#eadfce]",
+  photo: "border-[#dfd0bd] dark:border-[#33291d] bg-[#eadfce] dark:bg-[#1f1911]",
+  podcast: "border-[#d0e0e8] dark:border-[#1f3a4c] bg-[#dcecf2] dark:bg-[#10283c]",
+  music: "border-[#cfe1d4] dark:border-[#24442e] bg-[#dcefe2] dark:bg-[#10301f]",
+  default: "border-[#dfd0bd] dark:border-[#33291d] bg-[#eadfce] dark:bg-[#1f1911]",
 };
 
 function getDateTone(category: string) {
@@ -126,7 +126,7 @@ function BookingCard({
   onDelete: (booking: BookingRecord) => void;
 }) {
   return (
-    <Card className="group h-full min-w-0 gap-0 rounded-[20px] border-[#eee7dc] bg-white p-2.5 shadow-[0_6px_18px_rgba(54,39,23,0.04)] ring-0 transition-all hover:-translate-y-0.5 hover:border-[#dfd0bd] hover:shadow-[0_12px_28px_rgba(54,39,23,0.09)]">
+    <Card className="group h-full min-w-0 gap-0 rounded-[20px] border-[#eee7dc] dark:border-[#33291d] bg-card p-2.5 shadow-[0_6px_18px_rgba(54,39,23,0.04)] ring-0 transition-all hover:-translate-y-0.5 hover:border-[#dfd0bd] dark:border-[#33291d] hover:shadow-[0_12px_28px_rgba(54,39,23,0.09)]">
       <div
         className={`flex min-h-24 items-center gap-2.5 rounded-xl border px-2.5 py-2.5 ${getDateTone(
           booking.studio.category,
@@ -148,21 +148,21 @@ function BookingCard({
               <span aria-hidden className="size-1 rounded-full bg-current" />
               {booking.status}
             </span>
-            <span className="shrink-0 text-[8px] tracking-wide text-[#62594e]">
+            <span className="shrink-0 text-[8px] tracking-wide text-[#62594e] dark:text-[#c9bda8]">
               #{booking.id.slice(-8).toUpperCase()}
             </span>
           </div>
-          <p className="mt-3 font-serif text-[19px] leading-none tracking-tight text-[#201a14]">
+          <p className="mt-3 font-serif text-[19px] leading-none tracking-tight text-[#201a14] dark:text-[#f2eadf]">
             {formatBookingDate(booking.date)}
           </p>
         </div>
       </div>
 
       <CardHeader className="gap-1 px-1.5 pt-3.5 pb-0">
-        <p className="text-[8px] font-semibold uppercase tracking-[0.2em] text-[#bd5b0d]">
+        <p className="text-[8px] font-semibold uppercase tracking-[0.2em] text-[#bd5b0d] dark:text-[#f0a63c]">
           {booking.studio.category}
         </p>
-        <CardTitle className="min-h-10 font-serif text-[17px] font-normal leading-[1.15] tracking-tight text-[#201a14]">
+        <CardTitle className="min-h-10 font-serif text-[17px] font-normal leading-[1.15] tracking-tight text-[#201a14] dark:text-[#f2eadf]">
           {booking.studio.title}
         </CardTitle>
       </CardHeader>
@@ -176,40 +176,40 @@ function BookingCard({
                 alt={booking.user.name}
               />
             ) : null}
-            <AvatarFallback className="bg-[#ffecd1] text-[8px] font-semibold text-[#74400f]">
+            <AvatarFallback className="bg-[#ffecd1] dark:bg-[#3a2a12] text-[8px] font-semibold text-[#74400f] dark:text-[#f5cf8d]">
               {getUserInitials(booking.user.name)}
             </AvatarFallback>
           </Avatar>
           <div className="min-w-0 text-[9px] leading-tight">
-            <p className="truncate font-medium text-[#201a14]">
+            <p className="truncate font-medium text-[#201a14] dark:text-[#f2eadf]">
               {booking.user.name}
             </p>
-            <p className="truncate text-[#756b5e]">{booking.user.email}</p>
+            <p className="truncate text-[#756b5e] dark:text-[#a4987f]">{booking.user.email}</p>
           </div>
         </div>
-        <p className="flex items-center gap-1.5 text-[9px] text-[#62594e]">
+        <p className="flex items-center gap-1.5 text-[9px] text-[#62594e] dark:text-[#c9bda8]">
           <MapPin aria-hidden className="size-3 shrink-0" />
           <span className="truncate">{booking.studio.location}</span>
         </p>
-        <p className="flex items-center gap-1.5 text-[9px] text-[#62594e]">
+        <p className="flex items-center gap-1.5 text-[9px] text-[#62594e] dark:text-[#c9bda8]">
           <Clock3 aria-hidden className="size-3 shrink-0" />
           {formatTimeRange(booking.startTime, booking.durationHours)}
         </p>
         <div className="flex flex-wrap gap-1.5">
-          <span className="rounded-full bg-[#ffecd1] px-2 py-1 text-[8px] font-medium text-[#74400f]">
+          <span className="rounded-full bg-[#ffecd1] dark:bg-[#3a2a12] px-2 py-1 text-[8px] font-medium text-[#74400f] dark:text-[#f5cf8d]">
             ${booking.total} total
           </span>
-          <span className="inline-flex items-center gap-1 rounded-full bg-[#e1eff8] px-2 py-1 text-[8px] font-medium text-[#245b7e]">
+          <span className="inline-flex items-center gap-1 rounded-full bg-[#e1eff8] dark:bg-[#10283c] px-2 py-1 text-[8px] font-medium text-[#245b7e] dark:text-[#9fcaf5]">
             <Users aria-hidden className="size-2.5" />
             ${booking.hourlyRate} / hr
           </span>
-          <span className="rounded-full bg-[#e0f2e7] px-2 py-1 text-[8px] font-medium text-[#245b3a]">
+          <span className="rounded-full bg-[#e0f2e7] dark:bg-[#10301f] px-2 py-1 text-[8px] font-medium text-[#245b3a] dark:text-[#8fe3b4]">
             ${booking.securityDeposit} deposit
           </span>
         </div>
       </CardContent>
 
-      <div className="mt-auto flex items-center gap-1.5 border-t border-[#eee7dc] px-1.5 pt-3 pb-1">
+      <div className="mt-auto flex items-center gap-1.5 border-t border-[#eee7dc] dark:border-[#33291d] px-1.5 pt-3 pb-1">
         <Button
           nativeButton={false}
           render={
@@ -227,7 +227,7 @@ function BookingCard({
             type="button"
             variant="outline"
             onClick={() => onCancel(booking)}
-            className="h-8 min-w-0 flex-1 rounded-lg border-[#e8e0d5] px-2 text-[9px] font-medium text-[#62594e] hover:border-[#f1d8d2] hover:bg-[#fff5f2] hover:text-[#b34130]"
+            className="h-8 min-w-0 flex-1 rounded-lg border-[#e8e0d5] dark:border-[#33291d] px-2 text-[9px] font-medium text-[#62594e] dark:text-[#c9bda8] hover:border-[#f1d8d2] dark:border-[#4a2724] hover:bg-[#fff5f2] dark:bg-[#331b19] hover:text-[#b34130] dark:text-[#f2937f]"
           >
             Cancel
           </Button>
@@ -239,7 +239,7 @@ function BookingCard({
           aria-label={`Delete booking at ${booking.studio.title}`}
           title="Delete booking"
           onClick={() => onDelete(booking)}
-          className="size-8 shrink-0 rounded-lg border-[#f1d8d2] text-[#b34130] hover:bg-[#fff5f2]"
+          className="size-8 shrink-0 rounded-lg border-[#f1d8d2] dark:border-[#4a2724] text-[#b34130] dark:text-[#f2937f] hover:bg-[#fff5f2] dark:bg-[#331b19]"
         >
           <X aria-hidden className="size-4" />
         </Button>
@@ -386,13 +386,13 @@ export default function MyBookingsDashboard() {
   return (
     <>
       <div className="mt-5">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#c66b20]">
+        <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#c66b20] dark:text-[#f0a63c]">
           Your reservations
         </p>
-        <h1 className="mt-2 text-4xl font-medium tracking-tight text-[#201a14] sm:text-5xl">
-          My <span className="font-serif italic text-[#c66b20]">bookings</span>
+        <h1 className="mt-2 text-4xl font-medium tracking-tight text-[#201a14] dark:text-[#f2eadf] sm:text-5xl">
+          My <span className="font-serif italic text-[#c66b20] dark:text-[#f0a63c]">bookings</span>
         </h1>
-        <p className="mt-3 max-w-md text-xs leading-5 text-[#62594e]">
+        <p className="mt-3 max-w-md text-xs leading-5 text-[#62594e] dark:text-[#c9bda8]">
           Keep track of your studio reservations, booking times and payment
           details in one place.
         </p>
@@ -402,47 +402,47 @@ export default function MyBookingsDashboard() {
         aria-label="Booking statistics"
         className="mt-6 grid gap-3 sm:grid-cols-3"
       >
-        <Card className="min-h-24 gap-2 rounded-2xl border-[#eee7dc] bg-white p-3.5 shadow-none ring-0">
+        <Card className="min-h-24 gap-2 rounded-2xl border-[#eee7dc] dark:border-[#33291d] bg-card p-3.5 shadow-none ring-0">
           <CardContent className="grid gap-2 p-0">
-            <span className="grid size-7 place-items-center rounded-lg bg-[#ffecd1] text-[#a75c16]">
+            <span className="grid size-7 place-items-center rounded-lg bg-[#ffecd1] dark:bg-[#3a2a12] text-[#a75c16] dark:text-[#f0a63c]">
               <CalendarDays aria-hidden className="size-3.5" />
             </span>
-            <p className="text-xl font-semibold leading-none text-[#201a14]">
+            <p className="text-xl font-semibold leading-none text-[#201a14] dark:text-[#f2eadf]">
               {isLoading ? "—" : bookings.length}
             </p>
-            <p className="text-[10px] text-[#756b5e]">Total bookings</p>
+            <p className="text-[10px] text-[#756b5e] dark:text-[#a4987f]">Total bookings</p>
           </CardContent>
         </Card>
-        <Card className="min-h-24 gap-2 rounded-2xl border-[#eee7dc] bg-white p-3.5 shadow-none ring-0">
+        <Card className="min-h-24 gap-2 rounded-2xl border-[#eee7dc] dark:border-[#33291d] bg-card p-3.5 shadow-none ring-0">
           <CardContent className="grid gap-2 p-0">
-            <span className="grid size-7 place-items-center rounded-lg bg-[#e1eff8] text-[#286b98]">
+            <span className="grid size-7 place-items-center rounded-lg bg-[#e1eff8] dark:bg-[#10283c] text-[#286b98] dark:text-[#9fcaf5]">
               <Clock3 aria-hidden className="size-3.5" />
             </span>
-            <p className="text-xl font-semibold leading-none text-[#201a14]">
+            <p className="text-xl font-semibold leading-none text-[#201a14] dark:text-[#f2eadf]">
               {isLoading ? "—" : pendingCount}
             </p>
-            <p className="text-[10px] text-[#756b5e]">Pending bookings</p>
+            <p className="text-[10px] text-[#756b5e] dark:text-[#a4987f]">Pending bookings</p>
           </CardContent>
         </Card>
-        <Card className="min-h-24 gap-2 rounded-2xl border-[#eee7dc] bg-white p-3.5 shadow-none ring-0">
+        <Card className="min-h-24 gap-2 rounded-2xl border-[#eee7dc] dark:border-[#33291d] bg-card p-3.5 shadow-none ring-0">
           <CardContent className="grid gap-2 p-0">
-            <span className="grid size-7 place-items-center rounded-lg bg-[#e0f2e7] text-[#247443]">
+            <span className="grid size-7 place-items-center rounded-lg bg-[#e0f2e7] dark:bg-[#10301f] text-[#247443] dark:text-[#8fe3b4]">
               <CheckCircle2 aria-hidden className="size-3.5" />
             </span>
-            <p className="text-xl font-semibold leading-none text-[#201a14]">
+            <p className="text-xl font-semibold leading-none text-[#201a14] dark:text-[#f2eadf]">
               {isLoading ? "—" : `$${totalValue}`}
             </p>
-            <p className="text-[10px] text-[#756b5e]">Active booking value</p>
+            <p className="text-[10px] text-[#756b5e] dark:text-[#a4987f]">Active booking value</p>
           </CardContent>
         </Card>
       </section>
 
       <section className="mt-8 pb-12">
         <div className="flex items-center justify-between gap-3">
-          <h2 className="font-serif text-xl text-[#201a14]">
-            Your <span className="italic text-[#c66b20]">reservations</span>
+          <h2 className="font-serif text-xl text-[#201a14] dark:text-[#f2eadf]">
+            Your <span className="italic text-[#c66b20] dark:text-[#f0a63c]">reservations</span>
           </h2>
-          <span className="rounded-full bg-[#ffecd1] px-2.5 py-1 text-[9px] font-medium text-[#74400f]">
+          <span className="rounded-full bg-[#ffecd1] dark:bg-[#3a2a12] px-2.5 py-1 text-[9px] font-medium text-[#74400f] dark:text-[#f5cf8d]">
             {isLoading
               ? "Loading"
               : `${visibleBookings.length} ${
@@ -465,8 +465,8 @@ export default function MyBookingsDashboard() {
               onClick={() => setActiveFilter(filter)}
               className={`h-7 rounded-full px-3 text-[10px] font-normal ${
                 activeFilter === filter
-                  ? "border-[#f4a000] bg-[#ffecd1] text-[#74400f] hover:bg-[#ffecd1]"
-                  : "border-[#e8e0d5] bg-white text-[#201a14] hover:bg-[#faf7f1]"
+                  ? "border-[#f4a000] bg-[#ffecd1] dark:bg-[#3a2a12] text-[#74400f] dark:text-[#f5cf8d] hover:bg-[#ffecd1] dark:bg-[#3a2a12]"
+                  : "border-[#e8e0d5] dark:border-[#33291d] bg-card text-[#201a14] dark:text-[#f2eadf] hover:bg-[#faf7f1] dark:bg-[#1c1610]"
               }`}
             >
               {filter} · {isLoading ? "—" : countFor(filter)}
@@ -483,21 +483,21 @@ export default function MyBookingsDashboard() {
             {filters.slice(0, 3).map((filter) => (
               <div
                 key={filter}
-                className="h-72 rounded-2xl border border-[#eee7dc] bg-white/70"
+                className="h-72 rounded-2xl border border-[#eee7dc] dark:border-[#33291d] bg-card/70"
               />
             ))}
           </div>
         ) : loadError ? (
-          <Card className="mt-4 gap-3 rounded-2xl border-[#f1d8d2] bg-white px-6 py-10 text-center shadow-none ring-0">
+          <Card className="mt-4 gap-3 rounded-2xl border-[#f1d8d2] dark:border-[#4a2724] bg-card px-6 py-10 text-center shadow-none ring-0">
             <CardContent className="p-0">
               <XCircle
                 aria-hidden
-                className="mx-auto size-8 text-[#b34130]"
+                className="mx-auto size-8 text-[#b34130] dark:text-[#f2937f]"
               />
-              <h3 className="mt-3 font-serif text-xl text-[#201a14]">
+              <h3 className="mt-3 font-serif text-xl text-[#201a14] dark:text-[#f2eadf]">
                 We couldn&apos;t load your bookings
               </h3>
-              <p role="alert" className="mt-2 text-sm text-[#756b5e]">
+              <p role="alert" className="mt-2 text-sm text-[#756b5e] dark:text-[#a4987f]">
                 {loadError}
               </p>
               <Button
@@ -521,17 +521,17 @@ export default function MyBookingsDashboard() {
             ))}
           </div>
         ) : (
-          <Card className="mt-4 gap-3 rounded-2xl border-dashed border-[#d9cdbb] bg-white px-6 py-12 text-center shadow-none ring-0">
+          <Card className="mt-4 gap-3 rounded-2xl border-dashed border-[#d9cdbb] dark:border-[#33291d] bg-card px-6 py-12 text-center shadow-none ring-0">
             <CardContent className="p-0">
-              <div className="mx-auto grid size-11 place-items-center rounded-full bg-[#fff1d9] text-[#9b5b19]">
+              <div className="mx-auto grid size-11 place-items-center rounded-full bg-[#fff1d9] dark:bg-[#3a2a12] text-[#9b5b19] dark:text-[#f5cf8d]">
                 <CalendarDays aria-hidden className="size-5" />
               </div>
-              <h3 className="mt-4 font-serif text-xl text-[#201a14]">
+              <h3 className="mt-4 font-serif text-xl text-[#201a14] dark:text-[#f2eadf]">
                 {bookings.length
                   ? `No ${activeFilter.toLowerCase()} bookings`
                   : "No bookings yet"}
               </h3>
-              <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-[#756b5e]">
+              <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-[#756b5e] dark:text-[#a4987f]">
                 {bookings.length
                   ? "Choose another filter to see your reservations."
                   : "Explore the studios and book a space for your next creative project."}
@@ -540,7 +540,7 @@ export default function MyBookingsDashboard() {
                 <Button
                   nativeButton={false}
                   render={<Link href="/studios" />}
-                  className="mt-5 h-9 rounded-full bg-[#f4a000] px-5 text-sm font-semibold text-[#201a14] hover:bg-[#e89400]"
+                  className="mt-5 h-9 rounded-full bg-[#f4a000] px-5 text-sm font-semibold text-[#201a14] dark:text-[#201a14] hover:bg-[#e89400]"
                 >
                   Explore studios
                 </Button>
@@ -556,12 +556,12 @@ export default function MyBookingsDashboard() {
           if (!open && !isCancelling) setSelectedCancelBooking(null);
         }}
       >
-        <DialogContent className="border-[#eee7dc] bg-[#fffdf9] sm:max-w-md">
+        <DialogContent className="border-[#eee7dc] dark:border-[#33291d] bg-[#fffdf9] dark:bg-[#1c1610] sm:max-w-md">
           <DialogHeader>
-            <DialogTitle className="font-serif text-xl text-[#201a14]">
+            <DialogTitle className="font-serif text-xl text-[#201a14] dark:text-[#f2eadf]">
               Cancel this booking?
             </DialogTitle>
-            <DialogDescription className="text-[#756b5e]">
+            <DialogDescription className="text-[#756b5e] dark:text-[#a4987f]">
               {selectedCancelBooking
                 ? `Your reservation at ${selectedCancelBooking.studio.title} on ${formatBookingDate(selectedCancelBooking.date)} will be marked as cancelled.`
                 : ""}
@@ -594,12 +594,12 @@ export default function MyBookingsDashboard() {
           if (!open && !isDeleting) setSelectedDeleteBooking(null);
         }}
       >
-        <DialogContent className="border-[#eee7dc] bg-[#fffdf9] sm:max-w-md">
+        <DialogContent className="border-[#eee7dc] dark:border-[#33291d] bg-[#fffdf9] dark:bg-[#1c1610] sm:max-w-md">
           <DialogHeader>
-            <DialogTitle className="font-serif text-xl text-[#201a14]">
+            <DialogTitle className="font-serif text-xl text-[#201a14] dark:text-[#f2eadf]">
               Permanently delete this booking?
             </DialogTitle>
-            <DialogDescription className="text-[#756b5e]">
+            <DialogDescription className="text-[#756b5e] dark:text-[#a4987f]">
               {selectedDeleteBooking
                 ? `This will permanently remove your reservation at ${selectedDeleteBooking.studio.title} on ${formatBookingDate(selectedDeleteBooking.date)}. This action cannot be undone.`
                 : ""}

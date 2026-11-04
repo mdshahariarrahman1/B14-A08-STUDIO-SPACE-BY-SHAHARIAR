@@ -28,11 +28,11 @@ const FooterNewsletter = () => {
           name="email"
           required
           placeholder="Your email address"
-          className="h-12 min-w-0 rounded-full border-0 bg-white px-5 text-sm text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-[#f5a000]"
+          className="h-12 min-w-0 rounded-full border-0 bg-card px-5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-[#f5a000]"
         />
         <Button
           type="submit"
-          className="h-12 shrink-0 rounded-full bg-[#f5a000] px-5 text-sm font-semibold text-neutral-950 hover:bg-[#e89400]"
+          className="h-12 shrink-0 rounded-full bg-[#f5a000] px-5 text-sm font-semibold text-foreground hover:bg-[#e89400]"
         >
           Subscribe <ArrowRight data-icon="inline-end" />
         </Button>

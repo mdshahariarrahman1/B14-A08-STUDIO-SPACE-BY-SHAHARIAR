@@ -16,7 +16,7 @@ const MarqueePage = () => (
     fallback={
       <div
         aria-label="Loading studios"
-        className="h-70 w-full animate-pulse bg-neutral-100"
+        className="h-70 w-full animate-pulse bg-muted"
       />
     }
   >

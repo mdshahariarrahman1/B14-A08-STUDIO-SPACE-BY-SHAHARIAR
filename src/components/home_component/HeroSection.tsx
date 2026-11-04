@@ -65,7 +65,7 @@ const HeroSection = () => {
   );
 
   return (
-    <section className="relative isolate flex min-h-140 items-center justify-center overflow-hidden bg-[#FAFAF9] px-4 py-20 sm:px-6 md:min-h-155 md:py-24">
+    <section className="relative isolate flex min-h-140 items-center justify-center overflow-hidden bg-[#FAFAF9] dark:bg-[#1c1610] px-4 py-20 sm:px-6 md:min-h-155 md:py-24">
       <Carousel
         aria-label="Featured creative studios"
         className="hero-background-carousel absolute inset-0 z-0 h-full w-full"
@@ -103,7 +103,7 @@ const HeroSection = () => {
       </Carousel>
 
       <div className="relative z-20 mx-auto flex max-w-4xl flex-col items-center text-center">
-        <div className="flex items-center gap-2.5 rounded-full border border-white/25 bg-white/95 py-1.5 pr-4 pl-1.5 shadow-sm">
+        <div className="flex items-center gap-2.5 rounded-full border border-white/25 bg-card/95 py-1.5 pr-4 pl-1.5 shadow-sm">
           <AvatarGroup>
             {CREATORS.map((creator) => (
               <Avatar key={creator.initials} className="size-8">
@@ -117,7 +117,7 @@ const HeroSection = () => {
               </Avatar>
             ))}
           </AvatarGroup>
-          <span className="text-sm font-medium text-neutral-600">
+          <span className="text-sm font-medium text-muted-foreground">
             2,400+ creators booked
           </span>
         </div>
@@ -146,7 +146,7 @@ const HeroSection = () => {
           <Button
             nativeButton={false}
             render={<Link href="/studios" />}
-            className="h-12 w-full rounded-full border border-white/70 bg-white/10 px-7 text-sm font-semibold text-white hover:bg-white/20 sm:w-auto"
+            className="h-12 w-full rounded-full border border-white/70 bg-card/10 px-7 text-sm font-semibold text-white hover:bg-card/20 sm:w-auto"
           >
             Host Your Space
           </Button>

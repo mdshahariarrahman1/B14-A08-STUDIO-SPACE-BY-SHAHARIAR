@@ -26,7 +26,7 @@ export default function StudioDetailsPage({
       fallback={
         <div
           aria-label="Loading studio details"
-          className="min-h-[calc(100vh-5rem)] animate-pulse bg-[#f7f5f0]"
+          className="min-h-[calc(100vh-5rem)] animate-pulse bg-[#f7f5f0] dark:bg-[#14100c]"
         />
       }
     >

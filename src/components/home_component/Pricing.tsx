@@ -53,20 +53,20 @@ const PLANS = [
 const Pricing = () => (
   <section
     aria-labelledby="pricing-heading"
-    className="bg-white px-5 py-14 sm:px-8 sm:py-20"
+    className="bg-card px-5 py-14 sm:px-8 sm:py-20"
   >
     <div className="mx-auto max-w-6xl">
       <div className="text-center">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#927d72]">
+        <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#927d72] dark:text-[#a4987f]">
           <span aria-hidden>&bull; </span>Pricing
         </p>
         <h2
           id="pricing-heading"
-          className="mt-3 text-4xl font-medium leading-[1.05] tracking-tight text-neutral-950 sm:text-5xl"
+          className="mt-3 text-4xl font-medium leading-[1.05] tracking-tight text-foreground sm:text-5xl"
         >
           Transparent rates.
           <br />
-          <span className="font-normal italic text-[#806049]">
+          <span className="font-normal italic text-[#806049] dark:text-[#c8ab7f]">
             No hidden fees.
           </span>
         </h2>
@@ -79,11 +79,11 @@ const Pricing = () => (
             className={`relative flex h-full flex-col rounded-2xl p-7 transition-all duration-300 hover:-translate-y-0.5 sm:p-8 sm:last:col-span-2 lg:last:col-span-1 ${
               plan.featured
                 ? "bg-[#1A120B] text-white shadow-lg"
-                : "bg-white shadow-sm ring-1 ring-black/8 hover:shadow-md"
+                : "bg-card shadow-sm ring-1 ring-black/8 hover:shadow-md"
             }`}
           >
             {plan.featured ? (
-              <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-[#A17A45] px-3 py-1 text-[10px] font-semibold text-[#1A120B]">
+              <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-[#A17A45] px-3 py-1 text-[10px] font-semibold text-[#1A120B] dark:text-[#f2eadf]">
                 Best Value
               </span>
             ) : null}
@@ -100,7 +100,7 @@ const Pricing = () => (
               </span>
               <h3
                 className={`text-lg font-semibold ${
-                  plan.featured ? "text-white" : "text-neutral-950"
+                  plan.featured ? "text-white" : "text-foreground"
                 }`}
               >
                 {plan.name}
@@ -109,7 +109,7 @@ const Pricing = () => (
 
             <p
               className={`mt-6 text-xs tracking-wide ${
-                plan.featured ? "text-white/60" : "text-neutral-500"
+                plan.featured ? "text-white/60" : "text-muted-foreground"
               }`}
             >
               Starting from
@@ -117,14 +117,14 @@ const Pricing = () => (
             <p className="mt-1 flex items-baseline gap-2">
               <span
                 className={`text-5xl font-semibold tracking-tight ${
-                  plan.featured ? "text-white" : "text-neutral-950"
+                  plan.featured ? "text-white" : "text-foreground"
                 }`}
               >
                 {plan.price}
               </span>
               <span
                 className={`text-sm ${
-                  plan.featured ? "text-white/60" : "text-neutral-500"
+                  plan.featured ? "text-white/60" : "text-muted-foreground"
                 }`}
               >
                 / {plan.per}
@@ -134,13 +134,13 @@ const Pricing = () => (
             <div
               aria-hidden
               className={`mt-6 border-t ${
-                plan.featured ? "border-white/15" : "border-neutral-200"
+                plan.featured ? "border-white/15" : "border-border"
               }`}
             />
 
             <p
               className={`mt-6 text-sm leading-6 ${
-                plan.featured ? "text-white/70" : "text-neutral-500"
+                plan.featured ? "text-white/70" : "text-muted-foreground"
               }`}
             >
               {plan.description}
@@ -151,7 +151,7 @@ const Pricing = () => (
                 <li
                   key={feature}
                   className={`flex items-center gap-2.5 text-sm ${
-                    plan.featured ? "text-white/90" : "text-neutral-800"
+                    plan.featured ? "text-white/90" : "text-foreground"
                   }`}
                 >
                   <span className="grid size-[18px] shrink-0 place-items-center rounded-full bg-[#A17A45]">
@@ -169,7 +169,7 @@ const Pricing = () => (
                 variant="ghost"
                 className={`mt-8 h-11 w-full rounded-full text-sm ${
                   plan.featured
-                    ? "bg-white text-[#1A120B] hover:bg-neutral-200"
+                    ? "bg-card text-[#1A120B] dark:text-[#f2eadf] hover:bg-muted"
                     : "bg-[#1A120B] text-white hover:bg-[#33261b]"
                 }`}
               >

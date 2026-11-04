@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useSession } from "@/lib/auth-client";
+import { ThemeToggle } from "@/components/theme-toggle";
 import NavLinks, { NAV_LINKS } from "./NavLinks";
 import UserMenu from "./UserMenu";
 
@@ -58,7 +59,7 @@ const Navbar = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-neutral-200 bg-white">
+    <header className="sticky top-0 z-50 border-b border-border bg-card">
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-10">
         {/* Logo */}
         <Link href="/" className="flex shrink-0 items-center gap-2.5">
@@ -86,7 +87,7 @@ const Navbar = () => {
               strokeLinejoin="round"
             />
           </svg>
-          <span className="text-2xl font-bold tracking-tight text-neutral-900">
+          <span className="text-2xl font-bold tracking-tight text-foreground">
             StudioSpace
           </span>
         </Link>
@@ -96,11 +97,12 @@ const Navbar = () => {
 
         {/* Auth state (desktop): profile pill or Login/Register */}
         <div className="flex shrink-0 items-center gap-3">
+          <ThemeToggle className="hidden size-10 rounded-full md:inline-flex" />
           {isPending ? (
             <div
               role="status"
               aria-label="Loading account"
-              className="hidden h-10 w-48 animate-pulse rounded-xl bg-neutral-100 md:block"
+              className="hidden h-10 w-48 animate-pulse rounded-xl bg-muted md:block"
             />
           ) : (
             <div className="hidden items-center gap-3 md:flex">
@@ -110,13 +112,13 @@ const Navbar = () => {
                 <>
                   <Link
                     href="/login"
-                    className="rounded-xl border border-neutral-300 px-6 py-2.5 text-sm font-semibold text-neutral-800 transition-colors duration-200 hover:bg-neutral-50"
+                    className="rounded-xl border border-border px-6 py-2.5 text-sm font-semibold text-foreground transition-colors duration-200 hover:bg-muted"
                   >
                     Login
                   </Link>
                   <Link
                     href="/register"
-                    className="rounded-xl bg-[#F0A63C] px-6 py-2.5 text-sm font-semibold text-[#141414] transition-colors duration-200 hover:bg-[#E2962B]"
+                    className="rounded-xl bg-[#F0A63C] px-6 py-2.5 text-sm font-semibold text-[#141414] dark:text-[#201a14] transition-colors duration-200 hover:bg-[#E2962B]"
                   >
                     Register
                   </Link>
@@ -130,7 +132,7 @@ const Navbar = () => {
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle navigation menu"
             aria-expanded={menuOpen}
-            className="flex size-10 items-center justify-center rounded-lg text-neutral-800 transition-colors hover:bg-neutral-100 md:hidden"
+            className="flex size-10 items-center justify-center rounded-lg text-foreground transition-colors hover:bg-muted md:hidden"
           >
             {menuOpen ? (
               <svg
@@ -165,7 +167,7 @@ const Navbar = () => {
 
       {/* Mobile menu */}
       {menuOpen ? (
-        <nav className="border-t border-neutral-200 px-4 pb-4 pt-2 md:hidden">
+        <nav className="border-t border-border px-4 pb-4 pt-2 md:hidden">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.label}
@@ -175,34 +177,37 @@ const Navbar = () => {
               className={cn(
                 "block rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
                 active === link.label
-                  ? "bg-amber-50 text-[#8A5A00]"
-                  : "text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900"
+                  ? "bg-amber-50 text-[#8A5A00] dark:text-[#f5cf8d]"
+                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
               )}
             >
               {link.label}
             </Link>
           ))}
+          <div className="mt-3 flex justify-center border-t border-border pt-3">
+            <ThemeToggle className="size-10 rounded-full" />
+          </div>
           {isPending ? (
             <div
               role="status"
               aria-label="Loading account"
-              className="mt-3 h-10 animate-pulse rounded-xl bg-neutral-100"
+              className="mt-3 h-10 animate-pulse rounded-xl bg-muted"
             />
           ) : isAuthenticated && sessionUser ? (
-            <div className="mt-3 flex justify-center border-t border-neutral-200 pt-3">
+            <div className="mt-3 flex justify-center border-t border-border pt-3">
               <UserMenu user={sessionUser} />
             </div>
           ) : (
-            <div className="mt-3 flex gap-3 border-t border-neutral-200 pt-3">
+            <div className="mt-3 flex gap-3 border-t border-border pt-3">
               <Link
                 href="/login"
-                className="flex-1 rounded-xl border border-neutral-300 px-4 py-2.5 text-center text-sm font-semibold text-neutral-800"
+                className="flex-1 rounded-xl border border-border px-4 py-2.5 text-center text-sm font-semibold text-foreground"
               >
                 Login
               </Link>
               <Link
                 href="/register"
-                className="flex-1 rounded-xl bg-[#F0A63C] px-4 py-2.5 text-center text-sm font-semibold text-[#141414]"
+                className="flex-1 rounded-xl bg-[#F0A63C] px-4 py-2.5 text-center text-sm font-semibold text-[#141414] dark:text-[#201a14]"
               >
                 Register
               </Link>

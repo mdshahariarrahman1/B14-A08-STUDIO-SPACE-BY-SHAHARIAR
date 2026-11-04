@@ -15,22 +15,22 @@ const STEPS = [
   {
     number: "01",
     label: "Discover spaces",
-    badgeClass: "bg-[#F5D9A5] text-[#8A5A00]",
+    badgeClass: "bg-[#F5D9A5] dark:bg-[#3a2a12] text-[#8A5A00] dark:text-[#f5cf8d]",
   },
   {
     number: "02",
     label: "Select shoot hours",
-    badgeClass: "bg-[#BFDFF2] text-[#155E75]",
+    badgeClass: "bg-[#BFDFF2] dark:bg-[#10283c] text-[#155E75] dark:text-[#9fcaf5]",
   },
   {
     number: "03",
     label: "Book instantly",
-    badgeClass: "bg-[#C9E8D2] text-[#166534]",
+    badgeClass: "bg-[#C9E8D2] dark:bg-[#10301f] text-[#166534] dark:text-[#8fe3b4]",
   },
   {
     number: "04",
     label: "Create & produce",
-    badgeClass: "bg-[#DCD2F5] text-[#5B21B6]",
+    badgeClass: "bg-[#DCD2F5] dark:bg-[#2b2140] text-[#5B21B6] dark:text-[#c9aff2]",
   },
 ] as const;
 
@@ -138,13 +138,13 @@ const RegisterScreen = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF8F3] lg:grid lg:grid-cols-2">
+    <div className="min-h-screen bg-[#FAF8F3] dark:bg-[#14100c] lg:grid lg:grid-cols-2">
       {/* Left column: brand header + form */}
       <div className="mx-auto w-full max-w-150 px-6 pb-14 pt-7 sm:px-10 lg:mx-0 lg:max-w-none lg:px-16 lg:pb-16 lg:pt-9 xl:px-20">
         <AuthBrandHeader />
 
         <form onSubmit={handleSubmit} noValidate className="mt-16 lg:mt-24">
-          <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-[#9A7B4F]">
+          <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-[#9A7B4F] dark:text-[#c8ab7f]">
             <span
               aria-hidden="true"
               className="size-1.5 rounded-full bg-[#C08552]"
@@ -152,14 +152,14 @@ const RegisterScreen = () => {
             New account
           </p>
 
-          <h1 className="mt-4 text-4xl font-bold leading-[1.12] tracking-tight text-[#141414] sm:text-5xl">
+          <h1 className="mt-4 text-4xl font-bold leading-[1.12] tracking-tight text-[#141414] dark:text-[#f2eadf] sm:text-5xl">
             Register{" "}
-            <span className="font-medium italic text-[#8A6F52]">
+            <span className="font-medium italic text-[#8A6F52] dark:text-[#c8ab7f]">
               your account.
             </span>
           </h1>
 
-          <p className="mt-4 max-w-sm text-base leading-relaxed text-[#5B5347]">
+          <p className="mt-4 max-w-sm text-base leading-relaxed text-[#5B5347] dark:text-[#c9bda8]">
             Create your account to book studios or list your own space.
           </p>
 
@@ -167,7 +167,7 @@ const RegisterScreen = () => {
             <div>
               <label
                 htmlFor="register-name"
-                className="mb-2 block text-sm font-semibold text-[#141414]"
+                className="mb-2 block text-sm font-semibold text-[#141414] dark:text-[#f2eadf]"
               >
                 Name
               </label>
@@ -182,14 +182,14 @@ const RegisterScreen = () => {
                 aria-invalid={
                   hasAttemptedSubmit && !name.trim() ? true : undefined
                 }
-                className="h-12 rounded-xl border-neutral-300 bg-white px-4 text-base text-[#141414] shadow-sm placeholder:text-neutral-400 focus-visible:border-[#F0A63C] focus-visible:ring-[#F5D9A5] md:text-base"
+                className="h-12 rounded-xl border-border bg-card px-4 text-base text-[#141414] dark:text-[#f2eadf] shadow-sm placeholder:text-muted-foreground focus-visible:border-[#F0A63C] focus-visible:ring-[#F5D9A5] dark:ring-[#7a5320] md:text-base"
               />
             </div>
 
             <div>
               <label
                 htmlFor="register-email"
-                className="mb-2 block text-sm font-semibold text-[#141414]"
+                className="mb-2 block text-sm font-semibold text-[#141414] dark:text-[#f2eadf]"
               >
                 Email
               </label>
@@ -204,14 +204,14 @@ const RegisterScreen = () => {
                 aria-invalid={
                   hasAttemptedSubmit && !email.trim() ? true : undefined
                 }
-                className="h-12 rounded-xl border-neutral-300 bg-white px-4 text-base text-[#141414] shadow-sm placeholder:text-neutral-400 focus-visible:border-[#F0A63C] focus-visible:ring-[#F5D9A5] md:text-base"
+                className="h-12 rounded-xl border-border bg-card px-4 text-base text-[#141414] dark:text-[#f2eadf] shadow-sm placeholder:text-muted-foreground focus-visible:border-[#F0A63C] focus-visible:ring-[#F5D9A5] dark:ring-[#7a5320] md:text-base"
               />
             </div>
 
             <div>
               <label
                 htmlFor="register-photo-url"
-                className="mb-2 block text-sm font-semibold text-[#141414]"
+                className="mb-2 block text-sm font-semibold text-[#141414] dark:text-[#f2eadf]"
               >
                 Photo URL
               </label>
@@ -223,14 +223,14 @@ const RegisterScreen = () => {
                 placeholder="https://example.com/photo.jpg"
                 value={photoUrl}
                 onChange={(event) => setPhotoUrl(event.target.value)}
-                className="h-12 rounded-xl border-neutral-300 bg-white px-4 text-base text-[#141414] shadow-sm placeholder:text-neutral-400 focus-visible:border-[#F0A63C] focus-visible:ring-[#F5D9A5] md:text-base"
+                className="h-12 rounded-xl border-border bg-card px-4 text-base text-[#141414] dark:text-[#f2eadf] shadow-sm placeholder:text-muted-foreground focus-visible:border-[#F0A63C] focus-visible:ring-[#F5D9A5] dark:ring-[#7a5320] md:text-base"
               />
             </div>
 
             <div>
               <label
                 htmlFor="register-password"
-                className="mb-2 block text-sm font-semibold text-[#141414]"
+                className="mb-2 block text-sm font-semibold text-[#141414] dark:text-[#f2eadf]"
               >
                 Password
               </label>
@@ -246,12 +246,12 @@ const RegisterScreen = () => {
                   aria-invalid={
                     hasAttemptedSubmit && !isPasswordValid ? true : undefined
                   }
-                  className="h-12 rounded-xl border-neutral-300 bg-white px-4 pr-16 text-base text-[#141414] shadow-sm placeholder:text-neutral-400 focus-visible:border-[#F0A63C] focus-visible:ring-[#F5D9A5] md:text-base"
+                  className="h-12 rounded-xl border-border bg-card px-4 pr-16 text-base text-[#141414] dark:text-[#f2eadf] shadow-sm placeholder:text-muted-foreground focus-visible:border-[#F0A63C] focus-visible:ring-[#F5D9A5] dark:ring-[#7a5320] md:text-base"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-4 flex items-center text-sm font-medium text-[#6B6459] transition-colors hover:text-[#141414]"
+                  className="absolute inset-y-0 right-4 flex items-center text-sm font-medium text-[#6B6459] dark:text-[#c9bda8] transition-colors hover:text-[#141414] dark:text-[#f2eadf]"
                 >
                   {showPassword ? "Hide" : "Show"}
                 </button>
@@ -272,7 +272,7 @@ const RegisterScreen = () => {
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="mt-7 h-12 w-full rounded-xl bg-[#F0A63C] text-base font-semibold text-[#141414] shadow-[0_14px_34px_-10px_rgba(240,166,60,0.55)] transition-colors hover:bg-[#E2962B] sm:mt-6"
+            className="mt-7 h-12 w-full rounded-xl bg-[#F0A63C] text-base font-semibold text-[#141414] dark:text-[#201a14] shadow-[0_14px_34px_-10px_rgba(240,166,60,0.55)] transition-colors hover:bg-[#E2962B] sm:mt-6"
           >
             {isSubmitting ? "Creating account…" : "Register"}
           </Button>
@@ -282,7 +282,7 @@ const RegisterScreen = () => {
             className="mt-7 flex items-center gap-4 sm:gap-5"
           >
             <span className="h-px flex-1 bg-[#E3DDD2]" />
-            <span className="text-sm text-[#6B6459]">or</span>
+            <span className="text-sm text-[#6B6459] dark:text-[#c9bda8]">or</span>
             <span className="h-px flex-1 bg-[#E3DDD2]" />
           </div>
 
@@ -290,7 +290,7 @@ const RegisterScreen = () => {
             type="button"
             onClick={handleGoogleSignUp}
             disabled={isSubmitting}
-            className="mt-7 h-12 w-full rounded-xl border-[#DDD5C7] bg-white text-base font-semibold text-[#141414] shadow-sm hover:bg-[#FAF8F3] sm:mt-6"
+            className="mt-7 h-12 w-full rounded-xl border-[#DDD5C7] dark:border-[#33291d] bg-card text-base font-semibold text-[#141414] dark:text-[#f2eadf] shadow-sm hover:bg-[#FAF8F3] dark:bg-[#14100c] sm:mt-6"
           >
             <svg
               aria-hidden="true"
@@ -318,11 +318,11 @@ const RegisterScreen = () => {
             {isSubmitting ? "Connecting to Google…" : "Sign up with Google"}
           </Button>
 
-          <p className="mt-6 text-center text-sm text-[#5B5347]">
+          <p className="mt-6 text-center text-sm text-[#5B5347] dark:text-[#c9bda8]">
             Already have an account?{" "}
             <Link
               href="/login"
-              className="font-semibold text-[#141414] underline underline-offset-4 hover:text-[#8A6F52]"
+              className="font-semibold text-[#141414] dark:text-[#f2eadf] underline underline-offset-4 hover:text-[#8A6F52] dark:text-[#c8ab7f]"
             >
               Log in
             </Link>

@@ -103,11 +103,11 @@ const BookingWidget = ({ studio }: { studio: IStudio }) => {
 
   return (
     <div className="lg:sticky lg:top-28 lg:self-start">
-      <div className="rounded-2xl bg-white p-6 shadow-sm ring-black/8">
+      <div className="rounded-2xl bg-card p-6 shadow-sm ring-black/8">
         <div className="flex items-center justify-between">
-          <p className="text-2xl font-semibold text-neutral-900">
+          <p className="text-2xl font-semibold text-foreground">
             ${studio.hourlyRate}
-            <span className="ml-1 text-base font-normal text-neutral-500">
+            <span className="ml-1 text-base font-normal text-muted-foreground">
               / hour
             </span>
           </p>
@@ -117,11 +117,11 @@ const BookingWidget = ({ studio }: { studio: IStudio }) => {
           </span>
         </div>
 
-        <div className="mt-5 h-px bg-neutral-100" />
+        <div className="mt-5 h-px bg-muted" />
 
         {/* Shoot date */}
         <div className="mt-5 space-y-2">
-          <p className="text-sm font-semibold text-neutral-900">Shoot date</p>
+          <p className="text-sm font-semibold text-foreground">Shoot date</p>
           <Input
             type="date"
             value={date}
@@ -130,13 +130,13 @@ const BookingWidget = ({ studio }: { studio: IStudio }) => {
               setError(null);
             }}
             aria-label="Shoot date"
-            className="h-11 rounded-xl bg-white text-neutral-900"
+            className="h-11 rounded-xl bg-card text-foreground"
           />
         </div>
 
         {/* Start time */}
         <div className="mt-5 space-y-2">
-          <p className="text-sm font-semibold text-neutral-900">Start time</p>
+          <p className="text-sm font-semibold text-foreground">Start time</p>
           <div className="grid grid-cols-3 gap-2">
             {BOOKING_START_SLOTS.map((slot) => (
               <button
@@ -147,7 +147,7 @@ const BookingWidget = ({ studio }: { studio: IStudio }) => {
                 className={`h-10 rounded-xl border text-sm font-medium transition-colors ${
                   startTime === slot
                     ? "border-neutral-900 bg-neutral-900 text-white"
-                    : "border-neutral-200 bg-white text-neutral-800 hover:border-neutral-400"
+                    : "border-border bg-card text-foreground hover:border-neutral-400"
                 }`}
               >
                 {slot}
@@ -159,8 +159,8 @@ const BookingWidget = ({ studio }: { studio: IStudio }) => {
         {/* Duration */}
         <div className="mt-5 flex items-center justify-between">
           <div>
-            <p className="text-sm font-semibold text-neutral-900">Duration</p>
-            <p className="text-xs text-neutral-500">
+            <p className="text-sm font-semibold text-foreground">Duration</p>
+            <p className="text-xs text-muted-foreground">
               Up to {studio.maxCapacity} people
             </p>
           </div>
@@ -170,11 +170,11 @@ const BookingWidget = ({ studio }: { studio: IStudio }) => {
               onClick={() => setDuration((current) => current - 1)}
               disabled={duration <= 1}
               aria-label="Decrease duration"
-              className="flex size-9 items-center justify-center rounded-full border border-neutral-200 text-neutral-800 transition-colors hover:border-neutral-400 disabled:pointer-events-none disabled:opacity-40"
+              className="flex size-9 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-neutral-400 disabled:pointer-events-none disabled:opacity-40"
             >
               <Minus className="size-4" />
             </button>
-            <span className="w-16 text-center text-sm font-semibold text-neutral-900">
+            <span className="w-16 text-center text-sm font-semibold text-foreground">
               {duration} {duration === 1 ? "hour" : "hours"}
             </span>
             <button
@@ -182,41 +182,41 @@ const BookingWidget = ({ studio }: { studio: IStudio }) => {
               onClick={() => setDuration((current) => current + 1)}
               disabled={duration >= MAX_HOURS}
               aria-label="Increase duration"
-              className="flex size-9 items-center justify-center rounded-full border border-neutral-200 text-neutral-800 transition-colors hover:border-neutral-400 disabled:pointer-events-none disabled:opacity-40"
+              className="flex size-9 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-neutral-400 disabled:pointer-events-none disabled:opacity-40"
             >
               <Plus className="size-4" />
             </button>
           </div>
         </div>
 
-        <div className="my-5 h-px bg-neutral-100" />
+        <div className="my-5 h-px bg-muted" />
 
         {/* Price breakdown */}
         <dl className="space-y-2 text-sm">
           <div className="flex items-center justify-between">
-            <dt className="text-neutral-600">
+            <dt className="text-muted-foreground">
               ${studio.hourlyRate} × {duration}{" "}
               {duration === 1 ? "hour" : "hours"}
             </dt>
-            <dd className="font-medium text-neutral-900">${subtotal}</dd>
+            <dd className="font-medium text-foreground">${subtotal}</dd>
           </div>
           <div className="flex items-center justify-between">
-            <dt className="text-neutral-600">Security deposit</dt>
-            <dd className="font-medium text-neutral-900">
+            <dt className="text-muted-foreground">Security deposit</dt>
+            <dd className="font-medium text-foreground">
               ${studio.securityDeposit}
             </dd>
           </div>
           <div className="flex items-center justify-between">
-            <dt className="text-neutral-600">Service fees</dt>
-            <dd className="font-medium text-neutral-900">None</dd>
+            <dt className="text-muted-foreground">Service fees</dt>
+            <dd className="font-medium text-foreground">None</dd>
           </div>
         </dl>
 
-        <div className="my-4 h-px bg-neutral-100" />
+        <div className="my-4 h-px bg-muted" />
 
         <div className="flex items-center justify-between">
-          <p className="font-semibold text-neutral-900">Total due</p>
-          <p className="text-lg font-semibold text-neutral-900">${total}</p>
+          <p className="font-semibold text-foreground">Total due</p>
+          <p className="text-lg font-semibold text-foreground">${total}</p>
         </div>
 
         {error ? (
@@ -228,7 +228,7 @@ const BookingWidget = ({ studio }: { studio: IStudio }) => {
         {isSessionPending ? (
           <Button
             disabled
-            className="mt-4 h-11 w-full rounded-xl bg-[#F0A63C] text-base font-semibold text-[#141414]"
+            className="mt-4 h-11 w-full rounded-xl bg-[#F0A63C] text-base font-semibold text-[#141414] dark:text-[#201a14]"
           >
             Checking account…
           </Button>
@@ -236,7 +236,7 @@ const BookingWidget = ({ studio }: { studio: IStudio }) => {
           <Button
             onClick={handleBook}
             disabled={isPending}
-            className="mt-4 h-11 w-full rounded-xl bg-[#F0A63C] text-base font-semibold text-[#141414] hover:bg-[#E2962B]"
+            className="mt-4 h-11 w-full rounded-xl bg-[#F0A63C] text-base font-semibold text-[#141414] dark:text-[#201a14] hover:bg-[#E2962B]"
           >
             {isPending ? "Booking…" : "Book instantly"}
             {isPending ? null : <ArrowRight className="size-4" />}
@@ -249,13 +249,13 @@ const BookingWidget = ({ studio }: { studio: IStudio }) => {
                 href={`/login?callbackURL=${encodeURIComponent(`/studios/${encodeURIComponent(studio._id)}`)}`}
               />
             }
-            className="mt-4 h-11 w-full rounded-xl bg-[#F0A63C] text-base font-semibold text-[#141414] hover:bg-[#E2962B]"
+            className="mt-4 h-11 w-full rounded-xl bg-[#F0A63C] text-base font-semibold text-[#141414] dark:text-[#201a14] hover:bg-[#E2962B]"
           >
             Sign in to book <ArrowRight className="size-4" />
           </Button>
         )}
 
-        <p className="mt-3 text-center text-xs text-neutral-500">
+        <p className="mt-3 text-center text-xs text-muted-foreground">
           You won&apos;t be charged until the host confirms.
         </p>
       </div>
@@ -281,7 +281,7 @@ const BookingWidget = ({ studio }: { studio: IStudio }) => {
               ) : null}
             </DialogDescription>
           </DialogHeader>
-          <p className="text-sm text-neutral-600">
+          <p className="text-sm text-muted-foreground">
             Your request is pending. Track its status from My Bookings. You
             won&apos;t be charged until the host confirms.
           </p>

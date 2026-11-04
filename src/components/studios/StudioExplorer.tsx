@@ -96,7 +96,7 @@ const StudioExplorer = ({
   };
 
   return (
-    <main className="min-h-[calc(100vh-5rem)] bg-[#f7f5f0] pb-16">
+    <main className="min-h-[calc(100vh-5rem)] bg-[#f7f5f0] dark:bg-[#14100c] pb-16">
       <header className="bg-[#1A120B] px-5 py-8 text-white sm:px-8 sm:py-10">
         <div className="mx-auto max-w-6xl text-left">
           <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#E897A9] sm:text-xs">
@@ -117,18 +117,18 @@ const StudioExplorer = ({
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <form
           onSubmit={handleSearch}
-          className="mt-4 grid gap-3 rounded-xl border border-neutral-200 bg-white p-3 sm:grid-cols-[minmax(200px,1.6fr)_minmax(130px,1fr)_minmax(130px,1fr)_auto] sm:items-end sm:p-4"
+          className="mt-4 grid gap-3 rounded-xl border border-border bg-card p-3 sm:grid-cols-[minmax(200px,1.6fr)_minmax(130px,1fr)_minmax(130px,1fr)_auto] sm:items-end sm:p-4"
         >
-          <label className="grid gap-1.5 text-[10px] font-medium text-neutral-700">
+          <label className="grid gap-1.5 text-[10px] font-medium text-muted-foreground">
             Search by name or location
             <Input
               value={searchDraft}
               onChange={(event) => setSearchDraft(event.target.value)}
               placeholder="Cyc wall, Banani, podcast"
-              className="h-9 rounded-lg border-neutral-300 text-xs"
+              className="h-9 rounded-lg border-border text-xs"
             />
           </label>
-          <label className="grid gap-1.5 text-[10px] font-medium text-neutral-700">
+          <label className="grid gap-1.5 text-[10px] font-medium text-muted-foreground">
             Hourly rate
             <Select
               value={maxRate}
@@ -139,7 +139,7 @@ const StudioExplorer = ({
                 }
               }}
             >
-              <SelectTrigger className="h-9 w-full rounded-lg border-neutral-300 text-xs">
+              <SelectTrigger className="h-9 w-full rounded-lg border-border text-xs">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -150,7 +150,7 @@ const StudioExplorer = ({
               </SelectContent>
             </Select>
           </label>
-          <label className="grid gap-1.5 text-[10px] font-medium text-neutral-700">
+          <label className="grid gap-1.5 text-[10px] font-medium text-muted-foreground">
             Sort by
             <Select
               value={sortBy}
@@ -158,7 +158,7 @@ const StudioExplorer = ({
                 if (value) setSortBy(value);
               }}
             >
-              <SelectTrigger className="h-9 w-full rounded-lg border-neutral-300 text-xs">
+              <SelectTrigger className="h-9 w-full rounded-lg border-border text-xs">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -187,7 +187,7 @@ const StudioExplorer = ({
               className={
                 category === item
                   ? "h-7 shrink-0 rounded-full bg-[#151619] px-3 text-[10px] text-white hover:bg-neutral-700"
-                  : "h-7 shrink-0 rounded-full border-neutral-300 bg-white px-3 text-[10px]"
+                  : "h-7 shrink-0 rounded-full border-border bg-card px-3 text-[10px]"
               }
             >
               {item}
@@ -195,12 +195,12 @@ const StudioExplorer = ({
           ))}
         </div>
 
-        <div className="mt-4 flex flex-wrap items-center justify-between gap-2 text-[11px] text-neutral-500">
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-2 text-[11px] text-muted-foreground">
           <p>
             Showing {firstShown}–{lastShown} of {filteredStudios.length} studios
             {category !== ALL_CATEGORIES ? (
               <>
-                {" "}in <span className="font-semibold text-neutral-800">{category}</span>
+                {" "}in <span className="font-semibold text-foreground">{category}</span>
               </>
             ) : null}
           </p>
@@ -214,11 +214,11 @@ const StudioExplorer = ({
             ))}
           </div>
         ) : (
-          <div className="mt-3 rounded-xl border border-dashed border-neutral-300 bg-white px-5 py-16 text-center">
-            <h2 className="font-semibold text-neutral-900">
+          <div className="mt-3 rounded-xl border border-dashed border-border bg-card px-5 py-16 text-center">
+            <h2 className="font-semibold text-foreground">
               No studios match your filters
             </h2>
-            <p className="mt-1 text-sm text-neutral-500">
+            <p className="mt-1 text-sm text-muted-foreground">
               Try a different search or clear some filters.
             </p>
             <Button
@@ -247,7 +247,7 @@ const StudioExplorer = ({
               aria-label="Previous page"
               disabled={currentPage === 1}
               onClick={() => setPage(currentPage - 1)}
-              className="size-8 bg-white"
+              className="size-8 bg-card"
             >
               <ChevronLeft />
             </Button>
@@ -261,7 +261,7 @@ const StudioExplorer = ({
                   className={
                     pageNumber === currentPage
                       ? "size-8 bg-[#151619] text-white hover:bg-neutral-700"
-                      : "size-8 bg-white"
+                      : "size-8 bg-card"
                   }
                 >
                   {pageNumber}
@@ -274,7 +274,7 @@ const StudioExplorer = ({
               aria-label="Next page"
               disabled={currentPage === totalPages}
               onClick={() => setPage(currentPage + 1)}
-              className="size-8 bg-white"
+              className="size-8 bg-card"
             >
               <ChevronRight />
             </Button>

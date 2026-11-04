@@ -6,6 +6,7 @@ import {
   getBackendCookieHeader,
 } from "@/lib/backend-auth";
 import { getStudioById, STUDIOS_CACHE_TAG } from "@/lib/studios-server";
+import { getStudioServiceHeaders } from "@/lib/studio-service";
 import { parseStudioInput } from "@/lib/studio-validation";
 
 type RouteContext = {
@@ -47,6 +48,14 @@ async function forwardMutation(
   method: "PUT" | "PATCH" | "DELETE",
   body?: string,
 ) {
+  const serviceHeaders = getStudioServiceHeaders(email);
+  if (!serviceHeaders) {
+    return Response.json(
+      { message: "Studio listing changes are not configured on this server." },
+      { status: 503 },
+    );
+  }
+
   let backendAuth;
   try {
     backendAuth = await getBackendAuthToken();
@@ -67,7 +76,7 @@ async function forwardMutation(
       {
         method,
         headers: {
-          ...(body ? { "Content-Type": "application/json" } : {}),
+          ...serviceHeaders,
           Cookie: getBackendCookieHeader(backendAuth),
         },
         ...(body ? { body } : {}),

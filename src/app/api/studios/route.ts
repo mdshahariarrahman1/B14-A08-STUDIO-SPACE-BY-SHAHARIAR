@@ -6,6 +6,7 @@ import {
   getBackendCookieHeader,
 } from "@/lib/backend-auth";
 import { STUDIOS_CACHE_TAG } from "@/lib/studios-server";
+import { getStudioServiceHeaders } from "@/lib/studio-service";
 import { parseStudioInput } from "@/lib/studio-validation";
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -39,10 +40,19 @@ export async function POST(request: Request) {
     );
   }
 
+  const serviceHeaders = getStudioServiceHeaders(user.email);
+  if (!serviceHeaders) {
+    return Response.json(
+      { message: "Studio listing changes are not configured on this server." },
+      { status: 503 },
+    );
+  }
+
   let backendAuth;
   try {
     backendAuth = await getBackendAuthToken();
-  } catch {
+  } catch (error) {
+    console.error("Failed to prepare studio listing authentication:", error);
     return Response.json(
       { message: "Your secure session could not be prepared. Please sign in again." },
       { status: 503 },
@@ -57,7 +67,7 @@ export async function POST(request: Request) {
     response = await fetch(`${process.env.BACKEND_URL}/studios`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        ...serviceHeaders,
         Cookie: getBackendCookieHeader(backendAuth),
       },
       body: JSON.stringify(studio),
@@ -71,6 +81,40 @@ export async function POST(request: Request) {
     ), backendAuth);
   }
 
+  if (response.status === 401) {
+    let refreshedAuth;
+    try {
+      refreshedAuth = await getBackendAuthToken({ forceRefresh: true });
+    } catch (error) {
+      console.error("Failed to refresh studio listing authentication:", error);
+      return Response.json(
+        { message: "Your secure session could not be refreshed. Please sign in again." },
+        { status: 503 },
+      );
+    }
+
+    if (refreshedAuth) {
+      backendAuth = refreshedAuth;
+      try {
+        response = await fetch(`${process.env.BACKEND_URL}/studios`, {
+          method: "POST",
+          headers: {
+            ...serviceHeaders,
+            Cookie: getBackendCookieHeader(backendAuth),
+          },
+          body: JSON.stringify(studio),
+          cache: "no-store",
+        });
+      } catch (error) {
+        console.error("Failed to retry studio listing creation:", error);
+        return attachBackendAuthCookie(Response.json(
+          { message: "The studio service is unavailable. Please try again later." },
+          { status: 502 },
+        ), backendAuth);
+      }
+    }
+  }
+
   let result: unknown = null;
   try {
     result = await response.json();
@@ -80,9 +124,18 @@ export async function POST(request: Request) {
 
   if (!response.ok) {
     const message =
-      isRecord(result) && typeof result.message === "string"
-        ? result.message
+      isRecord(result) &&
+      typeof (result.message ?? result.error) === "string"
+        ? String(result.message ?? result.error)
         : `Could not create listing (${response.status} ${response.statusText}).`;
+    if (response.status === 401) {
+      console.error("Studio service rejected the refreshed listing token.");
+    } else if (response.status >= 500) {
+      console.error("Studio service rejected listing creation:", {
+        status: response.status,
+        message,
+      });
+    }
     return attachBackendAuthCookie(
       Response.json({ message }, { status: response.status }),
       backendAuth,

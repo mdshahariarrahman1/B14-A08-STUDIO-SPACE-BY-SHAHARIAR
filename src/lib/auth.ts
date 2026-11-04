@@ -3,10 +3,16 @@ import { mongodbAdapter } from "@better-auth/mongo-adapter";
 import { mongoClient, mongoDb } from "@/lib/mongodb";
 import { jwt } from "better-auth/plugins";
 
+const authBaseURL =
+  process.env.BETTER_AUTH_URL ||
+  (process.env.NODE_ENV === "production"
+    ? "https://b14-a08-studio-space-by-shahariar.vercel.app"
+    : undefined);
+
 export const auth = betterAuth({
-  baseURL: process.env.BETTER_AUTH_URL,
-  trustedOrigins: process.env.BETTER_AUTH_URL
-    ? [process.env.BETTER_AUTH_URL]
+  baseURL: authBaseURL,
+  trustedOrigins: authBaseURL
+    ? [authBaseURL]
     : [],
   rateLimit: {
     enabled: true,
@@ -33,9 +39,9 @@ export const auth = betterAuth({
     jwt({
       jwt: {
         expirationTime: "15m",
-        issuer: process.env.BETTER_AUTH_URL,
+        issuer: authBaseURL,
         audience:
-          process.env.JWT_AUDIENCE || process.env.BETTER_AUTH_URL,
+          process.env.JWT_AUDIENCE || authBaseURL,
       },
       disableSettingJwtHeader: true,
     }),

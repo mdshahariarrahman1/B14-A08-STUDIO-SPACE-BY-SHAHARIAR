@@ -37,7 +37,9 @@ function getTokenExpiry(token: string): number | null {
   return null;
 }
 
-export async function getBackendAuthToken(): Promise<BackendAuthToken | null> {
+export async function getBackendAuthToken(
+  options: { forceRefresh?: boolean } = {},
+): Promise<BackendAuthToken | null> {
   const user = await getCurrentUser();
   if (!user?.id || !user.email) return null;
 
@@ -46,7 +48,12 @@ export async function getBackendAuthToken(): Promise<BackendAuthToken | null> {
   const existingExpiry = existingToken ? getTokenExpiry(existingToken) : null;
   const now = Math.floor(Date.now() / 1000);
 
-  if (existingToken && existingExpiry !== null && existingExpiry > now + 30) {
+  if (
+    !options.forceRefresh &&
+    existingToken &&
+    existingExpiry !== null &&
+    existingExpiry > now + 30
+  ) {
     return { value: existingToken, refreshed: false };
   }
 
